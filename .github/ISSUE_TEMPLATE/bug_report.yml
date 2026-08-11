@@ -1,0 +1,67 @@
+name: Bug report
+description: Something crashes, freezes, or behaves incorrectly
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. If the problem is that the **advice looks wrong**
+        rather than the application misbehaving, please use the
+        "Questionable advice" template instead — it asks for the details needed
+        to reproduce a decision.
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The release you are running, or the commit if you built it yourself.
+      placeholder: v1.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: Windows 11 24H2
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Be as literal as you can — the exact clicks or keystrokes.
+      placeholder: |
+        1. Set the table to 6 players, 100bb, hero on the button
+        2. Type "askd" in the hand field
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log excerpt
+      description: |
+        Logs live in `%LOCALAPPDATA%\PokerRanges\logs\pokerranges.log`.
+        The lines around the moment it went wrong are usually enough.
+      render: text
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: charts
+    attributes:
+      label: Charts
+      options:
+        - label: I have edited the chart files in `%APPDATA%\PokerRanges\charts\`
+          required: false

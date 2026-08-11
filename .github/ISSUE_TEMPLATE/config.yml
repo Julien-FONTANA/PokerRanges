@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/Julien-FONTANA/PokerRanges/security/advisories/new
+    about: Do not open a public issue for a security problem — report it privately here.
+  - name: Contributing guide
+    url: https://github.com/Julien-FONTANA/PokerRanges/blob/main/CONTRIBUTING.md
+    about: How the project is laid out, how to add a preflop chart, and where help is most useful.

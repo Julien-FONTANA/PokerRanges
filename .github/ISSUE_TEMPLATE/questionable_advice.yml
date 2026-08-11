@@ -1,0 +1,111 @@
+name: Questionable advice
+description: The application recommends something that looks wrong
+labels: ["advice"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Advice depends on the **whole** situation — stacks, position, every
+        action taken, the board, and the opponent profile. Change any one of
+        them and the answer legitimately changes. So please fill in all of it:
+        without the full picture the decision cannot be reproduced, and the
+        report cannot be acted on.
+
+        The context line at the top of compact mode contains most of this
+        already, if that is easier to copy.
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: v1.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: table
+    attributes:
+      label: Table
+      description: Number of players, big blind, starting stack, and ante if any.
+      placeholder: 6 players, BB 100, stacks 10000, no ante
+    validations:
+      required: true
+
+  - type: input
+    id: position
+    attributes:
+      label: Hero position
+      placeholder: BTN
+    validations:
+      required: true
+
+  - type: input
+    id: hand
+    attributes:
+      label: Hero hand
+      placeholder: AsKd
+    validations:
+      required: true
+
+  - type: input
+    id: board
+    attributes:
+      label: Board
+      description: Leave empty if the hand is still preflop.
+      placeholder: Ks8d3c
+    validations:
+      required: false
+
+  - type: textarea
+    id: actions
+    attributes:
+      label: Action history
+      description: Every action in order, including the ones before yours.
+      placeholder: |
+        Preflop: UTG folds, HJ folds, CO raises to 220, hero calls, SB folds, BB folds
+        Flop: BB checks, hero bets 300
+    validations:
+      required: true
+
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Opponent profile
+      options:
+        - Balanced
+        - Tight
+        - Calling station
+        - Aggressive
+    validations:
+      required: true
+
+  - type: input
+    id: given
+    attributes:
+      label: Advice given
+      description: What the application recommended, with the expectation it showed.
+      placeholder: Bet 300 (EV 145)
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected, and why
+      description: |
+        The reasoning matters more than the conclusion. If you have a solver
+        output, a chart, or a calculation that disagrees, say so — the model's
+        assumptions are documented and arguable, and a concrete disagreement is
+        the most useful kind of report.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acknowledgements
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have read the "Limites connues" section of the README (no ICM, one-shot expectation, approximated multiway, thin chart coverage)
+          required: true
+        - label: I am using the charts as shipped, or I have said below which ones I changed
+          required: false

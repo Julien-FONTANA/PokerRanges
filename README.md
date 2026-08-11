@@ -4,6 +4,7 @@
 [![release](https://img.shields.io/github/v/release/Julien-FONTANA/PokerRanges?sort=semver&color=0078D4)](https://github.com/Julien-FONTANA/PokerRanges/releases)
 ![.NET](https://img.shields.io/badge/.NET-10.0-512BD4)
 ![platform](https://img.shields.io/badge/platform-Windows%20x64-0078D4)
+[![license](https://img.shields.io/github/license/Julien-FONTANA/PokerRanges?color=97CA00)](LICENSE)
 
 Assistant de décision Texas Hold'em No Limit en tournoi. Une application de bureau qui suit la main
 au rythme où elle se joue et répond à une seule question : **qu'est-ce que je fais, et pourquoi ?**
@@ -220,3 +221,22 @@ Elles sont assumées, pas cachées — l'application en signale plusieurs à l'�
 - **Pas de pots annexes.** Les tapis inégaux sont modélisés, mais un abattage multi-joueurs à tapis
   ne répartit pas encore le pot en plusieurs parts.
 - **Publication Windows x64 uniquement**, bien qu'Avalonia soit multiplateforme.
+
+---
+
+## Contribuer
+
+Les contributions sont bienvenues, et la limite la plus utile à repousser n'est pas du code : ce
+sont les charts. Plusieurs situations n'ont aucune donnée propre et se rabattent sur une voisine,
+et ajouter un chart ne demande que du JSON.
+
+Le [guide de contribution](CONTRIBUTING.md) décrit l'organisation du code, les conventions, et le
+format des charts. Il est rédigé en anglais — comme le [code de conduite](CODE_OF_CONDUCT.md) et la
+[politique de sécurité](SECURITY.md) — pour que la langue ne soit pas un obstacle à participer,
+alors que le code et ses commentaires restent en français.
+
+Une faille de sécurité ne se signale pas dans un ticket public : voir [SECURITY.md](SECURITY.md).
+
+## Licence
+
+[MIT](LICENSE) — © 2026 Julien Fontana.

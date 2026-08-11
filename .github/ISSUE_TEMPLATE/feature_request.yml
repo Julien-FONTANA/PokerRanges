@@ -1,0 +1,50 @@
+name: Feature request
+description: Suggest something the application should do
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The README lists the known limitations, and CONTRIBUTING lists the gaps
+        that matter most (ICM, chart coverage, side pots, multi-street
+        planning). If your idea is one of those, say so — it helps to know
+        someone actually wants it.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve
+      description: |
+        Describe the situation at the table where the application falls short
+        today. A concrete moment is worth more than an abstract capability.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like it to do
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of the application
+      options:
+        - Preflop advice or charts
+        - Postflop advice or the model
+        - Tournament specifics (ICM, payouts, blind levels)
+        - Interface, compact mode, keyboard
+        - Hand journal or study features
+        - Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: Would you like to implement it
+      options:
+        - label: I would be willing to open a pull request for this
+          required: false
