@@ -35,8 +35,16 @@ jobs:
       - name: Build
         run: dotnet build --no-restore -c Release
 
+      # Cette passe fait foi. Elle tourne sans instrumentation : le mode compact promet une réponse
+      # en moins d'une seconde, et ce budget ne se vérifie que sur du code non instrumenté.
       - name: Test
-        run: dotnet test --no-build -c Release --collect:"XPlat Code Coverage" --logger "trx;LogFileName=results.trx" --results-directory TestResults
+        run: dotnet test --no-build -c Release --logger "trx;LogFileName=results.trx" --results-directory TestResults
+
+      # Seconde passe, qui ne sert qu'à mesurer. Le test de budget temps en est exclu : sous
+      # instrumentation il chronomètre le compteur de couverture, pas l'application, et échoue par
+      # intermittence selon la charge de la machine.
+      - name: Collect coverage
+        run: dotnet test --no-build -c Release --collect:"XPlat Code Coverage" --filter "FullyQualifiedName!~AnswersInUnderASecond" --results-directory TestResults
 
       # Les trois projets de test produisent chacun leur rapport ; il faut les fusionner pour
       # obtenir la couverture réelle, sans quoi on lit trois chiffres partiels dont aucun n'est vrai.
