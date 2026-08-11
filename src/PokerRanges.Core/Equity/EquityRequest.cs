@@ -4,8 +4,8 @@ using PokerRanges.Core.Ranges;
 namespace PokerRanges.Core.Equity;
 
 /// <summary>
-/// Une demande de calcul d'équité. Par convention le joueur d'indice 0 est le héros :
-/// c'est son équité qui pilote le critère de convergence.
+/// A request for an equity calculation. By convention the player at index 0 is the hero: it is
+/// their equity that drives the convergence criterion.
 /// </summary>
 public sealed record EquityRequest
 {
@@ -17,18 +17,18 @@ public sealed record EquityRequest
 
     public EquityMethod Method { get; init; } = EquityMethod.Automatic;
 
-    /// <summary>Plafond d'échantillons en Monte-Carlo. Sans effet sur l'énumération exhaustive.</summary>
+    /// <summary>Sample ceiling for Monte-Carlo. No effect on exhaustive enumeration.</summary>
     public int MaximumSamples { get; init; } = 200_000;
 
     /// <summary>
-    /// Erreur-type visée sur l'équité du héros ; le tirage s'arrête dès qu'elle est atteinte.
-    /// 0,0015 correspond à ± 0,15 point d'équité environ.
+    /// Target standard error on the hero's equity; sampling stops as soon as it is reached.
+    /// 0.0015 is roughly ± 0.15 of an equity point.
     /// </summary>
     public double TargetStandardError { get; init; } = 0.0015;
 
     /// <summary>
-    /// Graine fixe : rend le tirage reproductible en forçant un seul fil d'exécution.
-    /// Réservé aux tests et au diagnostic.
+    /// Fixed seed: makes sampling reproducible by forcing a single thread of execution.
+    /// Reserved for tests and diagnostics.
     /// </summary>
     public int? RandomSeed { get; init; }
 

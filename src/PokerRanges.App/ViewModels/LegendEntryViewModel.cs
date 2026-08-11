@@ -21,10 +21,10 @@ public sealed class LegendEntryViewModel : ObservableObject
 
     public IBrush Brush { get; }
 
-    /// <summary>Relu à chaque affichage : la légende suit la langue sans être reconstruite.</summary>
+    /// <summary>Re-read on every display: the legend follows the language without a rebuild.</summary>
     public string Label => _text();
 
-    /// <summary>La grille préflop : chaque couleur est une action du chart.</summary>
+    /// <summary>The preflop grid: each colour is one action from the chart.</summary>
     public static IReadOnlyList<LegendEntryViewModel> Actions { get; } =
     [
         new(() => UiText.Current.LegendJam, ActionPalette.BrushOf(ChartActionKind.Jam)),
@@ -34,9 +34,9 @@ public sealed class LegendEntryViewModel : ObservableObject
     ];
 
     /// <summary>
-    /// La grille postflop : la couleur n'est plus une action mais une quantité — la part de la case
-    /// que l'adversaire peut encore avoir. Réutiliser la légende des actions ici ferait lire « il
-    /// passe » là où il faut lire « il ne peut pas avoir cette main ».
+    /// The postflop grid: colour is no longer an action but a quantity — the share of the cell the
+    /// opponent can still hold. Reusing the action legend here would read as "they fold" where it
+    /// must read "they cannot have this hand".
     /// </summary>
     public static IReadOnlyList<LegendEntryViewModel> RangeWeights { get; } =
     [

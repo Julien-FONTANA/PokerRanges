@@ -5,8 +5,8 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.Core.Localization;
 
 /// <summary>
-/// Les messages de la table et des cartes. Les abréviations de position — BTN, UTG, SB — ne
-/// figurent pas ici : elles sont les mêmes dans les deux langues.
+/// Messages about the table and the cards. Position abbreviations — BTN, UTG, SB — are not here:
+/// they are the same in both languages.
 /// </summary>
 public static class TableText
 {

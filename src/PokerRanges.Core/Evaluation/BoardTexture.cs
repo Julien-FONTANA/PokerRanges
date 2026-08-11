@@ -4,9 +4,9 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Evaluation;
 
 /// <summary>
-/// Ce que le board rend possible. L'humidité résume en un nombre de 0 à 1 le danger qu'il
-/// représente : un board sec laisse peu de tirages, un board humide en autorise beaucoup, ce qui
-/// change la taille de mise rentable et la vitesse à laquelle une range se resserre.
+/// What the board makes possible. Wetness sums up in a single number from 0 to 1 the danger it
+/// carries: a dry board leaves few draws, a wet one allows many, which changes both the profitable
+/// bet size and how fast a range narrows.
 /// </summary>
 public sealed record BoardTexture
 {
@@ -16,7 +16,7 @@ public sealed record BoardTexture
 
     public required bool HasTrips { get; init; }
 
-    /// <summary>Trois cartes ou plus de la même couleur : une couleur est déjà possible.</summary>
+    /// <summary>Three or more cards of the same suit: a flush is already possible.</summary>
     public required bool IsMonotone { get; init; }
 
     public required bool IsTwoTone { get; init; }
@@ -27,7 +27,7 @@ public sealed record BoardTexture
 
     public required bool AllowsFlushDraw { get; init; }
 
-    /// <summary>Nombre de quintes différentes qu'une main de deux cartes peut encore composer.</summary>
+    /// <summary>How many distinct straights a two-card hand can still make.</summary>
     public required int StraightWindows { get; init; }
 
     public required Rank HighCard { get; init; }
@@ -112,8 +112,8 @@ public sealed record BoardTexture
     }
 
     /// <summary>
-    /// Compte les fenêtres de cinq rangs consécutifs auxquelles le board apporte déjà au moins
-    /// trois cartes : ce sont les quintes qu'une main de deux cartes peut encore compléter.
+    /// Counts the windows of five consecutive ranks to which the board already contributes at
+    /// least three cards: those are the straights a two-card hand can still complete.
     /// </summary>
     private static int CountStraightWindows(ReadOnlySpan<int> rankCounts)
     {

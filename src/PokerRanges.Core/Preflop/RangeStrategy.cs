@@ -4,9 +4,9 @@ using PokerRanges.Core.Ranges;
 namespace PokerRanges.Core.Preflop;
 
 /// <summary>
-/// Ce qu'un chart dit de faire, combo par combo : une distribution de fréquences sur les actions.
-/// Le fold n'est jamais écrit dans les données, c'est ce qui reste une fois les autres actions
-/// retirées — impossible d'oublier une main.
+/// What a chart says to do, combo by combo: a frequency distribution over the actions. Folding is
+/// never written in the data, it is whatever remains once the other actions are subtracted — so
+/// no hand can be forgotten.
 /// </summary>
 public sealed class RangeStrategy
 {
@@ -80,7 +80,7 @@ public sealed class RangeStrategy
         return Complete(options, committed);
     }
 
-    /// <summary>Fréquences moyennées sur les combos de la case : ce que peint la grille 13x13.</summary>
+    /// <summary>Frequencies averaged over the cell's combos: what the 13x13 grid paints.</summary>
     public IReadOnlyList<StrategyOption> OptionsFor(HandClass handClass)
     {
         List<StrategyOption> options = [];

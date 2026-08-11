@@ -1,8 +1,8 @@
 namespace PokerRanges.Core.Localization;
 
 /// <summary>
-/// Les langues de l'interface. L'anglais est en tête parce qu'il est la valeur par défaut : c'est
-/// aussi la langue du vocabulaire du poker, dont une bonne part ne se traduit pas.
+/// The interface languages. English comes first because it is the default: it is also the language
+/// of poker vocabulary, much of which does not translate.
 /// </summary>
 public enum AppLanguage
 {

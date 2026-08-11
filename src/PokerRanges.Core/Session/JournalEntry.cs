@@ -6,9 +6,9 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.Core.Session;
 
 /// <summary>
-/// Une main jouée et le conseil qu'elle a reçu. L'état complet est conservé, pas seulement un
-/// résumé : c'est ce qui permet de recharger la main pour la rejouer autrement, et c'est là tout
-/// l'intérêt d'un journal par rapport à un fichier de traces.
+/// A hand played and the advice it was given. The complete state is kept, not just a summary:
+/// that is what makes it possible to reload the hand and replay the decision differently, and it
+/// is the whole point of a journal over a log file.
 /// </summary>
 public sealed record JournalEntry
 {

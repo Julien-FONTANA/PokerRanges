@@ -1,8 +1,8 @@
 namespace PokerRanges.Core.Evaluation;
 
 /// <summary>
-/// La force d'une main relativement au board, et non dans l'absolu : une paire de valets vaut une
-/// overpaire sur 7-4-2 et une sous-paire sur A-K-Q, alors que la catégorie abattue est la même.
+/// A hand's strength relative to the board rather than in the absolute: pocket jacks are an
+/// overpair on 7-4-2 and an underpair on A-K-Q, though the showdown category is the same.
 /// </summary>
 public enum MadeHandTier
 {

@@ -4,8 +4,8 @@ using PokerRanges.Core.Ranges;
 namespace PokerRanges.Core.Equity;
 
 /// <summary>
-/// La range d'un joueur mise à plat pour le calcul : les combos encore possibles compte tenu du
-/// board et des cartes mortes, avec leurs poids cumulés pour un tirage pondéré en temps logarithmique.
+/// A player's range flattened for computation: the combos still possible given the board and the
+/// dead cards, with cumulative weights for weighted sampling in logarithmic time.
 /// </summary>
 internal sealed class PlayerCombos
 {

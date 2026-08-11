@@ -6,8 +6,8 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.App.Localization;
 
 /// <summary>
-/// Les phrases construites de l'interface — celles qui prennent des valeurs. Séparées de
-/// <see cref="UiText"/>, qui ne porte que des libellés fixes liables directement depuis le XAML.
+/// The interface's composed sentences — the ones that take values. Kept separate from
+/// <see cref="UiText"/>, which holds only fixed labels bindable straight from XAML.
 /// </summary>
 public static class UiMatrixText
 {
@@ -51,8 +51,8 @@ public static class UiMatrixText
     }
 
     /// <summary>
-    /// Pourquoi la case du héros est grise. Postflop la grille montre la range de l'adversaire, pas
-    /// la sienne : sans explication, un joueur lit sa propre case éteinte comme une panne.
+    /// Why the hero's cell is greyed out. Postflop the grid shows the opponent's range, not their
+    /// own: without an explanation, a player reads their own dark cell as a malfunction.
     /// </summary>
     public static string HeroHandBlocked(HandClass handClass, int combinationCount)
     {

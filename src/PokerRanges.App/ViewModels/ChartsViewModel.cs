@@ -7,9 +7,9 @@ using PokerRanges.Core.Preflop;
 namespace PokerRanges.App.ViewModels;
 
 /// <summary>
-/// La bibliothèque de charts, telle qu'on la manipule depuis l'interface. Éditer une range à la
-/// main n'a de sens que si l'on peut voir l'effet sans relancer l'application, et revenir en
-/// arrière sans la réinstaller : d'où le couple recharger / restaurer.
+/// The chart library as handled from the interface. Editing a range by hand only makes sense if
+/// the effect can be seen without restarting the application, and undone without reinstalling it:
+/// hence the reload / restore pair.
 /// </summary>
 public sealed partial class ChartsViewModel : ObservableObject
 {
@@ -27,14 +27,14 @@ public sealed partial class ChartsViewModel : ObservableObject
         Describe();
     }
 
-    /// <summary>Les charts ont changé : le conseil affiché n'est plus à jour.</summary>
+    /// <summary>The charts have changed: the advice on screen is out of date.</summary>
     public event EventHandler? Changed;
 
     public UiText Text => UiText.Current;
 
     public string? EditableDirectory => _charts.EditableDirectory;
 
-    /// <summary>Reconstruit le résumé après un changement de langue.</summary>
+    /// <summary>Rebuilds the summary after a language change.</summary>
     public void Refresh()
     {
         Describe();

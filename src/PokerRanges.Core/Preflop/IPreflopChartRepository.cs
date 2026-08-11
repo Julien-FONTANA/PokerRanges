@@ -4,7 +4,7 @@ public interface IPreflopChartRepository
 {
     IReadOnlyList<PreflopChart> Charts { get; }
 
-    /// <summary>Dossier des charts éditables, nul quand seuls les charts livrés sont utilisés.</summary>
+    /// <summary>The editable charts directory, null when only the shipped charts are used.</summary>
     string? EditableDirectory { get; }
 
     ChartResolution Resolve(ChartKey key);
@@ -12,9 +12,9 @@ public interface IPreflopChartRepository
     void Reload();
 
     /// <summary>
-    /// Réécrit les charts livrés par-dessus le dossier éditable et recharge. Le filet de sécurité
-    /// de l'édition à la main : on peut casser une range sans avoir à réinstaller l'application.
-    /// Renvoie le nombre de fichiers réécrits.
+    /// Rewrites the shipped charts over the editable directory and reloads. The safety net for
+    /// hand-editing: a range can be broken without having to reinstall the application.
+    /// Returns the number of files rewritten.
     /// </summary>
     int RestoreDefaults();
 }

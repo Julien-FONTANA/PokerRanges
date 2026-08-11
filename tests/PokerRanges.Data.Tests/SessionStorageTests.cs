@@ -8,9 +8,9 @@ using Shouldly;
 namespace PokerRanges.Data.Tests;
 
 /// <summary>
-/// Le stockage de session est le seul endroit du projet où un fichier écrit par une version peut
-/// être relu par une autre. Ces tests portent donc autant sur ce qui se relit correctement que sur
-/// ce qui se relit quand même après avoir été abîmé.
+/// Session storage is the only place in the project where a file written by one version may be
+/// read back by another. These tests are therefore as much about what reads back correctly as
+/// about what still reads back after being damaged.
 /// </summary>
 public sealed class SessionStorageTests : IDisposable
 {
@@ -95,8 +95,8 @@ public sealed class SessionStorageTests : IDisposable
     }
 
     /// <summary>
-    /// Un assistant qui refuse de démarrer à cause de son propre fichier de reprise serait pire
-    /// qu'un assistant qui a tout oublié.
+    /// An assistant that refuses to start because of its own resume file would be worse than one
+    /// that has forgotten everything.
     /// </summary>
     [Fact]
     public void ATruncatedFileIsTreatedAsNothingSavedInsteadOfThrowing()

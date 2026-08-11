@@ -1,9 +1,9 @@
 namespace PokerRanges.Core.Table;
 
 /// <summary>
-/// Une action au cours de la main. Pour une mise ou une relance, <paramref name="AmountTo"/> est le
-/// total engagé par le joueur sur cette street une fois l'action faite — la sémantique « relance à »,
-/// celle qu'affichent les salles, et la seule qui ne soit jamais ambiguë.
+/// An action during the hand. For a bet or a raise, <paramref name="AmountTo"/> is the total the
+/// player has committed on this street once the action is done — "raise to" semantics, the ones
+/// card rooms display, and the only ones that are never ambiguous.
 /// </summary>
 public sealed record PlayerAction(Street Street, Position Position, PlayerActionKind Kind, double AmountTo)
 {

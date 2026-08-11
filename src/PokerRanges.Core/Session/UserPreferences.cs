@@ -4,9 +4,9 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.Core.Session;
 
 /// <summary>
-/// Ce que l'utilisateur ne veut pas ressaisir à chaque lancement : sa table habituelle et la façon
-/// dont il regarde l'application. Volontairement pauvre — tout ce qui appartient à une main donnée
-/// vit dans <see cref="HandState"/>, pas ici.
+/// What the user does not want to re-enter on every launch: their usual table and how they look
+/// at the application. Deliberately thin — anything belonging to a particular hand lives in
+/// <see cref="HandState"/>, not here.
 /// </summary>
 public sealed record UserPreferences
 {
@@ -23,8 +23,8 @@ public sealed record UserPreferences
     public Position HeroPosition { get; init; } = Position.Button;
 
     /// <summary>
-    /// Le nom du profil dans la langue où il a été enregistré. Il est relu de façon tolérante :
-    /// changer de langue ne doit pas faire retomber l'utilisateur sur le profil par défaut.
+    /// The profile name in whichever language it was saved. It is read back leniently: switching
+    /// language must not drop the user back onto the default profile.
     /// </summary>
     public string OpponentProfile { get; init; } = "Balanced";
 

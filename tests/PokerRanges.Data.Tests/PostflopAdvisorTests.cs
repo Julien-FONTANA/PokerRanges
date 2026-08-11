@@ -11,9 +11,9 @@ using Shouldly;
 namespace PokerRanges.Data.Tests;
 
 /// <summary>
-/// Scénarios de référence du moteur postflop. Ils ne vérifient pas que le conseil est « le bon
-/// coup » au sens d'un solveur, mais que le modèle se comporte comme il le promet : l'équité est
-/// mesurée contre la range qui paie, les mains fortes misent, les mains mortes ne suivent pas.
+/// Reference scenarios for the postflop engine. They do not check that the advice is "the right
+/// play" in a solver's sense, but that the model behaves as it promises: equity is measured
+/// against the range that calls, strong hands bet, and dead hands do not call.
 /// </summary>
 public sealed class PostflopAdvisorTests
 {
@@ -90,8 +90,8 @@ public sealed class PostflopAdvisorTests
     }
 
     /// <summary>
-    /// La promesse centrale du moteur : une mise n'est payée que par le haut de la range adverse,
-    /// donc l'équité une fois payé est plus basse que l'équité contre la range entière.
+    /// The engine's central promise: a bet is only called by the top of the opponent's range, so
+    /// equity once called is lower than equity against the whole range.
     /// </summary>
     [Fact]
     public async Task TheEquityOnceCalledIsLowerThanAgainstTheWholeRange()
@@ -224,9 +224,9 @@ public sealed class PostflopAdvisorTests
     }
 
     /// <summary>
-    /// L'échange que le mode compact fait à la table : moins de tirages, donc une réponse plus
-    /// rapide, donc un intervalle de confiance plus large. Si le budget réduit rendait la même
-    /// précision, c'est le budget complet qui gaspillerait.
+    /// The trade compact mode makes at the table: fewer samples, so a faster answer, so a wider
+    /// confidence interval. If the reduced budget gave the same precision, it would be the full
+    /// budget that was wasteful.
     /// </summary>
     [Fact]
     public async Task TheSmallBudgetBuysSpeedWithPrecisionAndSaysSo()
@@ -243,8 +243,8 @@ public sealed class PostflopAdvisorTests
     }
 
     /// <summary>
-    /// Une précision plus basse n'a d'intérêt que si elle mène au même endroit : sur un spot franc,
-    /// les deux budgets doivent recommander la même action.
+    /// Lower precision is only worth having if it leads to the same place: on a clear-cut spot,
+    /// both budgets must recommend the same action.
     /// </summary>
     [Fact]
     public async Task BothBudgetsAgreeOnAClearCutSpot()
@@ -278,7 +278,7 @@ public sealed class PostflopAdvisorTests
         return _advisor.AdviseAsync(state, OpponentProfile.Balanced, budget, TestContext.Current.CancellationToken);
     }
 
-    /// <summary>Bouton ouvre à 18, grosse blinde suit : pot de 40 jetons à 100bb de profondeur.</summary>
+    /// <summary>Button opens to 18, big blind calls: a 40-chip pot at 100bb deep.</summary>
     private static HandState SingleRaisedPot(string heroCards, string board)
     {
         return new HandState

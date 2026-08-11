@@ -4,8 +4,8 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Evaluation;
 
 /// <summary>
-/// Tout ce qu'on sait de la main du héros sur ce board : sa force actuelle, ses tirages, et de
-/// combien de cartes elle peut encore s'améliorer. C'est la matière première des explications.
+/// Everything known about the hero's hand on this board: its current strength, its draws, and how
+/// many cards can still improve it. This is the raw material the explanations are built from.
 /// </summary>
 public sealed record HandFeatures
 {
@@ -15,7 +15,7 @@ public sealed record HandFeatures
 
     public required bool IsNuts { get; init; }
 
-    /// <summary>Cartes qui font passer la main à deux paires ou mieux au prochain tirage.</summary>
+    /// <summary>Cards that take the hand to two pair or better on the next street.</summary>
     public required int Outs { get; init; }
 
     public required int StraightOuts { get; init; }
@@ -35,8 +35,8 @@ public sealed record HandFeatures
     public bool IsStrongMadeHand => Tier >= MadeHandTier.TwoPair;
 
     /// <summary>
-    /// Probabilité d'améliorer d'ici la river, formule classique des outs : environ 4 % par out
-    /// depuis le flop, 2 % depuis la turn.
+    /// Probability of improving by the river, the classic outs formula: roughly 4% per out from
+    /// the flop, 2% from the turn.
     /// </summary>
     public double ImprovementChance(int boardCardCount)
     {

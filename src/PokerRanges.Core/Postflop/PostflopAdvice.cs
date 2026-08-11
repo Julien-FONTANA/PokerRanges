@@ -21,8 +21,8 @@ public sealed record PostflopAdvice
     public required IReadOnlyList<string> Rationale { get; init; }
 
     /// <summary>
-    /// Vrai quand la deuxième option est à portée de bruit de modèle : mieux vaut le dire que
-    /// laisser croire à une décision tranchée.
+    /// True when the runner-up is within model noise: better to say so than to let it look like a
+    /// clear-cut decision.
     /// </summary>
     public required bool IsClose { get; init; }
 
@@ -31,16 +31,16 @@ public sealed record PostflopAdvice
     public required PostflopBudget Budget { get; init; }
 
     /// <summary>
-    /// La pire erreur-type parmi les équités mesurées pour cet avis. Une réponse plus rapide est
-    /// une réponse moins précise : autant afficher le prix payé plutôt que de le taire.
+    /// The worst standard error among the equities measured for this advice. A faster answer is a
+    /// less precise one: better to show the price paid than to keep quiet about it.
     /// </summary>
     public required double EquityStandardError { get; init; }
 
     public required TimeSpan Duration { get; init; }
 
     /// <summary>
-    /// Demi-largeur de l'intervalle à 95 % sur l'équité, convertie en jetons d'espérance sur le
-    /// pot en jeu. Ne compte que l'échantillonnage des équités, pas celui du classement de range.
+    /// Half-width of the 95% interval on the equity, converted into expected chips over the pot at
+    /// stake. Counts only the equity sampling, not the range ranking's.
     /// </summary>
     public double ExpectedValueMargin => 1.96 * EquityStandardError * Pot.Pot;
 

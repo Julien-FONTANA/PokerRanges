@@ -3,9 +3,9 @@ using PokerRanges.Core.Ranges;
 namespace PokerRanges.Core.Postflop;
 
 /// <summary>
-/// La range adverse découpée en trois face à une mise donnée. <see cref="Continuing"/> est la
-/// réunion des mains qui suivent et de celles qui relancent : c'est contre elle, et non contre la
-/// range de départ, qu'il faut mesurer son équité une fois la mise payée.
+/// The opponent's range cut in three against a given bet. <see cref="Continuing"/> is the union of
+/// the hands that call and those that raise: it is against that, and not against the starting
+/// range, that equity must be measured once the bet is called.
 /// </summary>
 public sealed record RangeSplit(
     HandRange Folding,

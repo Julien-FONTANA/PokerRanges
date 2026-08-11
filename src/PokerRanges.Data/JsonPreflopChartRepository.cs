@@ -80,9 +80,9 @@ public sealed class JsonPreflopChartRepository : IPreflopChartRepository
     }
 
     /// <summary>
-    /// Recopie les charts livrés dans le dossier éditable. Sans écrasement au premier lancement —
-    /// c'est ce qui donne à l'utilisateur quelque chose à modifier ; avec écrasement quand il
-    /// demande la restauration, ce qui lui permet de casser une range sans crainte.
+    /// Copies the shipped charts into the editable directory. Without overwriting on first run —
+    /// that is what gives the user something to edit; with overwriting when they ask to restore,
+    /// which lets them break a range without fear.
     /// </summary>
     private int ExtractDefaults(bool overwriteExisting)
     {
@@ -145,8 +145,8 @@ public sealed class JsonPreflopChartRepository : IPreflopChartRepository
     }
 
     /// <summary>
-    /// Le nom de ressource porte l'espace de noms complet ; on n'en garde que les deux derniers
-    /// segments, soit le nom de fichier tel qu'il est dans le dépôt.
+    /// The resource name carries the full namespace; only the last two segments are kept, which is
+    /// the file name as it appears in the repository.
     /// </summary>
     private static string FileNameOf(string resourceName)
     {

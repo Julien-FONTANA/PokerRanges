@@ -3,9 +3,9 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Preflop;
 
 /// <summary>
-/// Le chart réellement utilisé pour répondre, et la liste des écarts entre ce qui était demandé et
-/// ce qui existait. Aucun conseil ne doit sortir de l'application sans que l'on puisse remonter à
-/// la donnée qui l'a produit.
+/// The chart actually used to answer, and the list of gaps between what was asked for and what
+/// existed. No advice should leave the application without a way to trace it back to the data
+/// that produced it.
 /// </summary>
 public sealed record ChartResolution(
     PreflopChart Chart,

@@ -10,11 +10,11 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.Core.Postflop;
 
 /// <summary>
-/// Choisit l'action de plus forte espérance parmi un jeu de tailles, sous un modèle de réponse
-/// adverse explicite. Le point qui compte : l'équité est mesurée contre la sous-range qui paie,
-/// pas contre la range de départ — c'est là que les outils naïfs se trompent.
-/// En tête-à-tête la re-relance adverse est modélisée ; à plus de deux joueurs on se limite à
-/// « tout le monde passe » ou « au moins un continue », ce que l'avis signale.
+/// Picks the highest-expectation action among a set of sizes, under an explicit opponent response
+/// model. The point that matters: equity is measured against the sub-range that calls, not against
+/// the starting range — that is where naive tools go wrong.
+/// Heads-up the opponent's re-raise is modelled; beyond two players we settle for "everyone folds"
+/// or "at least one continues", which the advice flags.
 /// </summary>
 public sealed class EvPostflopAdvisor : IPostflopAdvisor
 {
@@ -79,8 +79,8 @@ public sealed class EvPostflopAdvisor : IPostflopAdvisor
         HandFeatures features = _classifier.Classify(hero, board);
         BoardTexture texture = BoardTexture.Read(board);
 
-        // Le classement d'une range ne dépend pas de la taille envisagée : on le calcule une fois
-        // pour toutes, sinon chaque taille de mise relancerait le même tirage Monte-Carlo.
+        // Ranking a range does not depend on the size being considered: compute it once and for
+        // all, otherwise every bet size would rerun the same Monte-Carlo sampling.
         IReadOnlyList<IReadOnlyList<RankedCombo>> rankings =
         [
             .. opponents.Select(opponent => _ranker.Rank(

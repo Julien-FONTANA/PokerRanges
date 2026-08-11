@@ -1,8 +1,8 @@
 namespace PokerRanges.App.Infrastructure;
 
 /// <summary>
-/// Emplacements de stockage de l'application, tous sous le profil utilisateur.
-/// Les charts sont dans Roaming (éditables et à conserver), les journaux dans Local.
+/// The application's storage locations, all under the user profile. Charts live in Roaming
+/// (editable and worth keeping), logs in Local.
 /// </summary>
 public static class AppPaths
 {
@@ -20,7 +20,7 @@ public static class AppPaths
 
     public static string SettingsFilePath { get; } = Path.Combine(RoamingRoot, "settings.json");
 
-    /// <summary>La main interrompue : à reprendre au prochain lancement, pas à conserver.</summary>
+    /// <summary>The interrupted hand: to resume on next launch, not to keep.</summary>
     public static string HandFilePath { get; } = Path.Combine(LocalRoot, "hand-in-progress.json");
 
     public static string JournalFilePath { get; } = Path.Combine(RoamingRoot, "journal.json");

@@ -4,8 +4,8 @@ using PokerRanges.Core.Cards;
 namespace PokerRanges.Core.Localization;
 
 /// <summary>
-/// Le vocabulaire des mains et des boards. Les deux langues se lisent côte à côte : une traduction
-/// qui dérive de son original est plus facile à repérer sur la même ligne que dans deux fichiers.
+/// The vocabulary of hands and boards. Both languages sit side by side: a translation drifting
+/// from its original is easier to spot on the same line than across two files.
 /// </summary>
 public static class HandText
 {

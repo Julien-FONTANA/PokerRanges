@@ -9,8 +9,8 @@ public sealed record SessionStoreOptions
     public required string JournalFilePath { get; init; }
 
     /// <summary>
-    /// Au-delà, les plus anciennes mains sortent du journal. Un carnet qu'on ne relit jamais parce
-    /// qu'il est trop long ne sert à rien ; cent mains couvrent largement une session de jeu.
+    /// Beyond this, the oldest hands drop out of the journal. A log nobody ever reads back because
+    /// it is too long is useless; a hundred hands covers a playing session comfortably.
     /// </summary>
     public int JournalCapacity { get; init; } = 100;
 }

@@ -6,9 +6,9 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.App.ViewModels;
 
 /// <summary>
-/// Une entrée de la liste des antes. Les instances sont uniques et durables — c'est leur identité
-/// qui porte la sélection — donc le libellé ne peut pas être figé à la construction : il est relu
-/// à chaque affichage, et l'entrée se signale elle-même quand la langue change.
+/// One entry in the ante list. The instances are unique and long-lived — their identity is what
+/// carries the selection — so the label cannot be frozen at construction: it is re-read on every
+/// display, and the entry announces itself when the language changes.
 /// </summary>
 public sealed class AnteStyleChoice : ObservableObject
 {

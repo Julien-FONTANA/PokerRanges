@@ -1,8 +1,8 @@
 namespace PokerRanges.Data;
 
 /// <summary>
-/// À quel point un chart s'écarte de la situation demandée. Les critères sont hiérarchisés :
-/// la relation à l'agresseur prime sur le nombre de joueurs derrière, qui prime sur la profondeur.
+/// How far a chart departs from the requested situation. The criteria are ranked: the relation to
+/// the aggressor outranks the number of players behind, which outranks the depth.
 /// </summary>
 internal sealed record ChartMatchScore(int RelationPenalty, int PlayersDistance, double DepthDistance)
     : IComparable<ChartMatchScore>

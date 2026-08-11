@@ -4,9 +4,9 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.App.Localization;
 
 /// <summary>
-/// Les libellés de l'interface. Objet unique et observable plutôt que constantes : les vues s'y
-/// lient par <c>{Binding Text.Something}</c>, et un changement de langue notifie « toutes mes
-/// propriétés ont changé », ce qui rafraîchit l'écran entier sans redémarrage ni relecture.
+/// The interface labels. A single observable object rather than constants: views bind to it with
+/// <c>{Binding Text.Something}</c>, and a language change notifies "all my properties changed",
+/// which refreshes the entire screen with no restart and no re-reading.
 /// </summary>
 public sealed partial class UiText : ObservableObject
 {

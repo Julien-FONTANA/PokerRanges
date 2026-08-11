@@ -3,9 +3,9 @@ using PokerRanges.Core.Cards;
 namespace PokerRanges.Core.Evaluation;
 
 /// <summary>
-/// Qualifie la main du héros par rapport au board. Les outs et le caractère « meilleure main
-/// possible » sont comptés par énumération exhaustive plutôt que par une table de correspondance :
-/// c'est exact sur tous les boards, y compris pairés ou monocolores, et ça reste instantané.
+/// Qualifies the hero's hand against the board. Outs and whether it is the best possible hand are
+/// counted by exhaustive enumeration rather than by a lookup table: that is exact on every board,
+/// paired or monotone included, and it stays instant.
 /// </summary>
 public sealed class MadeHandClassifier : IMadeHandClassifier
 {
@@ -139,9 +139,9 @@ public sealed class MadeHandClassifier : IMadeHandClassifier
     }
 
     /// <summary>
-    /// Un out est une carte qui, au prochain tirage, fait passer la main à deux paires ou mieux et
-    /// améliore sa force actuelle : c'est la définition opérationnelle qui donne 9 outs à un tirage
-    /// couleur, 8 à un bilatéral, 4 à un ventre et 15 à un tirage combiné, sans double comptage.
+    /// An out is a card that, on the next street, takes the hand to two pair or better and improves
+    /// on its current strength: the working definition that gives 9 outs to a flush draw, 8 to an
+    /// open-ender, 4 to a gutshot and 15 to a combo draw, with no double counting.
     /// </summary>
     private int CountOuts(
         HoleCards hole,
@@ -193,8 +193,8 @@ public sealed class MadeHandClassifier : IMadeHandClassifier
     }
 
     /// <summary>
-    /// Cherche cinq rangs consécutifs sans regarder les couleurs : une carte qui complète une
-    /// quinte flush complète aussi une quinte, et doit être comptée comme un out à la quinte.
+    /// Looks for five consecutive ranks without regard to suit: a card completing a straight flush
+    /// also completes a straight, and must be counted as a straight out.
     /// </summary>
     private static bool ContainsStraight(ReadOnlySpan<Card> cards)
     {
@@ -260,9 +260,8 @@ public sealed class MadeHandClassifier : IMadeHandClassifier
     }
 
     /// <summary>
-    /// Vrai si aucun adversaire ne peut détenir mieux. Les cartes du héros sont exclues des mains
-    /// possibles : ce qui compte au moment de décider, c'est ce que l'adversaire peut réellement
-    /// avoir, blockers compris.
+    /// True if no opponent can hold better. The hero's cards are excluded from the possible hands:
+    /// what matters when deciding is what the opponent can actually have, blockers included.
     /// </summary>
     private bool IsBestPossible(ReadOnlySpan<Card> board, ReadOnlySpan<bool> used, HandValue heroValue)
     {

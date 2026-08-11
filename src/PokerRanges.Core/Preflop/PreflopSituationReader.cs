@@ -3,8 +3,8 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.Core.Preflop;
 
 /// <summary>
-/// Traduit l'historique des actions en une situation de chart : qui a ouvert, combien de fois on a
-/// relancé, où se situe le héros par rapport à l'agresseur, et à quelle profondeur on joue.
+/// Turns the action history into a chart situation: who opened, how many times it was raised,
+/// where the hero sits relative to the aggressor, and at what depth the hand is being played.
 /// </summary>
 public static class PreflopSituationReader
 {

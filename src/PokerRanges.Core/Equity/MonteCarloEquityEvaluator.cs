@@ -5,9 +5,9 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Equity;
 
 /// <summary>
-/// Tire des mains au hasard dans les ranges par rejet : un échantillon dont les combos entrent en
-/// conflit est rejeté en entier, ce qui reproduit exactement la loi jointe des ranges compatibles.
-/// Le tirage progresse par vagues et s'arrête dès que l'erreur-type visée sur le héros est atteinte.
+/// Draws hands from the ranges by rejection sampling: a sample whose combos conflict is thrown out
+/// whole, which reproduces exactly the joint distribution of the compatible ranges. Sampling runs
+/// in waves and stops as soon as the target standard error on the hero is reached.
 /// </summary>
 internal sealed class MonteCarloEquityEvaluator
 {

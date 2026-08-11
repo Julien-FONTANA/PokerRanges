@@ -8,8 +8,8 @@ public sealed record PreflopAdvice(
     IReadOnlyList<string> Rationale)
 {
     /// <summary>
-    /// Vrai quand le chart mélange plusieurs actions sur cette main : la recommandation affichée
-    /// n'est alors que la plus fréquente, pas la seule jouable.
+    /// True when the chart mixes several actions on this hand: the recommendation shown is then
+    /// merely the most frequent one, not the only playable one.
     /// </summary>
     public bool IsMixed => Options.Count(option => option.Frequency > 0.01) > 1;
 }

@@ -3,7 +3,7 @@ using PokerRanges.Core.Table;
 
 namespace PokerRanges.App.ViewModels;
 
-/// <summary>Tout ce dont le conseil a besoin, figé à l'instant où il est demandé.</summary>
+/// <summary>Everything the advice needs, frozen at the moment it is requested.</summary>
 public sealed record AdviceRequest
 {
     public required HandState State { get; init; }

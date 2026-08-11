@@ -20,13 +20,13 @@ public sealed partial class RangeMatrixViewModel : ObservableObject
     private string _subtitle = UiMatrixText.GridPlaceholderSubtitle;
 
     /// <summary>
-    /// La légende décrit ce que la grille montre à cet instant, et change donc avec elle : préflop
-    /// des actions, postflop des quantités. Une légende figée mentirait la moitié du temps.
+    /// The legend describes what the grid is showing right now, and so changes with it: actions
+    /// preflop, quantities postflop. A fixed legend would lie half the time.
     /// </summary>
     [ObservableProperty]
     private IReadOnlyList<LegendEntryViewModel> _legend = LegendEntryViewModel.Actions;
 
-    /// <summary>Pourquoi la case du héros est éteinte, quand elle l'est.</summary>
+    /// <summary>Why the hero's cell is dark, when it is.</summary>
     [ObservableProperty]
     private string? _heroNote;
 
@@ -59,8 +59,8 @@ public sealed partial class RangeMatrixViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Affiche une range simple — celle qu'on attribue à un adversaire — en intensité de vert
-    /// proportionnelle à la part de la case encore présente dans sa range.
+    /// Displays a plain range — the one assigned to an opponent — as a green intensity
+    /// proportional to the share of the cell still present in their range.
     /// </summary>
     public void ShowRange(
         Core.Ranges.HandRange range,
@@ -108,9 +108,9 @@ public sealed partial class RangeMatrixViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Une case de héros éteinte a deux causes très différentes, et les confondre serait pire que
-    /// se taire : ou bien l'adversaire ne peut plus détenir cette main — tes cartes et le board en
-    /// occupent tous les combos — ou bien il pourrait l'avoir mais sa range ne la contient pas.
+    /// A dark hero cell has two very different causes, and conflating them would be worse than
+    /// saying nothing: either the opponent can no longer hold that hand — your cards and the board
+    /// take up all its combos — or they could have it but their range does not contain it.
     /// </summary>
     private static string? DescribeHeroCell(
         Core.Ranges.HandRange range,

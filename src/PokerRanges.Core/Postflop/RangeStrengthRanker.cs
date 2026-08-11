@@ -7,10 +7,10 @@ using PokerRanges.Core.Ranges;
 namespace PokerRanges.Core.Postflop;
 
 /// <summary>
-/// Classe une range en mesurant, pour chaque combo, son équité contre la range elle-même sur ce
-/// board. Ce classement par équité valorise naturellement les tirages, là où une table de bonus
-/// écrite à la main sous-estime systématiquement un tirage couleur face à une petite paire.
-/// Le tirage est à graine fixe : à situation identique, le classement est identique.
+/// Ranks a range by measuring, for each combo, its equity against the range itself on this board.
+/// Ranking by equity values draws naturally, where a hand-written bonus table systematically
+/// underrates a flush draw against a small pair.
+/// Sampling uses a fixed seed: the same situation yields the same ranking.
 /// </summary>
 public sealed class RangeStrengthRanker : IRangeStrengthRanker
 {

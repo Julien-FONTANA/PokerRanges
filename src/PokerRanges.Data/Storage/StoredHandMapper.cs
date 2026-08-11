@@ -5,9 +5,9 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.Data.Storage;
 
 /// <summary>
-/// Traduit entre la main du moteur et sa forme sur disque. La relecture valide en même temps
-/// qu'elle traduit : un fichier trafiqué doit échouer ici, franchement, plutôt que de produire une
-/// main incohérente que le moteur découvrirait trois écrans plus loin.
+/// Translates between the engine's hand and its on-disk form. Reading back validates as it
+/// translates: a tampered file must fail here, outright, rather than produce an inconsistent hand
+/// that the engine would only discover three screens later.
 /// </summary>
 public static class StoredHandMapper
 {
@@ -79,8 +79,8 @@ public static class StoredHandMapper
             return new Dictionary<Position, double>(stored.StartingStacks);
         }
 
-        // Un fichier écrit avant que les tapis inégaux ne soient enregistrés : on repart uniforme
-        // plutôt que de refuser la reprise pour une information qu'on sait reconstruire.
+        // A file written before uneven stacks were saved: fall back to uniform stacks rather than
+        // refuse the resume over information we know how to rebuild.
         Dictionary<Position, double> uniform = [];
         foreach (Position seat in PositionLayout.Seats(stored.PlayerCount))
         {

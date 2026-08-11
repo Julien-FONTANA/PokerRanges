@@ -6,8 +6,8 @@ using PokerRanges.App.ViewModels;
 namespace PokerRanges.App.Views;
 
 /// <summary>
-/// La coque qui porte les raccourcis et arbitre entre les deux dispositions. Le redimensionnement
-/// vit ici plutôt que dans le modèle de vue : la taille d'une fenêtre est une affaire de fenêtre.
+/// The shell that carries the shortcuts and arbitrates between the two layouts. Resizing lives
+/// here rather than in the view model: a window's size is a window's business.
 /// </summary>
 public sealed partial class MainWindow : Window
 {
@@ -60,7 +60,7 @@ public sealed partial class MainWindow : Window
             _analysisWidth = Width;
             _analysisHeight = Height;
 
-            // Les bornes basses d'abord : poser la largeur avant elles la ferait rogner.
+            // Lower bounds first: setting the width before them would have it clamped.
             MinWidth = CompactMinWidth;
             MinHeight = CompactMinHeight;
             Width = CompactWidth;

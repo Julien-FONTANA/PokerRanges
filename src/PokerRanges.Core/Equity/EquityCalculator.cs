@@ -10,8 +10,8 @@ namespace PokerRanges.Core.Equity;
 public sealed class EquityCalculator : IEquityCalculator
 {
     /// <summary>
-    /// Au-delà de ce nombre d'abattages, l'énumération exhaustive coûte plus d'une seconde :
-    /// on bascule sur le tirage aléatoire, dont la précision est de toute façon suffisante.
+    /// Beyond this many showdowns, exhaustive enumeration costs more than a second: we switch to
+    /// random sampling, whose precision is more than enough anyway.
     /// </summary>
     private const double ExhaustiveShowdownBudget = 5_000_000;
 

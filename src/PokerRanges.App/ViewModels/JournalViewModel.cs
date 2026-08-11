@@ -9,9 +9,9 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.App.ViewModels;
 
 /// <summary>
-/// Le carnet des mains jouées. Une entrée n'est pas un texte mais la main entière : la recharger
-/// remet l'application exactement dans l'état où le conseil avait été donné, ce qui permet de
-/// rejouer la décision avec un autre profil adverse ou une autre taille.
+/// The log of hands played. An entry is not a piece of text but the whole hand: reloading it puts
+/// the application back exactly in the state the advice was given in, which makes it possible to
+/// replay the decision with a different opponent profile or a different size.
 /// </summary>
 public sealed partial class JournalViewModel : ObservableObject
 {
@@ -29,7 +29,7 @@ public sealed partial class JournalViewModel : ObservableObject
         Refresh();
     }
 
-    /// <summary>Appelé quand l'utilisateur demande à recharger une main du journal.</summary>
+    /// <summary>Raised when the user asks to reload a hand from the journal.</summary>
     public event EventHandler<JournalEntry>? ReplayRequested;
 
     public UiText Text => UiText.Current;
@@ -39,8 +39,8 @@ public sealed partial class JournalViewModel : ObservableObject
     public bool IsEmpty => Entries.Count == 0;
 
     /// <summary>
-    /// Journalise la main si elle a de quoi être relue. Une table qu'on règle sans jouer, ou deux
-    /// cartes posées puis reprises, n'ont rien à faire dans un carnet de mains.
+    /// Journals the hand if there is anything worth reading back. A table set up but never played,
+    /// or two cards laid down then taken back, have no place in a hand log.
     /// </summary>
     public void Record(HandState hand, string advice, IReadOnlyList<string> rationale)
     {
@@ -82,8 +82,8 @@ public sealed partial class JournalViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Reconstruit la liste : les descriptions d'entrées sont calculées, donc elles ne suivent la
-    /// langue que si on les redemande.
+    /// Rebuilds the list: entry descriptions are computed, so they only follow the language if
+    /// they are asked for again.
     /// </summary>
     public void Refresh()
     {

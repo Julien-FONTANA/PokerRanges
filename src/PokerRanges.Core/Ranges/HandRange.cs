@@ -3,9 +3,9 @@ using PokerRanges.Core.Cards;
 namespace PokerRanges.Core.Ranges;
 
 /// <summary>
-/// Une range immuable : un poids de 0 à 1 pour chacun des 1326 combos. Le poids par combo, et non
-/// par case de la grille, est ce qui permet de retirer proprement les combos bloqués par le board
-/// et par les cartes du héros.
+/// An immutable range: a weight from 0 to 1 for each of the 1326 combos. Weighting per combo and
+/// not per grid cell is what makes it possible to cleanly remove the combos blocked by the board
+/// and by the hero's cards.
 /// </summary>
 public sealed class HandRange
 {
@@ -51,8 +51,8 @@ public sealed class HandRange
     }
 
     /// <summary>
-    /// Part de la case effectivement contenue dans la range, de 0 à 1 : c'est le remplissage
-    /// affiché par la grille 13x13.
+    /// The share of the cell actually contained in the range, from 0 to 1: this is the fill the
+    /// 13x13 grid displays.
     /// </summary>
     public double FrequencyOf(HandClass handClass)
     {
@@ -102,7 +102,7 @@ public sealed class HandRange
         return new HandRange(filtered);
     }
 
-    /// <summary>Réunion : chaque combo garde le plus fort de ses deux poids.</summary>
+    /// <summary>Union: each combo keeps the greater of its two weights.</summary>
     public HandRange Union(HandRange other)
     {
         ArgumentNullException.ThrowIfNull(other);
@@ -116,7 +116,7 @@ public sealed class HandRange
         return new HandRange(union);
     }
 
-    /// <summary>Différence : ce qui reste après avoir retiré le poids de l'autre range.</summary>
+    /// <summary>Difference: what is left after subtracting the other range's weight.</summary>
     public HandRange Except(HandRange other)
     {
         ArgumentNullException.ThrowIfNull(other);

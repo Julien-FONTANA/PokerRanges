@@ -8,9 +8,9 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.Core.Postflop;
 
 /// <summary>
-/// Reconstruit la range de chaque adversaire encore en jeu : on part du chart préflop qui
-/// correspond à l'action qu'il a réellement prise, on retire les combos rendus impossibles par le
-/// board, puis on resserre à chaque action postflop selon le modèle de réponse.
+/// Rebuilds the range of every opponent still in the hand: start from the preflop chart matching
+/// the action they actually took, strip the combos the board makes impossible, then narrow at each
+/// postflop action according to the response model.
 /// </summary>
 public sealed class RangeAssigner : IRangeAssigner
 {

@@ -5,12 +5,12 @@ using Microsoft.Extensions.Logging;
 namespace PokerRanges.Data.Storage;
 
 /// <summary>
-/// La politique de fichier commune aux données de session : lecture tolérante, écriture atomique.
+/// The file policy shared by all session data: lenient reads, atomic writes.
 /// <para>
-/// Une lecture ne lève jamais — un fichier absent, tronqué ou trafiqué vaut « rien de sauvegardé »,
-/// car refuser de démarrer à cause de son propre fichier de reprise est pire que tout oublier.
-/// Une écriture passe par un temporaire renommé : couper l'application en plein enregistrement doit
-/// laisser la version précédente intacte, jamais un fichier à moitié écrit.
+/// A read never throws — a missing, truncated or tampered file counts as "nothing saved", because
+/// refusing to start because of one's own resume file is worse than forgetting everything.
+/// A write goes through a renamed temporary file: killing the application mid-save must leave the
+/// previous version intact, never a half-written file.
 /// </para>
 /// </summary>
 internal static class JsonFileStore

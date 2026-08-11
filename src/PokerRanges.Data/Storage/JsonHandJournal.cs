@@ -5,9 +5,9 @@ using PokerRanges.Core.Session;
 namespace PokerRanges.Data.Storage;
 
 /// <summary>
-/// Le journal des mains, en un seul fichier JSON relu au démarrage et réécrit à chaque ajout. Un
-/// fichier entier plutôt qu'un ajout en fin de fichier : à cent mains le coût est négligeable, et
-/// on évite d'avoir à réparer un journal coupé au milieu d'une ligne.
+/// The hand journal, in a single JSON file read at startup and rewritten on every append. A whole
+/// file rather than an append at the end: at a hundred hands the cost is negligible, and it avoids
+/// ever having to repair a journal cut off mid-line.
 /// </summary>
 public sealed class JsonHandJournal : IHandJournal
 {
@@ -80,7 +80,7 @@ public sealed class JsonHandJournal : IHandJournal
             }
             catch (PokerRangesException exception)
             {
-                // Une main illisible ne doit pas emporter le journal entier avec elle.
+                // One unreadable hand must not take the whole journal down with it.
                 _logger.LogWarning(exception, "Une entrée du journal a été écartée : {Message}", exception.Message);
             }
         }

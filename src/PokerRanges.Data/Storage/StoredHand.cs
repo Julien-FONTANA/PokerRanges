@@ -3,9 +3,9 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.Data.Storage;
 
 /// <summary>
-/// La forme sur disque d'une main. Distincte de <see cref="HandState"/> à dessein : le moteur doit
-/// pouvoir changer de représentation interne sans rendre illisibles les mains déjà enregistrées.
-/// Les cartes y sont du texte — « Ks » — pour qu'un fichier de reprise reste lisible à l'œil.
+/// The on-disk form of a hand. Deliberately distinct from <see cref="HandState"/>: the engine must
+/// be free to change its internal representation without making already-saved hands unreadable.
+/// Cards are text here — "Ks" — so a resume file stays readable by eye.
 /// </summary>
 public sealed class StoredHand
 {

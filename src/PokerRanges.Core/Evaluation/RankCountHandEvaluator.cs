@@ -3,8 +3,8 @@ using PokerRanges.Core.Cards;
 namespace PokerRanges.Core.Evaluation;
 
 /// <summary>
-/// Évalue 5 à 7 cartes par comptage de rangs et de couleurs, sans opérateur bit-à-bit ni table
-/// de correspondance précalculée. Aucune allocation : tous les compteurs sont sur la pile.
+/// Evaluates 5 to 7 cards by counting ranks and suits, with no bitwise tricks and no precomputed
+/// lookup table. No allocation: every counter lives on the stack.
 /// </summary>
 public sealed class RankCountHandEvaluator : IHandEvaluator
 {
@@ -136,8 +136,8 @@ public sealed class RankCountHandEvaluator : IHandEvaluator
     }
 
     /// <summary>
-    /// Renvoie le rang le plus haut d'une suite de cinq rangs consécutifs, 0 s'il n'y en a pas.
-    /// L'as compte aussi comme rang bas, ce qui couvre la roue A-2-3-4-5 (renvoyée comme quinte à 5).
+    /// Returns the top rank of a run of five consecutive ranks, 0 if there is none. The ace also
+    /// counts as a low rank, which covers the wheel A-2-3-4-5 (returned as a five-high straight).
     /// </summary>
     private static int FindStraightHigh(ReadOnlySpan<int> rankCounts)
     {

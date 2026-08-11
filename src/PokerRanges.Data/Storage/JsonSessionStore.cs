@@ -6,7 +6,7 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.Data.Storage;
 
 /// <summary>
-/// Réglages et main en cours, en JSON sous le profil utilisateur.
+/// Settings and the hand in progress, as JSON under the user profile.
 /// </summary>
 public sealed class JsonSessionStore : ISessionStore
 {

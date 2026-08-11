@@ -15,8 +15,8 @@ using Shouldly;
 namespace PokerRanges.App.Tests;
 
 /// <summary>
-/// Vérifie le câblage complet de l'interface : saisir une table, une main, un board et des actions
-/// produit bien une recommandation issue du moteur, sans passer par un rendu graphique.
+/// Checks the interface is wired end to end: entering a table, a hand, a board and some actions
+/// really does produce a recommendation from the engine, without any graphical rendering.
 /// </summary>
 public sealed class MainWindowViewModelTests : IDisposable
 {
@@ -191,8 +191,8 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// Le point délicat de la saisie continue : après « a », il ne s'est encore rien passé, mais
-    /// réécrire le champ effacerait la lettre à peine tapée.
+    /// The delicate point of continuous entry: after "a" nothing has happened yet, but rewriting
+    /// the field would wipe the letter barely typed.
     /// </summary>
     [Fact]
     public async Task AHalfTypedCardLeavesTheTextAloneAndRaisesNoError()
@@ -272,8 +272,8 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// Le critère de la phase : une main entière se saisit au clavier — les cartes au texte, les
-    /// actions aux raccourcis — sans jamais viser une case de la grille des 52 cartes.
+    /// The acceptance criterion: a whole hand can be entered from the keyboard — cards as text,
+    /// actions as shortcuts — without ever aiming at a cell of the 52-card grid.
     /// </summary>
     [Fact]
     public async Task AWholeHandIsPlayableFromTheKeyboardAlone()
@@ -301,8 +301,8 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// Le second critère : en mode compact, le recalcul reste sous la seconde. La mesure est faite
-    /// moteur chaud, sinon on chronomètre la compilation à la volée et non le calcul.
+    /// The second criterion: in compact mode, recomputation stays under a second. The measurement
+    /// is taken with the engine warm, otherwise it times the JIT rather than the calculation.
     /// </summary>
     [Fact]
     public async Task TheCompactModeAnswersInUnderASecond()
@@ -321,8 +321,8 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// La promesse de la reprise : fermer l'application au milieu d'une main et la rouvrir doit
-    /// rendre exactement la même situation, cartes, board et actions comprises.
+    /// The promise of resuming: closing the application mid-hand and reopening it must give back
+    /// exactly the same situation, cards, board and actions included.
     /// </summary>
     [Fact]
     public async Task AHandInProgressSurvivesTheApplicationBeingClosed()
@@ -343,8 +343,8 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// Une main jouée sans ante porte un montant d'ante nul : l'appliquer telle quelle à la reprise
-    /// effacerait le montant réglé, qui n'a rien à voir avec la main et resservira à la table suivante.
+    /// A hand played without antes carries a zero ante amount: applying it as-is when resuming
+    /// would wipe the configured amount, which belongs to the next table and not to the hand.
     /// </summary>
     [Fact]
     public async Task ResumingAHandPlayedWithoutAntesLeavesTheAnteSettingAlone()
@@ -435,8 +435,8 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// Ce qui distingue un journal d'un fichier de traces : l'entrée porte la main entière, donc on
-    /// peut la remettre en place et rejouer la décision autrement.
+    /// What sets a journal apart from a log file: the entry carries the whole hand, so it can be
+    /// put back in place and the decision replayed differently.
     /// </summary>
     [Fact]
     public async Task AJournalledHandCanBePutBackOnTheTable()
@@ -472,8 +472,8 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// Le bouton de langue ne change pas que les boutons : le raisonnement du moteur, qui est le
-    /// contenu même de l'écran, doit basculer avec eux — et revenir intact.
+    /// The language button does not only change the buttons: the engine's reasoning, which is the
+    /// very content of the screen, must switch with them — and come back intact.
     /// </summary>
     [Fact]
     public async Task TheLanguageButtonSwitchesTheChromeAndTheReasoningAlike()
@@ -516,7 +516,7 @@ public sealed class MainWindowViewModelTests : IDisposable
         viewModel.History.Count.ShouldBe(actions);
         viewModel.Recommendation.HasEvaluations.ShouldBeTrue();
 
-        // Le déroulé est réécrit, pas seulement conservé : ses phrases datent de la saisie.
+        // The history is rewritten, not merely kept: its sentences date from when it was entered.
         viewModel.History[0].Label.ShouldBe("UTG passe");
     }
 
@@ -534,13 +534,13 @@ public sealed class MainWindowViewModelTests : IDisposable
         after.Text.Fold.ShouldBe("Passer");
         after.Table.Text.Players.ShouldBe("Joueurs");
 
-        // Ce libellé est calculé à la construction, avant que la langue enregistrée ne soit connue.
+        // This label is computed at construction, before the saved language is known.
         after.Table.DepthLabel.ShouldContain("de profondeur");
     }
 
     /// <summary>
-    /// Le profil est enregistré sous son nom traduit : le relire dans l'autre langue ne doit pas
-    /// faire retomber l'utilisateur sur le profil par défaut.
+    /// The profile is saved under its translated name: reading it back in the other language must
+    /// not drop the user onto the default profile.
     /// </summary>
     [Fact]
     public async Task AProfileChosenInOneLanguageSurvivesTheSwitch()
@@ -559,9 +559,9 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// Postflop la grille montre la range de l'adversaire, pas la sienne : la légende doit donc
-    /// parler de combos et non d'actions. Lire « passe » sur une case grise, c'est croire qu'on
-    /// lit une décision alors qu'on lit une impossibilité.
+    /// Postflop the grid shows the opponent's range, not your own: so the legend must talk about
+    /// combos and not actions. Reading "folds" on a grey cell means believing you are reading a
+    /// decision when you are reading an impossibility.
     /// </summary>
     [Fact]
     public async Task TheLegendSaysWhatTheGridIsActuallyShowing()
@@ -577,8 +577,8 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// K♦A♥ sur K♣9♣7♥ : la case AKo est éteinte parce que la grosse blinde aurait 3-bet cette
-    /// main, pas parce que le calcul a échoué. L'écran doit le dire.
+    /// K♦A♥ on K♣9♣7♥: the AKo cell is dark because the big blind would have 3-bet that hand, not
+    /// because the calculation failed. The screen has to say so.
     /// </summary>
     [Fact]
     public async Task AHeroHandOutsideTheOpponentRangeIsExplainedNotJustGreyed()
@@ -594,8 +594,8 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// 7♥7♦ sur 8♥3♣7♠ : les six combos de 77 sont pris — deux dans ta main, un au board — donc
-    /// l'adversaire ne peut pas l'avoir. C'est une autre cause qu'une absence de range.
+    /// 7♥7♦ on 8♥3♣7♠: all six combos of 77 are taken — two in your hand, one on the board — so
+    /// the opponent cannot have it. A different cause from being absent from the range.
     /// </summary>
     [Fact]
     public async Task AHeroHandWhoseCombosAreAllBlockedSaysSo()
@@ -610,8 +610,8 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// Le corollaire : une case partiellement bloquée reste colorée. Sans cela « éteint » voudrait
-    /// dire à la fois « absent » et « entamé », et la grille ne dirait plus rien.
+    /// The corollary: a partly blocked cell stays coloured. Without that, "dark" would mean both
+    /// "absent" and "eaten into", and the grid would say nothing at all.
     /// </summary>
     [Fact]
     public async Task ACellTheBoardOnlyPartlyBlocksKeepsItsColour()
@@ -619,7 +619,7 @@ public sealed class MainWindowViewModelTests : IDisposable
         MainWindowViewModel viewModel = await BuildAsync();
         await ReachHeadsUpFlopAsync(viewModel, "7h7d", "8h3c7s");
 
-        // Le board occupe un 8 sur quatre : la moitié des six combos de 88 restent possibles.
+        // The board takes one 8 of four: half the six combos of 88 remain possible.
         viewModel.Matrix.Cells.Single(cell => cell.Label == "88").Tooltip.ShouldContain("50");
     }
 
@@ -627,14 +627,14 @@ public sealed class MainWindowViewModelTests : IDisposable
     public async Task AHeroHandInsideTheOpponentRangeNeedsNoExplanation()
     {
         MainWindowViewModel viewModel = await BuildAsync();
-        // QTo est dans la range de suivi de la grosse blinde, et rien ne bloque ses combos.
+        // QTo is in the big blind's calling range, and nothing blocks its combos.
         await ReachHeadsUpFlopAsync(viewModel, "QhTd", "Kc9c7h");
 
         viewModel.Matrix.Cells.Single(cell => cell.IsHeroHand).Label.ShouldBe("QTo");
         viewModel.Matrix.HasHeroNote.ShouldBeFalse();
     }
 
-    /// <summary>Tête-à-tête : la petite blinde ouvre, la grosse blinde suit, puis le flop tombe.</summary>
+    /// <summary>Heads-up: the small blind opens, the big blind calls, then the flop comes.</summary>
     private static async Task ReachHeadsUpFlopAsync(MainWindowViewModel viewModel, string heroCards, string board)
     {
         viewModel.Table.PlayerCount = 2;
@@ -710,9 +710,9 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
-    /// Les tests montent les vrais magasins JSON dans un dossier temporaire plutôt que des doublures :
-    /// la promesse à vérifier est qu'une main survit à la fermeture, ce qu'un faux en mémoire ne dit
-    /// pas. Repasser les mêmes options simule un relancement de l'application.
+    /// The tests wire up the real JSON stores in a temporary directory rather than fakes: the
+    /// promise to verify is that a hand survives shutdown, which an in-memory double cannot show.
+    /// Passing the same options again simulates restarting the application.
     /// </summary>
     private static async Task<MainWindowViewModel> BuildAsync(SessionStoreOptions session)
     {

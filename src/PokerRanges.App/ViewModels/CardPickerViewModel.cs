@@ -6,9 +6,9 @@ using PokerRanges.Core.Cards;
 namespace PokerRanges.App.ViewModels;
 
 /// <summary>
-/// Une grille de 52 cartes servant à composer une sélection de taille fixe. Cliquer une carte de
-/// trop remplace la plus ancienne, ce qui évite d'avoir à effacer entre deux mains. La même
-/// sélection s'écrit aussi au clavier — « askd » pour A♠ K♦ — les deux vues restant en phase.
+/// A grid of 52 cards used to build a fixed-size selection. Clicking one card too many replaces
+/// the oldest, which saves having to clear between two hands. The same selection can also be
+/// typed — "askd" for A♠ K♦ — with both views kept in step.
 /// </summary>
 public sealed partial class CardPickerViewModel : ObservableObject
 {
@@ -17,8 +17,8 @@ public sealed partial class CardPickerViewModel : ObservableObject
     private readonly Func<string> _emptyLabel;
 
     /// <summary>
-    /// Vrai pendant qu'une des deux saisies met l'autre à jour : sans ce garde-fou, réécrire le
-    /// texte à chaque frappe effacerait le rang encore orphelin que l'utilisateur vient de taper.
+    /// True while one of the two inputs is updating the other: without this guard, rewriting the
+    /// text on every keystroke would wipe the orphan rank the user has just typed.
     /// </summary>
     private bool _isSyncing;
 
@@ -64,13 +64,13 @@ public sealed partial class CardPickerViewModel : ObservableObject
 
     public bool HasEntryError => EntryError is not null;
 
-    /// <summary>Réécrit le libellé après un changement de langue.</summary>
+    /// <summary>Rewrites the label after a language change.</summary>
     public void RefreshLabel()
     {
         Publish();
     }
 
-    /// <summary>Grise les cartes déjà utilisées ailleurs, et retire celles qui le deviennent.</summary>
+    /// <summary>Greys out cards already used elsewhere, and drops those that become so.</summary>
     public void SetUnavailable(IReadOnlyCollection<Card> unavailable)
     {
         bool changed = false;
@@ -120,9 +120,9 @@ public sealed partial class CardPickerViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Impose une sélection venue d'ailleurs : reprise d'une main interrompue, rechargement depuis
-    /// le journal. Contrairement à la saisie clavier, la disponibilité n'est pas contrôlée — l'état
-    /// rechargé fait foi, et c'est à l'appelant de vider les deux sélecteurs avant de les remplir.
+    /// Forces in a selection from elsewhere: resuming an interrupted hand, reloading from the
+    /// journal. Unlike keyboard entry, availability is not checked — the reloaded state is
+    /// authoritative, and it is up to the caller to clear both pickers before filling them.
     /// </summary>
     public void Restore(IReadOnlyList<Card> cards)
     {
@@ -169,8 +169,8 @@ public sealed partial class CardPickerViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Relit la saisie clavier. Un rang sans sa couleur n'est pas une faute : c'est une frappe en
-    /// cours, et les cartes déjà complètes sont appliquées sans attendre la suite.
+    /// Re-reads the keyboard entry. A rank without its suit is not a mistake: it is a keystroke in
+    /// progress, and the cards already complete are applied without waiting for the rest.
     /// </summary>
     private void ReadText(string value)
     {
@@ -220,8 +220,8 @@ public sealed partial class CardPickerViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Le libellé est posé avant la sélection : publier la sélection réveille les abonnés, et ceux
-    /// qui lisent le libellé au passage doivent y trouver la carte qui vient d'être ajoutée.
+    /// The label is set before the selection: publishing the selection wakes the subscribers, and
+    /// those reading the label on the way must find the card that has just been added.
     /// </summary>
     private void Publish()
     {

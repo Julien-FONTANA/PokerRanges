@@ -1,24 +1,24 @@
 namespace PokerRanges.Core.Postflop;
 
 /// <summary>
-/// Une action envisagée et son espérance de gain, en jetons, comptée à partir de maintenant :
-/// passer vaut zéro, ce qui est déjà dans le pot est perdu de toute façon.
+/// A candidate action and its expected value, in chips, counted from now on: folding is worth
+/// zero, and whatever is already in the pot is gone either way.
 /// </summary>
 public sealed record ActionEvaluation
 {
     public required PostflopActionKind Kind { get; init; }
 
-    /// <summary>Jetons supplémentaires engagés par cette action.</summary>
+    /// <summary>Extra chips committed by this action.</summary>
     public required double Amount { get; init; }
 
     public required double ExpectedValue { get; init; }
 
-    /// <summary>Équité du héros contre la range qui continue face à cette action.</summary>
+    /// <summary>Hero's equity against the range that continues against this action.</summary>
     public required double Equity { get; init; }
 
     /// <summary>
-    /// Erreur-type sur <see cref="Equity"/>. Zéro quand aucun tirage n'a été nécessaire — passer
-    /// vaut zéro sans le moindre calcul.
+    /// Standard error on <see cref="Equity"/>. Zero when no sampling was needed — folding is worth
+    /// zero without any calculation at all.
     /// </summary>
     public double EquityStandardError { get; init; }
 

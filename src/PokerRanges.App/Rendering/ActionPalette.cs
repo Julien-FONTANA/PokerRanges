@@ -37,10 +37,10 @@ public static class ActionPalette
     }
 
     /// <summary>
-    /// La teinte d'une case de range attribuée : l'intensité dit quelle part de la case reste
-    /// possible chez l'adversaire. Une case vide reprend le gris du fold — d'où l'importance que la
-    /// légende dise « absente de sa range » et non « passe », sans quoi le lecteur croit lire une
-    /// action alors qu'il lit une absence.
+    /// The shade of an assigned-range cell: the intensity says what share of the cell is still
+    /// possible for the opponent. An empty cell reuses the fold grey — hence the importance of the
+    /// legend saying "not in their range" and not "folds", without which the reader thinks they
+    /// are reading an action when they are reading an absence.
     /// </summary>
     public static IBrush RangeWeightBrush(double frequency)
     {
@@ -54,7 +54,7 @@ public static class ActionPalette
         return new SolidColorBrush(Color.FromArgb(alpha, RangeColour.R, RangeColour.G, RangeColour.B));
     }
 
-    /// <summary>Ordre d'affichage : les actions les plus agressives à gauche, le fold à droite.</summary>
+    /// <summary>Display order: the most aggressive actions on the left, folding on the right.</summary>
     public static int SortOrderOf(ChartActionKind kind)
     {
         return kind switch

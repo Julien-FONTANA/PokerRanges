@@ -4,8 +4,8 @@ using Avalonia.Input;
 namespace PokerRanges.App.Views;
 
 /// <summary>
-/// La disposition réduite : la saisie et la recommandation, rien d'autre. Entrée fait passer d'un
-/// champ à l'autre pour qu'une main entière se tape sans lâcher le clavier.
+/// The reduced layout: the entry fields and the recommendation, nothing else. Enter moves from one
+/// field to the next so a whole hand can be typed without leaving the keyboard.
 /// </summary>
 public sealed partial class CompactPanel : UserControl
 {
@@ -17,7 +17,7 @@ public sealed partial class CompactPanel : UserControl
         BoardEntry.KeyDown += OnEntryKeyDown;
     }
 
-    /// <summary>Rend la main au champ de saisie, appelé à l'entrée en mode compact.</summary>
+    /// <summary>Hands focus back to the entry field, called when compact mode opens.</summary>
     public void FocusEntry()
     {
         GiveFocusTo(HeroEntry);
@@ -35,8 +35,8 @@ public sealed partial class CompactPanel : UserControl
     }
 
     /// <summary>
-    /// Curseur en fin de texte plutôt que sélection complète : basculer en compact au milieu d'une
-    /// main ne doit pas mettre la main déjà saisie à un caractère de l'effacement.
+    /// Caret at the end of the text rather than a full selection: switching to compact mid-hand
+    /// must not leave the hand already typed one keystroke away from being wiped.
     /// </summary>
     private static void GiveFocusTo(TextBox entry)
     {

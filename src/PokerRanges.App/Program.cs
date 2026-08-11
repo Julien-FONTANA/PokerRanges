@@ -8,8 +8,8 @@ internal static class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        // L'anglais avant tout le reste : sans cela l'application démarrerait dans la langue du
-        // système, et le premier écran serait déjà écrit avant que les réglages ne soient relus.
+        // English before anything else: without this the application would start in the system
+        // language, and the first screen would be drawn before the settings are read back.
         Language.Use(AppLanguage.English);
 
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);

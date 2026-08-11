@@ -6,7 +6,7 @@ namespace PokerRanges.Core.Postflop;
 public interface IRangeStrengthRanker
 {
     /// <summary>
-    /// Classe les combos d'une range de la plus forte à la plus faible sur ce board précis.
+    /// Ranks a range's combos from strongest to weakest on this particular board.
     /// </summary>
     IReadOnlyList<RankedCombo> Rank(
         HandRange range,

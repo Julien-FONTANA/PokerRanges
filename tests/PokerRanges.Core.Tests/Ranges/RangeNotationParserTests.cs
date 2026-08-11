@@ -49,9 +49,9 @@ public sealed class RangeNotationParserTests
     }
 
     /// <summary>
-    /// Le « + » fait monter le kicker en gardant la carte haute, comme PokerStove, Equilab et GTO+ :
-    /// « QJs+ » ne vaut que QJs. Pour la lecture « connecteurs assortis à partir de QJs », la
-    /// notation à borner est la bonne : « AKs-QJs ».
+    /// The "+" walks the kicker up while keeping the high card, as in PokerStove, Equilab and
+    /// GTO+: "QJs+" means QJs only. For "suited connectors from QJs upwards", the bounded
+    /// notation is the right one: "AKs-QJs".
     /// </summary>
     [Fact]
     public void TheOpenEndedFormMovesTheKickerAndNotBothCards()

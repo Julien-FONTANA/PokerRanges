@@ -47,7 +47,7 @@ public sealed partial class RecommendationViewModel : ObservableObject
 
     public bool HasEvaluations => Evaluations.Count > 0;
 
-    /// <summary>Le haut du tableau d'espérance, seul à tenir dans la fenêtre compacte.</summary>
+    /// <summary>The top of the expectation table, all that fits in the compact window.</summary>
     public IReadOnlyList<ActionEvaluationViewModel> TopEvaluations => [.. Evaluations.Take(4)];
 
     public bool HasOptions => Options.Count > 0;

@@ -14,8 +14,8 @@
         Topmost="{Binding IsCompact}"
         Background="#141414">
 
-  <!-- Les raccourcis sont tous sur Alt ou Ctrl : les lettres nues appartiennent à la saisie des
-       cartes, où « c », « d », « h » et « s » sont des couleurs et non des actions. -->
+  <!-- The shortcuts all sit on Alt or Ctrl: bare letters belong to card entry, where "c", "d",
+       "h" and "s" are suits and not actions. -->
   <Window.KeyBindings>
     <KeyBinding Gesture="Alt+P" Command="{Binding FoldCommand}" />
     <KeyBinding Gesture="Alt+C" Command="{Binding CheckCommand}" />

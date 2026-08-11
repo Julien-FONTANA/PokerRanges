@@ -10,6 +10,6 @@ public sealed class StoredAction
 
     public PlayerActionKind Kind { get; set; }
 
-    /// <summary>Total engagé sur la street après l'action, comme dans <see cref="PlayerAction"/>.</summary>
+    /// <summary>Total committed on the street after the action, as in <see cref="PlayerAction"/>.</summary>
     public double AmountTo { get; set; }
 }

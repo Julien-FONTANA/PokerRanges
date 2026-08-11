@@ -7,9 +7,8 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.App.ViewModels;
 
 /// <summary>
-/// Les réglages de la table. Les montants sont en <see cref="decimal"/> parce que c'est le type
-/// qu'attendent les champs numériques d'Avalonia ; ils sont convertis en <see cref="double"/> à la
-/// frontière du moteur.
+/// The table settings. Amounts are <see cref="decimal"/> because that is the type Avalonia's
+/// numeric fields expect; they are converted to <see cref="double"/> at the engine's boundary.
 /// </summary>
 public sealed partial class TableSettingsViewModel : ObservableObject
 {
@@ -51,8 +50,8 @@ public sealed partial class TableSettingsViewModel : ObservableObject
     public bool IsAnteEnabled => AnteStyle.Value != Core.Table.AnteStyle.None;
 
     /// <summary>
-    /// Recharge les réglages. L'ordre compte : changer le nombre de joueurs redistribue les sièges
-    /// disponibles, donc la position du héros ne peut être posée qu'après.
+    /// Reloads the settings. Order matters: changing the player count redistributes the available
+    /// seats, so the hero's position can only be set afterwards.
     /// </summary>
     public void Apply(UserPreferences preferences)
     {
@@ -67,7 +66,7 @@ public sealed partial class TableSettingsViewModel : ObservableObject
                        ?? AvailablePositions[^1];
     }
 
-    /// <summary>Les réglages de table tels qu'ils sont affichés ; le reste est rempli par l'appelant.</summary>
+    /// <summary>The table settings as displayed; the rest is filled in by the caller.</summary>
     public UserPreferences Capture()
     {
         return new UserPreferences
@@ -82,9 +81,9 @@ public sealed partial class TableSettingsViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Reconstruit le seul libellé calculé ici. Surtout, ne signale aucune autre propriété : la
-    /// fenêtre principale lit un changement de réglage comme le début d'une nouvelle main, et
-    /// traduire l'écran effacerait la main en cours.
+    /// Rebuilds the only computed label here. Above all, it notifies no other property: the main
+    /// window reads a settings change as the start of a new hand, and translating the screen would
+    /// wipe the hand in progress.
     /// </summary>
     public void Refresh()
     {

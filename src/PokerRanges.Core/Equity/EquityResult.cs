@@ -9,6 +9,6 @@ public sealed record EquityResult(
 {
     public PlayerEquity Hero => Players[0];
 
-    /// <summary>Demi-largeur de l'intervalle de confiance à 95 % sur l'équité du héros.</summary>
+    /// <summary>Half-width of the 95% confidence interval on the hero's equity.</summary>
     public double HeroConfidenceMargin => 1.96 * HeroStandardError;
 }

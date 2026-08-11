@@ -5,9 +5,9 @@ using Shouldly;
 namespace PokerRanges.Data.Tests;
 
 /// <summary>
-/// Les charts livrés sont recopiés dans un dossier éditable, et l'utilisateur peut les modifier.
-/// Ce qui rend cette édition acceptable, c'est de pouvoir revenir en arrière : sans restauration,
-/// une range cassée resterait cassée jusqu'à la réinstallation.
+/// The shipped charts are copied into an editable directory, and the user can modify them. What
+/// makes that editing acceptable is being able to go back: without restore, a broken range would
+/// stay broken until reinstallation.
 /// </summary>
 public sealed class EditableChartsTests : IDisposable
 {
@@ -42,8 +42,8 @@ public sealed class EditableChartsTests : IDisposable
     }
 
     /// <summary>
-    /// Le dossier éditable est le point de vérité de l'utilisateur : un chart qu'il a modifié ne
-    /// doit pas être écrasé au lancement suivant, sinon ses réglages disparaîtraient en silence.
+    /// The editable directory is the user's source of truth: a chart they have modified must not
+    /// be overwritten on the next launch, or their settings would vanish silently.
     /// </summary>
     [Fact]
     public void AnEditedChartIsNotOverwrittenAtTheNextStart()
@@ -111,8 +111,8 @@ public sealed class EditableChartsTests : IDisposable
     }
 
     /// <summary>
-    /// Réduit chaque range du fichier à « AA » : une édition minuscule à écrire, mais dont l'effet
-    /// sur le nombre de combos est impossible à confondre avec du bruit.
+    /// Cuts every range in the file down to "AA": a tiny edit to write, but one whose effect on
+    /// the combo count cannot be mistaken for noise.
     /// </summary>
     private static string ReplaceEveryRangeWithAcesOnly(string json)
     {

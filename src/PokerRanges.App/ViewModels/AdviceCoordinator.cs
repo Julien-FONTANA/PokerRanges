@@ -10,9 +10,9 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.App.ViewModels;
 
 /// <summary>
-/// Traduit un état de main en grille et en recommandation. Tout ce qui coûte part hors du fil
-/// d'affichage, avec anti-rebond et annulation de la requête précédente : à la saisie, chaque carte
-/// tapée déclencherait sinon un Monte-Carlo dont personne n'attend le résultat.
+/// Turns a hand state into a grid and a recommendation. Everything expensive runs off the UI
+/// thread, debounced and cancelling the previous request: otherwise every card typed would kick
+/// off a Monte-Carlo run whose result nobody is waiting for.
 /// </summary>
 public sealed class AdviceCoordinator
 {
@@ -36,7 +36,7 @@ public sealed class AdviceCoordinator
 
     public RecommendationViewModel Recommendation { get; } = new();
 
-    /// <summary>Il n'y a rien à conseiller : la saisie est incomplète ou incohérente.</summary>
+    /// <summary>There is nothing to advise: the entry is incomplete or inconsistent.</summary>
     public void ShowProblem(string message)
     {
         _pending?.Cancel();
@@ -67,7 +67,7 @@ public sealed class AdviceCoordinator
         }
         catch (OperationCanceledException)
         {
-            // Une saisie plus récente a pris la main.
+            // A more recent entry has taken over.
         }
         catch (PokerRangesException exception)
         {

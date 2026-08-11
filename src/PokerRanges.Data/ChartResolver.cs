@@ -5,9 +5,9 @@ using PokerRanges.Core.Preflop;
 namespace PokerRanges.Data;
 
 /// <summary>
-/// Choisit le chart le plus proche de la situation demandée et retient chaque écart consenti.
-/// La résolution ne mélange jamais deux charts : elle en désigne un et dit lequel, pour qu'un
-/// conseil reste toujours remontable jusqu'à la donnée qui l'a produit.
+/// Picks the chart closest to the requested situation and records every compromise made along the
+/// way. Resolution never blends two charts: it names one and says which, so that a piece of
+/// advice can always be traced back to the data that produced it.
 /// </summary>
 internal static class ChartResolver
 {

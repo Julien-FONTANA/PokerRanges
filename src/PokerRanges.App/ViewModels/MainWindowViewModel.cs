@@ -14,18 +14,18 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.App.ViewModels;
 
 /// <summary>
-/// Pilote la main en cours. Plutôt qu'un éditeur d'actions générique, l'application désigne qui
-/// doit parler et ne propose que les actions légales de ce joueur : c'est ainsi qu'on saisit une
-/// main au rythme où elle se déroule. Le calcul du conseil est délégué à
-/// <see cref="AdviceCoordinator"/> ; ce qui reste ici, c'est l'état de la main et son enregistrement.
+/// Drives the hand in progress. Rather than a generic action editor, the application names who has
+/// to act and offers only that player's legal actions: that is how a hand gets entered at the pace
+/// it is played. Computing the advice is delegated to <see cref="AdviceCoordinator"/>; what stays
+/// here is the state of the hand and saving it.
 /// </summary>
 public sealed partial class MainWindowViewModel : ObservableObject
 {
     private const int DebounceMilliseconds = 150;
 
     /// <summary>
-    /// L'enregistrement est bien plus paresseux que le conseil : personne n'a besoin que le fichier
-    /// de reprise suive la frappe au clavier, et l'arrêt de l'application écrit de toute façon.
+    /// Saving is far lazier than advising: nobody needs the resume file to keep up with typing,
+    /// and shutting the application down writes anyway.
     /// </summary>
     private const int PersistDebounceMilliseconds = 1500;
 
@@ -41,9 +41,9 @@ public sealed partial class MainWindowViewModel : ObservableObject
     private string? _stateProblem;
 
     /// <summary>
-    /// Vrai pendant qu'on remet une main en place. Recharger déclenche les mêmes notifications
-    /// qu'une saisie ; sans ce garde-fou l'état à moitié restauré s'écrirait par-dessus le fichier
-    /// dont il sort.
+    /// True while a hand is being put back in place. Reloading fires the same notifications as
+    /// typing; without this guard the half-restored state would write itself over the very file
+    /// it came from.
     /// </summary>
     private bool _isRestoring;
 
@@ -138,16 +138,16 @@ public sealed partial class MainWindowViewModel : ObservableObject
     public IReadOnlyList<OpponentProfileChoice> Profiles => OpponentProfileChoice.All;
 
     /// <summary>
-    /// À la table, une réponse en une seconde vaut mieux qu'une réponse exacte en cinq : le mode
-    /// compact réduit le budget de tirages, et l'avis affiche alors la précision qu'il a atteinte.
+    /// At the table, an answer in one second beats an exact answer in five: compact mode cuts the
+    /// sampling budget, and the advice then states the precision it reached.
     /// </summary>
     public PostflopBudget Budget => IsCompact ? PostflopBudget.Fast : PostflopBudget.Full;
 
     public string ShortcutsLabel => UiText.Current.Shortcuts;
 
     /// <summary>
-    /// Bascule entre les deux langues. Tout l'affichage se relit — jusqu'aux phrases du moteur, qui
-    /// sont reconstruites par le recalcul — sans qu'il faille redémarrer ni perdre la main en cours.
+    /// Switches between the two languages. The whole display is re-read — down to the engine's
+    /// sentences, rebuilt by the recomputation — with no restart and without losing the hand.
     /// </summary>
     [RelayCommand]
     public void ToggleLanguage()
@@ -211,8 +211,8 @@ public sealed partial class MainWindowViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Commencer une main archive la précédente : c'est le seul moment où l'application sait avec
-    /// certitude qu'une main est finie, puisque rien ne l'informe du résultat au tapis.
+    /// Starting a hand archives the previous one: it is the only moment the application knows for
+    /// certain that a hand is over, since nothing tells it the result at showdown.
     /// </summary>
     [RelayCommand]
     public void NewHand()
@@ -227,8 +227,8 @@ public sealed partial class MainWindowViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Recalcule sans attendre l'anti-rebond, en annulant la requête en cours. Utilisé par les
-    /// tests et par tout déclenchement explicite.
+    /// Recomputes without waiting for the debounce, cancelling the request in flight. Used by the
+    /// tests and by any explicit trigger.
     /// </summary>
     public async Task RefreshNowAsync()
     {
@@ -236,7 +236,7 @@ public sealed partial class MainWindowViewModel : ObservableObject
         await RunAdviceAsync(0);
     }
 
-    /// <summary>Écrit sans attendre l'anti-rebond. Appelé à la fermeture de l'application.</summary>
+    /// <summary>Writes without waiting for the debounce. Called when the application closes.</summary>
     public void PersistNow()
     {
         _persistPending?.Cancel();
@@ -311,8 +311,8 @@ public sealed partial class MainWindowViewModel : ObservableObject
     }
 
     /// <summary>
-    /// L'état des enchères est recalculé immédiatement — sinon deux clics rapprochés
-    /// enregistreraient l'action du mauvais joueur — et seul le conseil part en différé.
+    /// The betting state is recomputed immediately — otherwise two quick clicks would record the
+    /// action against the wrong player — and only the advice is deferred.
     /// </summary>
     private void ScheduleRefresh()
     {
@@ -374,8 +374,8 @@ public sealed partial class MainWindowViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Les libellés déjà calculés ne se retraduisent pas tout seuls : ils sont reconstruits ici,
-    /// tandis que les libellés fixes du XAML suivent la notification de <see cref="UiText"/>.
+    /// Labels already computed do not re-translate themselves: they are rebuilt here, while the
+    /// fixed XAML labels follow <see cref="UiText"/>'s notification.
     /// </summary>
     private void RefreshLabels()
     {
@@ -391,8 +391,8 @@ public sealed partial class MainWindowViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Le déroulé est fait de phrases écrites au moment de l'action : elles ne se retraduisent pas,
-    /// il faut les réécrire à partir des actions, qui sont la seule chose que l'on ait conservée.
+    /// The history is made of sentences written at the moment of the action: they do not
+    /// re-translate, they must be rewritten from the actions, the only thing that was kept.
     /// </summary>
     private void RebuildHistory()
     {
@@ -407,8 +407,8 @@ public sealed partial class MainWindowViewModel : ObservableObject
     }
 
     /// <summary>
-    /// La ligne de contexte du mode compact. Réduit à la recommandation, l'affichage ne montre
-    /// plus les réglages : il doit au moins rappeler sur quelle table il raisonne.
+    /// The context line of compact mode. Cut down to the recommendation, the display no longer
+    /// shows the settings: it must at least recall which table it is reasoning about.
     /// </summary>
     private void RefreshHandSummary()
     {
@@ -488,8 +488,8 @@ public sealed partial class MainWindowViewModel : ObservableObject
         {
             UserPreferences preferences = _sessionStore.LoadPreferences();
 
-            // La langue d'abord : tout ce qui suit produit du texte, et le produirait dans la
-            // mauvaise langue si l'ordre était inversé.
+            // Language first: everything that follows produces text, and would produce it in the
+            // wrong language if the order were reversed.
             Language.Use(preferences.Language);
 
             Table.Apply(preferences);
@@ -502,8 +502,8 @@ public sealed partial class MainWindowViewModel : ObservableObject
                 _logger.LogInformation("Main en cours reprise : {Count} action(s).", hand.Actions.Count);
             }
 
-            // Les libellés calculés à la construction l'ont été avant que la langue enregistrée ne
-            // soit connue : sans cette relecture, un réglage inchangé garderait sa phrase anglaise.
+            // Labels computed at construction were computed before the saved language was known:
+            // without this re-read, an unchanged setting would keep its English wording.
             RefreshLabels();
         }
         finally
@@ -531,8 +531,8 @@ public sealed partial class MainWindowViewModel : ObservableObject
     }
 
     /// <summary>
-    /// Remet une main entière en place. Les deux sélecteurs sont vidés avant d'être remplis :
-    /// autrement une carte du board resterait retenue par la main précédente et se verrait refusée.
+    /// Puts a whole hand back in place. Both pickers are cleared before being filled: otherwise a
+    /// board card would still be held by the previous hand and would be refused.
     /// </summary>
     private void Load(HandState hand)
     {
@@ -554,10 +554,10 @@ public sealed partial class MainWindowViewModel : ObservableObject
     }
 
     /// <summary>
-    /// L'interface ne sait régler qu'un tapis uniforme : reprendre une main n'en perd donc rien,
-    /// puisqu'elle n'a jamais pu en produire d'inégaux. Le montant d'ante, lui, est repris de
-    /// l'affichage quand la main s'est jouée sans ante : une main sans ante porte un montant nul,
-    /// et l'appliquer effacerait le réglage que l'utilisateur retrouvera à la prochaine table.
+    /// The interface can only set a uniform stack, so resuming a hand loses nothing: it could
+    /// never have produced uneven ones. The ante amount, though, is taken from the display when
+    /// the hand was played without antes: an ante-free hand carries a zero amount, and applying
+    /// it would wipe the setting the user will want back at the next table.
     /// </summary>
     private static UserPreferences ToPreferences(TableConfiguration table, double anteWhenDisabled)
     {
@@ -605,7 +605,7 @@ public sealed partial class MainWindowViewModel : ObservableObject
         }
         catch (OperationCanceledException)
         {
-            // Une saisie plus récente écrira à sa place.
+            // A more recent entry will write in its place.
         }
     }
 

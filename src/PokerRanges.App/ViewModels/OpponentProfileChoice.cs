@@ -5,8 +5,8 @@ using PokerRanges.Core.Postflop;
 namespace PokerRanges.App.ViewModels;
 
 /// <summary>
-/// Une entrée de la liste des profils adverses. Comme pour les antes, l'identité de l'entrée porte
-/// la sélection et son libellé suit la langue.
+/// One entry in the opponent profile list. As with the antes, the entry's identity carries the
+/// selection and its label follows the language.
 /// </summary>
 public sealed class OpponentProfileChoice : ObservableObject
 {

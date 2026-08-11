@@ -3,8 +3,8 @@ namespace PokerRanges.Core.Preflop;
 public sealed record PreflopAdvisorOptions
 {
     /// <summary>
-    /// En dessous de cette profondeur on bascule sur les charts de tapis : relancer petit n'a plus
-    /// de sens quand la relance engage déjà l'essentiel du tapis.
+    /// Below this depth we switch to the shove charts: raising small stops making sense once the
+    /// raise already commits most of the stack.
     /// </summary>
     public double JamThresholdInBigBlinds { get; init; } = 15;
 

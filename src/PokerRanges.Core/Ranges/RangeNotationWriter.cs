@@ -5,9 +5,9 @@ using PokerRanges.Core.Cards;
 namespace PokerRanges.Core.Ranges;
 
 /// <summary>
-/// Réécrit une range dans la notation standard, en regroupant les suites de mains
-/// (« 77+ », « A5s-A2s »). Les cases dont les combos n'ont pas tous le même poids sont
-/// listées combo par combo, faute de notation compacte capable de les décrire.
+/// Writes a range back in standard notation, grouping runs of hands ("77+", "A5s-A2s"). Cells
+/// whose combos do not all share the same weight are listed combo by combo, for want of a compact
+/// notation able to describe them.
 /// </summary>
 public static class RangeNotationWriter
 {

@@ -4,8 +4,8 @@ using Shouldly;
 namespace PokerRanges.Core.Tests.Cards;
 
 /// <summary>
-/// La lecture est rappelée à chaque frappe : elle doit donc distinguer une saisie en cours d'une
-/// saisie fautive, sinon taper « a » avant « s » afficherait une erreur à chaque carte.
+/// Reading is called again on every keystroke: it must therefore tell an entry in progress from a
+/// faulty one, otherwise typing "a" before "s" would show an error on every card.
 /// </summary>
 public sealed class CardSequenceTests
 {

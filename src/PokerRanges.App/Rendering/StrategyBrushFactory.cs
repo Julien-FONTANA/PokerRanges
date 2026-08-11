@@ -5,9 +5,9 @@ using PokerRanges.Core.Preflop;
 namespace PokerRanges.App.Rendering;
 
 /// <summary>
-/// Peint une case de la grille en bandes horizontales proportionnelles aux fréquences du chart.
-/// Un dégradé à paliers francs donne exactement ce découpage avec une seule brosse, sans avoir à
-/// empiler des rectangles dans la mise en page.
+/// Paints a grid cell as horizontal bands proportional to the chart's frequencies. A gradient with
+/// hard stops gives exactly that split with a single brush, without having to stack rectangles in
+/// the layout.
 /// </summary>
 public static class StrategyBrushFactory
 {

@@ -3,8 +3,8 @@ namespace PokerRanges.Data;
 public sealed record PreflopChartRepositoryOptions
 {
     /// <summary>
-    /// Dossier de charts éditables par l'utilisateur. Un chart qui y porte la même clé qu'un chart
-    /// embarqué le remplace ; laisser vide pour n'utiliser que les charts livrés.
+    /// Directory of charts the user can edit. A chart in there carrying the same key as an embedded
+    /// one replaces it; leave empty to use only the shipped charts.
     /// </summary>
     public string? UserChartsDirectory { get; init; }
 

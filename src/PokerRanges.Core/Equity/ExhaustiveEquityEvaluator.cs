@@ -4,8 +4,8 @@ using PokerRanges.Core.Evaluation;
 namespace PokerRanges.Core.Equity;
 
 /// <summary>
-/// Parcourt toutes les attributions de combos compatibles et tous les tirages de board restants.
-/// Résultat exact, sans erreur d'échantillonnage — réservé aux situations dont le volume est tenable.
+/// Walks every compatible combo assignment and every remaining board runout. An exact result, with
+/// no sampling error — reserved for situations whose volume stays manageable.
 /// </summary>
 internal sealed class ExhaustiveEquityEvaluator
 {

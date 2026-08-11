@@ -1,8 +1,8 @@
 namespace PokerRanges.Core.Postflop;
 
 /// <summary>
-/// Une équité mesurée et ce qu'elle vaut. La mesure et son incertitude voyagent ensemble : les
-/// séparer, c'est perdre la seconde en chemin et présenter une estimation comme un fait.
+/// A measured equity and what it is worth. The measurement and its uncertainty travel together:
+/// separating them loses the second along the way and presents an estimate as a fact.
 /// </summary>
 public sealed record EquityMeasurement(double Equity, double StandardError)
 {

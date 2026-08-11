@@ -3,9 +3,9 @@ using PokerRanges.Core.Table;
 namespace PokerRanges.Core.Session;
 
 /// <summary>
-/// Retient d'un lancement à l'autre les réglages et la main en cours. Les lectures ne lèvent
-/// jamais : un fichier illisible vaut « rien de sauvegardé », parce qu'un assistant qui refuse de
-/// démarrer à cause de son propre fichier de reprise est pire qu'un assistant qui a tout oublié.
+/// Remembers the settings and the hand in progress from one run to the next. Reads never throw:
+/// an unreadable file counts as "nothing saved", because an assistant that refuses to start
+/// because of its own resume file is worse than one that has forgotten everything.
 /// </summary>
 public interface ISessionStore
 {
@@ -13,9 +13,9 @@ public interface ISessionStore
 
     void SavePreferences(UserPreferences preferences);
 
-    /// <summary>La main interrompue au dernier arrêt, ou null s'il n'y en a pas.</summary>
+    /// <summary>The hand interrupted at the last shutdown, or null if there is none.</summary>
     HandState? LoadHand();
 
-    /// <summary>Passer null efface la reprise : la main est finie, il n'y a plus rien à reprendre.</summary>
+    /// <summary>Passing null clears the resume file: the hand is over, nothing left to resume.</summary>
     void SaveHand(HandState? hand);
 }

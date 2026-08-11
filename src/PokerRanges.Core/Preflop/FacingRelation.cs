@@ -1,8 +1,8 @@
 namespace PokerRanges.Core.Preflop;
 
 /// <summary>
-/// La place du héros par rapport à l'agresseur. Les blindes sont distinguées de la simple
-/// position parce que leur mise déjà engagée change complètement les cotes de défense.
+/// Where the hero sits relative to the aggressor. The blinds are kept distinct from plain
+/// position because the money they have already posted changes the defence odds entirely.
 /// </summary>
 public enum FacingRelation
 {

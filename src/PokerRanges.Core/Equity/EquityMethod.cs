@@ -2,7 +2,7 @@ namespace PokerRanges.Core.Equity;
 
 public enum EquityMethod
 {
-    /// <summary>Énumération exhaustive si le volume le permet, Monte-Carlo sinon.</summary>
+    /// <summary>Exhaustive enumeration when the volume allows it, Monte-Carlo otherwise.</summary>
     Automatic,
     Exhaustive,
     MonteCarlo,

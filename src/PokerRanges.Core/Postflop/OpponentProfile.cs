@@ -4,12 +4,12 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Postflop;
 
 /// <summary>
-/// Comment l'adversaire réagit à une mise. <see cref="DefenceFactor"/> multiplie la fréquence de
-/// défense minimale : 1 signifie qu'il défend exactement ce qu'il faut pour ne pas être exploité,
-/// en dessous il se couche trop, au dessus il paie trop.
+/// How an opponent reacts to a bet. <see cref="DefenceFactor"/> multiplies the minimum defence
+/// frequency: 1 means they defend exactly enough not to be exploitable, below it they fold too
+/// much, above it they call too much.
 /// <para>
-/// Le nom se lit à travers <see cref="Name"/> et suit donc la langue courante ; l'identité d'un
-/// profil tient à sa référence, jamais à son libellé, sous peine de la perdre à la traduction.
+/// The name is read through <see cref="Name"/> and therefore follows the current language; a
+/// profile's identity is its reference, never its label, which would be lost in translation.
 /// </para>
 /// </summary>
 public sealed record OpponentProfile
@@ -56,8 +56,8 @@ public sealed record OpponentProfile
         [Balanced, Tight, CallingStation, Aggressive];
 
     /// <summary>
-    /// Retrouve un profil par son nom dans n'importe quelle langue : les réglages enregistrés en
-    /// français doivent continuer d'ouvrir sur le bon profil une fois l'interface passée en anglais.
+    /// Finds a profile by name in either language: settings saved in French must still open on the
+    /// right profile once the interface has been switched to English.
     /// </summary>
     public static OpponentProfile? Find(string name)
     {

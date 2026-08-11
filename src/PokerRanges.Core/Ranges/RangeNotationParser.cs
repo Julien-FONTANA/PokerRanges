@@ -5,10 +5,10 @@ using PokerRanges.Core.Cards;
 namespace PokerRanges.Core.Ranges;
 
 /// <summary>
-/// Lit la notation de range standard des outils de poker : « 77+, ATs+, KQo, A5s-A2s, AsKh:0.5 ».
-/// C'est le format dans lequel les charts JSON sont rédigés et relus.
-/// Le « + » fait monter le kicker en gardant la carte haute (« QJs+ » ne vaut que QJs), comme
-/// PokerStove, Equilab et GTO+ ; les suites de connecteurs s'écrivent en bornant (« AKs-QJs »).
+/// Reads the range notation standard to poker tools: "77+, ATs+, KQo, A5s-A2s, AsKh:0.5".
+/// This is the format the JSON charts are written and read back in.
+/// The "+" walks the kicker up while keeping the high card ("QJs+" means QJs only), as in
+/// PokerStove, Equilab and GTO+; runs of connectors are written as bounded ranges ("AKs-QJs").
 /// </summary>
 public static class RangeNotationParser
 {

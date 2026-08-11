@@ -2,27 +2,27 @@ namespace PokerRanges.Core.Preflop;
 
 public enum PreflopContext
 {
-    /// <summary>Personne n'a ouvert : le héros ouvre ou passe.</summary>
+    /// <summary>Nobody has opened: the hero opens or folds.</summary>
     RaiseFirstIn,
 
-    /// <summary>Un ou plusieurs joueurs ont suivi la grosse blinde sans relancer.</summary>
+    /// <summary>One or more players called the big blind without raising.</summary>
     VersusLimp,
 
-    /// <summary>Un joueur a ouvert, personne n'a suivi.</summary>
+    /// <summary>One player opened, nobody called.</summary>
     VersusOpen,
 
-    /// <summary>Un joueur a ouvert et au moins un autre a suivi.</summary>
+    /// <summary>One player opened and at least one other called.</summary>
     Squeeze,
 
-    /// <summary>Le héros a ouvert et se fait relancer.</summary>
+    /// <summary>The hero opened and is being raised.</summary>
     VersusThreeBet,
 
-    /// <summary>Le héros a relancé une ouverture et se fait re-relancer.</summary>
+    /// <summary>The hero re-raised an open and is being raised again.</summary>
     VersusFourBet,
 
-    /// <summary>Tapis court : le héros part à tapis ou passe.</summary>
+    /// <summary>Short stack: the hero shoves or folds.</summary>
     Jam,
 
-    /// <summary>Tapis court : le héros doit décider de payer un tapis adverse.</summary>
+    /// <summary>Short stack: the hero must decide whether to call an opponent's shove.</summary>
     CallJam,
 }

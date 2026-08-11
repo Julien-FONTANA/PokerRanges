@@ -4,8 +4,8 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Evaluation;
 
 /// <summary>
-/// Force absolue d'une main abattue. <see cref="Strength"/> encode la catégorie puis jusqu'à cinq
-/// rangs départageurs en base 15, ce qui rend deux mains comparables par un simple entier.
+/// The absolute strength of a hand at showdown. <see cref="Strength"/> encodes the category then
+/// up to five tiebreaker ranks in base 15, making two hands comparable as a single integer.
 /// </summary>
 public readonly record struct HandValue : IComparable<HandValue>
 {

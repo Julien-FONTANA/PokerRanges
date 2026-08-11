@@ -3,8 +3,8 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Preflop;
 
 /// <summary>
-/// Une action d'un chart et la range qui la joue, en notation standard. Les poids partiels
-/// (« AKo:0.5 ») expriment les stratégies mixtes ; ce qui n'est listé nulle part est un fold.
+/// One action of a chart and the range that plays it, in standard notation. Partial weights
+/// ("AKo:0.5") express mixed strategies; whatever is listed nowhere is a fold.
 /// </summary>
 public sealed record ChartAction
 {
@@ -16,13 +16,13 @@ public sealed record ChartAction
 }
 
 /// <summary>
-/// Un chart préflop. Il n'est pas indexé par un libellé de position mais par le nombre de joueurs
-/// qui parlent après le héros : ouvrir avec trois joueurs derrière pose le même problème à une
-/// table de cinq et à une table de huit, ce qui divise d'autant le volume de données à écrire.
+/// A preflop chart. It is indexed not by a position label but by how many players act after the
+/// hero: opening with three players behind poses the same problem at a five-handed table and at an
+/// eight-handed one, which cuts the amount of data to write accordingly.
 /// <para>
-/// Exception connue : la petite blinde n'a qu'un joueur derrière mais parle la première à chaque
-/// tour postflop. Sa range est donc plus serrée que celle du bouton, à rebours de la tendance
-/// générale — c'est une donnée à écrire, pas une anomalie à corriger.
+/// Known exception: the small blind has only one player behind but acts first on every postflop
+/// round. Its range is therefore tighter than the button's, against the general trend — that is
+/// data to be written down, not an anomaly to be corrected.
 /// </para>
 /// </summary>
 public sealed record PreflopChart
@@ -37,7 +37,7 @@ public sealed record PreflopChart
 
     public required IReadOnlyList<ChartAction> Actions { get; init; }
 
-    /// <summary>D'où vient cette range : à afficher pour que le conseil reste auditable.</summary>
+    /// <summary>Where this range comes from: displayed so the advice stays auditable.</summary>
     public string Source { get; init; } = string.Empty;
 
     public string Describe()

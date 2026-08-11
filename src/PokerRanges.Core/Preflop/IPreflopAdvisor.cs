@@ -4,9 +4,9 @@ namespace PokerRanges.Core.Preflop;
 
 public interface IPreflopAdvisor
 {
-    /// <summary>Le chart qui s'applique à cette situation, indépendamment de la main du héros.</summary>
+    /// <summary>The chart that applies to this situation, regardless of the hero's hand.</summary>
     ChartResolution ResolveChart(HandState state);
 
-    /// <summary>Le conseil pour la main du héros ; exige que ses cartes soient renseignées.</summary>
+    /// <summary>The advice for the hero's hand; requires their cards to be set.</summary>
     PreflopAdvice Advise(HandState state);
 }

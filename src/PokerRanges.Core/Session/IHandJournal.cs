@@ -1,8 +1,8 @@
 namespace PokerRanges.Core.Session;
 
 /// <summary>
-/// Le carnet des mains jouées, de la plus récente à la plus ancienne. Borné : un journal qui
-/// grossit sans fin finit par coûter plus à relire qu'il ne rapporte.
+/// The log of hands played, most recent first. Bounded: a journal that grows without end ends up
+/// costing more to read back than it returns.
 /// </summary>
 public interface IHandJournal
 {

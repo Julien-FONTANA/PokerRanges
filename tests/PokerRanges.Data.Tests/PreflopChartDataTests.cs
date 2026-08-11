@@ -8,9 +8,9 @@ using Shouldly;
 namespace PokerRanges.Data.Tests;
 
 /// <summary>
-/// Contrôles de cohérence des charts livrés. Ils ne peuvent pas dire qu'une range est « juste » —
-/// ça, c'est un jugement de joueur — mais ils attrapent tout ce qui est mécaniquement faux :
-/// notation illisible, fréquences qui dépassent 100 %, monotonies inversées.
+/// Consistency checks on the shipped charts. They cannot say whether a range is "right" — that is
+/// a player's judgement — but they catch everything that is mechanically wrong: unreadable
+/// notation, frequencies above 100%, monotonicities the wrong way round.
 /// </summary>
 public sealed class PreflopChartDataTests
 {
@@ -57,10 +57,10 @@ public sealed class PreflopChartDataTests
     }
 
     /// <summary>
-    /// La petite blinde est exclue volontairement : elle n'a qu'un joueur derrière, mais elle parle
-    /// la première à chaque tour postflop, et cette pénalité de position l'emporte sur l'avantage
-    /// d'avoir peu de monde à passer. Sa range d'ouverture est donc légitimement plus serrée que
-    /// celle du bouton, ce que <see cref="TheSmallBlindOpensTighterThanTheButtonDespiteFewerPlayersBehind"/> vérifie.
+    /// The small blind is excluded on purpose: it has only one player behind, but it acts first on
+    /// every postflop round, and that positional penalty outweighs the advantage of having few
+    /// players left to get through. Its opening range is therefore legitimately tighter than the
+    /// button's, which <see cref="TheSmallBlindOpensTighterThanTheButtonDespiteFewerPlayersBehind"/> verifies.
     /// </summary>
     [Theory]
     [InlineData(PreflopContext.RaiseFirstIn, 100)]

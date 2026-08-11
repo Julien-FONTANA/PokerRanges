@@ -5,9 +5,9 @@ using Shouldly;
 namespace PokerRanges.Core.Tests.Evaluation;
 
 /// <summary>
-/// Validation exhaustive de l'évaluateur. Les fréquences des neuf catégories sur les 2 598 960
-/// mains de cinq cartes sont des constantes combinatoires connues : les retrouver toutes ne laisse
-/// pratiquement aucune place à une erreur de classement.
+/// Exhaustive validation of the evaluator. The frequencies of the nine categories over all
+/// 2,598,960 five-card hands are known combinatorial constants: matching every one of them leaves
+/// almost no room for a classification error.
 /// </summary>
 public sealed class HandEvaluatorFrequencyTests
 {

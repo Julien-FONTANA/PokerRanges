@@ -10,10 +10,10 @@ using Shouldly;
 namespace PokerRanges.Core.Tests.Localization;
 
 /// <summary>
-/// La langue n'est pas une variable globale mais la culture d'interface du contexte courant. Ces
-/// tests posent donc leur langue localement : elle ne déborde pas sur les tests voisins, et c'est
-/// exactement ce qui permet au moteur de rendre ses phrases dans la bonne langue depuis un fil
-/// d'arrière-plan.
+/// The language is not a global variable but the UI culture of the current context. These tests
+/// therefore set their language locally: it does not spill onto neighbouring tests, and that is
+/// exactly what lets the engine render its sentences in the right language from a background
+/// thread.
 /// </summary>
 public sealed class LanguageTests
 {
@@ -82,8 +82,8 @@ public sealed class LanguageTests
     }
 
     /// <summary>
-    /// Un profil enregistré en français doit se retrouver après le passage à l'anglais : sinon le
-    /// changement de langue remettrait discrètement l'utilisateur sur le profil par défaut.
+    /// A profile saved in French must still be found after switching to English: otherwise
+    /// changing language would quietly put the user back on the default profile.
     /// </summary>
     [Theory]
     [InlineData("Suiveur")]
@@ -101,8 +101,8 @@ public sealed class LanguageTests
     }
 
     /// <summary>
-    /// Changer de langue change aussi la culture de formatage : afficher « 5.5bb » dans une phrase
-    /// française, ou « 5,5bb » dans une phrase anglaise, trahirait le bricolage.
+    /// Changing language also changes the formatting culture: showing "5.5bb" in a French
+    /// sentence, or "5,5bb" in an English one, would give the patch-up away.
     /// </summary>
     [Fact]
     public void NumbersAreWrittenTheWayTheLanguageWritesThem()
@@ -127,8 +127,8 @@ public sealed class LanguageTests
     }
 
     /// <summary>
-    /// La langue voyage avec le contexte d'exécution : un calcul poussé sur un fil du pool doit
-    /// rendre ses phrases dans la langue choisie par l'appelant, pas dans celle du système.
+    /// The language travels with the execution context: a computation pushed onto a pool thread
+    /// must render its sentences in the language the caller chose, not the system's.
     /// </summary>
     [Fact]
     public async Task TheLanguageFollowsTheWorkOntoABackgroundThread()

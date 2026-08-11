@@ -3,9 +3,9 @@ using PokerRanges.Core.Ranges;
 namespace PokerRanges.Core.Postflop;
 
 /// <summary>
-/// Découpe une range classée par force en réactions à une mise. Le point de coupure part de la
-/// fréquence de défense minimale — celle qui rend un bluff adverse tout juste non rentable — puis
-/// se décale selon le profil : un joueur serré se couche en dessous, un suiveur au dessus.
+/// Splits a strength-ranked range into reactions to a bet. The cut-off starts from the minimum
+/// defence frequency — the one that makes an opponent's bluff just barely unprofitable — then
+/// shifts with the profile: a tight player folds below it, a calling station calls above it.
 /// </summary>
 public static class OpponentResponseModel
 {
@@ -79,8 +79,8 @@ public static class OpponentResponseModel
     }
 
     /// <summary>
-    /// La range avec laquelle l'adversaire mise de lui-même : ses meilleures mains pour la valeur,
-    /// et une queue de mains faibles pour les bluffs. Une range polarisée, comme dans la réalité.
+    /// The range an opponent bets of their own accord: their best hands for value, and a tail of
+    /// weak ones for bluffs. A polarised range, as in real life.
     /// </summary>
     public static HandRange BettingRange(IReadOnlyList<RankedCombo> ranked, OpponentProfile profile)
     {

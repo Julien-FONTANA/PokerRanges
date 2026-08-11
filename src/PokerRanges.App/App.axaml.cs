@@ -28,9 +28,9 @@ public sealed partial class App : Application
         {
             _viewModel = _services.GetRequiredService<MainWindowViewModel>();
 
-            // « --compact » ouvre directement la fenêtre réduite et épinglée : c'est la forme utile
-            // quand le raccourci de lancement sert à assister une partie déjà commencée. L'option
-            // force le mode compact, elle ne le retire jamais à qui l'a déjà choisi.
+            // "--compact" opens straight into the reduced, pinned window: the useful shape when
+            // the launch shortcut is there to assist a game already under way. The option forces
+            // compact mode on; it never takes it away from someone who already chose it.
             if (desktop.Args?.Contains("--compact", StringComparer.OrdinalIgnoreCase) == true)
             {
                 _viewModel.IsCompact = true;
@@ -45,8 +45,8 @@ public sealed partial class App : Application
 
     private void OnShutdownRequested(object? sender, ShutdownRequestedEventArgs e)
     {
-        // La fermeture est le dernier moment où la main en cours peut encore être écrite : l'écriture
-        // ordinaire est différée, et une main saisie juste avant de quitter serait perdue sans ceci.
+        // Shutdown is the last moment the hand in progress can still be written: the ordinary
+        // write is deferred, and a hand entered just before quitting would be lost without this.
         _viewModel?.PersistNow();
         _viewModel = null;
 

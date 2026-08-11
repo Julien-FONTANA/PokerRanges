@@ -4,9 +4,9 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Tests.Localization;
 
 /// <summary>
-/// Parle une langue le temps d'un bloc. La culture n'est posée que sur le contexte courant, jamais
-/// sur les valeurs par défaut du processus : deux tests parallèles peuvent ainsi tenir deux langues
-/// différentes sans se contredire.
+/// Speaks a language for the duration of a block. The culture is set on the current context only,
+/// never on the process defaults: two parallel tests can therefore hold two different languages
+/// without contradicting each other.
 /// </summary>
 internal sealed class LanguageScope : IDisposable
 {

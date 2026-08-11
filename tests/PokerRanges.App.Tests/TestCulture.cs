@@ -1,13 +1,13 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using PokerRanges.Core.Localization;
 
 namespace PokerRanges.App.Tests;
 
 /// <summary>
-/// Fixe l'anglais avant le premier test. Sans cela les assertions sur le texte passeraient sur une
-/// machine franÃ§aise et Ã©choueraient ailleurs : la langue serait celle du poste, pas celle du
-/// produit. Un test qui veut du franÃ§ais pose <see cref="System.Globalization.CultureInfo"/> sur
-/// son propre contexte, qui ne dÃ©borde pas sur les autres.
+/// Pins English before the first test. Without it, assertions on text would pass on a French
+/// machine and fail elsewhere: the language would be the workstation's, not the product's. A test
+/// that wants French sets <see cref="System.Globalization.CultureInfo"/> on its own context,
+/// which does not spill onto the others.
 /// </summary>
 internal static class TestCulture
 {
