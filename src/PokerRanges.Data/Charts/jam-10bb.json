@@ -1,0 +1,89 @@
+{
+  "source": "Ranges de tapis d'ouverture ~10bb, inspirées des tables Nash push/fold — point de départ à affiner",
+  "charts": [
+    {
+      "context": "Jam",
+      "playersLeftToAct": 7,
+      "depthInBigBlinds": 10,
+      "actions": [
+        {
+          "kind": "Jam",
+          "sizeInBigBlinds": 10,
+          "range": "44+, A7s+, A5s-A2s, KTs+, QTs+, JTs, ATo+, KQo"
+        }
+      ]
+    },
+    {
+      "context": "Jam",
+      "playersLeftToAct": 6,
+      "depthInBigBlinds": 10,
+      "actions": [
+        {
+          "kind": "Jam",
+          "sizeInBigBlinds": 10,
+          "range": "33+, A5s+, A4s-A2s, K9s+, QTs+, JTs, T9s, ATo+, KJo+"
+        }
+      ]
+    },
+    {
+      "context": "Jam",
+      "playersLeftToAct": 5,
+      "depthInBigBlinds": 10,
+      "actions": [
+        {
+          "kind": "Jam",
+          "sizeInBigBlinds": 10,
+          "range": "22+, A2s+, K8s+, Q9s+, J9s+, T9s, A9o+, KJo+, QJo"
+        }
+      ]
+    },
+    {
+      "context": "Jam",
+      "playersLeftToAct": 4,
+      "depthInBigBlinds": 10,
+      "actions": [
+        {
+          "kind": "Jam",
+          "sizeInBigBlinds": 10,
+          "range": "22+, A2s+, K6s+, Q8s+, J8s+, T8s+, 98s, A7o+, KTo+, QJo"
+        }
+      ]
+    },
+    {
+      "context": "Jam",
+      "playersLeftToAct": 3,
+      "depthInBigBlinds": 10,
+      "actions": [
+        {
+          "kind": "Jam",
+          "sizeInBigBlinds": 10,
+          "range": "22+, A2s+, K4s+, Q7s+, J8s+, T8s+, 97s+, 87s, A4o+, K9o+, QTo+, JTo"
+        }
+      ]
+    },
+    {
+      "context": "Jam",
+      "playersLeftToAct": 2,
+      "depthInBigBlinds": 10,
+      "actions": [
+        {
+          "kind": "Jam",
+          "sizeInBigBlinds": 10,
+          "range": "22+, A2s+, K2s+, Q5s+, J7s+, T7s+, 96s+, 86s+, 76s, 65s, A2o+, K7o+, Q9o+, J9o+, T9o"
+        }
+      ]
+    },
+    {
+      "context": "Jam",
+      "playersLeftToAct": 1,
+      "depthInBigBlinds": 10,
+      "actions": [
+        {
+          "kind": "Jam",
+          "sizeInBigBlinds": 10,
+          "range": "22+, A2s+, K2s+, Q2s+, J4s+, T5s+, 95s+, 85s+, 75s+, 64s+, 54s, A2o+, K4o+, Q7o+, J8o+, T8o+, 98o"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PokerRanges.App.ViewModels"
+             x:Class="PokerRanges.App.Views.RangeMatrixView"
+             x:DataType="vm:RangeMatrixViewModel">
+
+  <DockPanel>
+
+    <StackPanel DockPanel.Dock="Top" Margin="0,0,0,10">
+      <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap" />
+      <TextBlock Text="{Binding Subtitle}" FontSize="11" Foreground="#9A9A9A" TextWrapping="Wrap" Margin="0,3,0,0" />
+      <Border Background="#1F2A22" BorderBrush="#2F5A3A" BorderThickness="1" CornerRadius="4"
+              Padding="9,6" Margin="0,7,0,0" IsVisible="{Binding HasHeroNote}">
+        <TextBlock Text="{Binding HeroNote}" FontSize="11" Foreground="#A8D8B4" TextWrapping="Wrap" />
+      </Border>
+    </StackPanel>
+
+    <ItemsControl DockPanel.Dock="Bottom" ItemsSource="{Binding Legend}" Margin="0,10,0,0">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="vm:LegendEntryViewModel">
+          <StackPanel Orientation="Horizontal" Margin="0,0,16,0">
+            <Border Width="12" Height="12" Background="{Binding Brush}" CornerRadius="2" VerticalAlignment="Center" />
+            <TextBlock Text="{Binding Label}" Margin="6,0,0,0" FontSize="11" VerticalAlignment="Center" />
+          </StackPanel>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+    <Viewbox Stretch="Uniform" StretchDirection="Both">
+      <ItemsControl ItemsSource="{Binding Cells}" Width="676" Height="676">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <UniformGrid Rows="13" Columns="13" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:RangeMatrixCellViewModel">
+            <Border Background="{Binding Background}"
+                    BorderBrush="{Binding BorderBrush}"
+                    BorderThickness="{Binding BorderThickness}"
+                    ToolTip.Tip="{Binding Tooltip}">
+              <TextBlock Text="{Binding Label}"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         FontSize="15"
+                         FontWeight="SemiBold"
+                         Foreground="#F2F2F2" />
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </Viewbox>
+
+  </DockPanel>
+
+</UserControl>

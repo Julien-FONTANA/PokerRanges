@@ -1,0 +1,53 @@
+{
+  "source": "Ranges de call face à un tapis ~10bb, inspirées des tables Nash — point de départ à affiner",
+  "charts": [
+    {
+      "context": "CallJam",
+      "playersLeftToAct": 0,
+      "relation": "BigBlind",
+      "depthInBigBlinds": 10,
+      "actions": [
+        {
+          "kind": "Call",
+          "range": "22+, A2s+, K7s+, Q9s+, JTs, A7o+, KTo+, QJo"
+        }
+      ]
+    },
+    {
+      "context": "CallJam",
+      "playersLeftToAct": 1,
+      "relation": "SmallBlind",
+      "depthInBigBlinds": 10,
+      "actions": [
+        {
+          "kind": "Call",
+          "range": "22+, A2s+, K9s+, QTs+, JTs, A9o+, KJo+"
+        }
+      ]
+    },
+    {
+      "context": "CallJam",
+      "playersLeftToAct": 3,
+      "relation": "InPosition",
+      "depthInBigBlinds": 10,
+      "actions": [
+        {
+          "kind": "Call",
+          "range": "55+, A8s+, A5s-A4s, KTs+, QJs, ATo+, KQo"
+        }
+      ]
+    },
+    {
+      "context": "CallJam",
+      "playersLeftToAct": 3,
+      "relation": "OutOfPosition",
+      "depthInBigBlinds": 10,
+      "actions": [
+        {
+          "kind": "Call",
+          "range": "66+, A9s+, KJs+, AJo+, KQo"
+        }
+      ]
+    }
+  ]
+}

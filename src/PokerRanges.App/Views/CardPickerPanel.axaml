@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PokerRanges.App.ViewModels"
+             x:Class="PokerRanges.App.Views.CardPickerPanel"
+             x:DataType="vm:CardPickerViewModel">
+
+  <StackPanel Spacing="8">
+
+    <DockPanel>
+      <Button DockPanel.Dock="Right" Content="{Binding Text.Clear}" Command="{Binding ClearCommand}" FontSize="11" Padding="8,3" />
+      <TextBlock Text="{Binding Label}" FontSize="15" FontWeight="SemiBold" VerticalAlignment="Center" />
+    </DockPanel>
+
+    <TextBox Text="{Binding QuickEntry, Mode=TwoWay}"
+             PlaceholderText="{Binding Text.KeyboardHint}"
+             FontFamily="Consolas, monospace" FontSize="13" Padding="7,4" MinHeight="0" />
+
+    <TextBlock Text="{Binding EntryError}" IsVisible="{Binding HasEntryError}"
+               FontSize="10" Foreground="#E08A5A" TextWrapping="Wrap" />
+
+    <ItemsControl ItemsSource="{Binding Cards}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <UniformGrid Rows="4" Columns="13" />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="vm:CardOptionViewModel">
+          <Button Classes="card"
+                  Classes.picked="{Binding IsSelected}"
+                  IsEnabled="{Binding IsAvailable}"
+                  Command="{Binding $parent[ItemsControl].((vm:CardPickerViewModel)DataContext).ToggleCommand}"
+                  CommandParameter="{Binding}">
+            <TextBlock Text="{Binding Label}" Foreground="{Binding Foreground}" FontSize="12" />
+          </Button>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+  </StackPanel>
+
+</UserControl>

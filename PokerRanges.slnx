@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/PokerRanges.App/PokerRanges.App.csproj" />
+    <Project Path="src/PokerRanges.Core/PokerRanges.Core.csproj" />
+    <Project Path="src/PokerRanges.Data/PokerRanges.Data.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PokerRanges.App.Tests/PokerRanges.App.Tests.csproj" />
+    <Project Path="tests/PokerRanges.Core.Tests/PokerRanges.Core.Tests.csproj" />
+    <Project Path="tests/PokerRanges.Data.Tests/PokerRanges.Data.Tests.csproj" />
+  </Folder>
+</Solution>

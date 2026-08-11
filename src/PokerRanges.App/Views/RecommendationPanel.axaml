@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="using:System"
+             xmlns:vm="using:PokerRanges.App.ViewModels"
+             x:Class="PokerRanges.App.Views.RecommendationPanel"
+             x:DataType="vm:RecommendationViewModel">
+
+  <StackPanel Spacing="10">
+
+    <Border Background="{Binding HeadlineBrush}" CornerRadius="6" Padding="14,12">
+      <DockPanel>
+        <ProgressBar DockPanel.Dock="Right"
+                     IsIndeterminate="True"
+                     IsVisible="{Binding IsBusy}"
+                     Width="60" Height="4" VerticalAlignment="Center" Margin="10,0,0,0" />
+        <TextBlock Text="{Binding Headline}" FontSize="21" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" />
+      </DockPanel>
+    </Border>
+
+    <TextBlock Text="{Binding Text.MixedStrategy}"
+               IsVisible="{Binding IsMixed}"
+               FontSize="11" Foreground="#F2C94C" TextWrapping="Wrap" />
+
+    <TextBlock Text="{Binding Text.CloseDecision}"
+               IsVisible="{Binding IsClose}"
+               FontSize="11" Foreground="#F2C94C" TextWrapping="Wrap" />
+
+    <ItemsControl ItemsSource="{Binding Options}" IsVisible="{Binding HasOptions}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="vm:StrategyOptionViewModel">
+          <Grid ColumnDefinitions="130,*,46" Margin="0,2">
+            <TextBlock Grid.Column="0" Text="{Binding Label}" FontSize="12" VerticalAlignment="Center" />
+            <Border Grid.Column="1" Background="{Binding Brush}" Width="{Binding BarWidth}" Height="14"
+                    CornerRadius="3" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock Grid.Column="2" Text="{Binding Percent}" FontSize="12"
+                       HorizontalAlignment="Right" VerticalAlignment="Center" />
+          </Grid>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+    <StackPanel IsVisible="{Binding HasEvaluations}" Spacing="4">
+      <TextBlock Text="{Binding Text.ExpectedValueByAction}" FontSize="11" Foreground="#9A9A9A" />
+      <ItemsControl ItemsSource="{Binding Evaluations}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:ActionEvaluationViewModel">
+            <Border Background="#1F1F1F" CornerRadius="4" Padding="8,6" Margin="0,2"
+                    BorderBrush="{Binding Brush}"
+                    BorderThickness="0,0,0,2">
+              <StackPanel>
+                <Grid ColumnDefinitions="*,64">
+                  <TextBlock Grid.Column="0" Text="{Binding Label}" FontSize="12"
+                             FontWeight="{Binding FontWeight}" />
+                  <TextBlock Grid.Column="1" Text="{Binding ExpectedValue}" FontSize="12"
+                             HorizontalAlignment="Right" Foreground="#F2C94C" />
+                </Grid>
+                <Border Background="{Binding Brush}" Width="{Binding BarWidth}" Height="4"
+                        CornerRadius="2" HorizontalAlignment="Left" Margin="0,4,0,3" />
+                <TextBlock Text="{Binding Detail}" FontSize="10" Foreground="#8A8A8A" TextWrapping="Wrap" />
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </StackPanel>
+
+    <Border Background="#2A2214" BorderBrush="#5A4A22" BorderThickness="1" CornerRadius="4" Padding="10"
+            IsVisible="{Binding HasProblem}">
+      <TextBlock Text="{Binding Problem}" FontSize="12" Foreground="#EBD9A6" TextWrapping="Wrap" />
+    </Border>
+
+    <TextBlock Text="{Binding Precision}" IsVisible="{Binding HasPrecision}"
+               FontSize="10" Foreground="#6E6E6E" TextWrapping="Wrap" Margin="0,2,0,0" />
+
+    <TextBlock Text="{Binding Text.Why}" FontSize="11" Foreground="#9A9A9A" Margin="0,6,0,0" />
+    <ItemsControl ItemsSource="{Binding Rationale}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="sys:String">
+          <TextBlock Text="{Binding}" FontSize="12" TextWrapping="Wrap" Margin="0,3" Foreground="#C8C8C8" />
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+  </StackPanel>
+
+</UserControl>

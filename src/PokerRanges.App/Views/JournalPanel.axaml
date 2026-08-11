@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PokerRanges.App.ViewModels"
+             x:Class="PokerRanges.App.Views.JournalPanel"
+             x:DataType="vm:JournalViewModel">
+
+  <StackPanel Spacing="8">
+
+    <DockPanel>
+      <Button DockPanel.Dock="Right" Content="{Binding Text.Empty}" Command="{Binding ClearCommand}"
+              IsEnabled="{Binding !IsEmpty}" FontSize="11" Padding="8,3" />
+      <TextBlock Text="{Binding Summary}" FontSize="11" Foreground="#9A9A9A"
+                 VerticalAlignment="Center" TextWrapping="Wrap" />
+    </DockPanel>
+
+    <ItemsControl ItemsSource="{Binding Entries}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="vm:JournalEntryViewModel">
+          <Border Background="#1F1F1F" CornerRadius="4" Padding="8,6" Margin="0,2">
+            <DockPanel>
+              <Button DockPanel.Dock="Right"
+                      Content="{Binding $parent[ItemsControl].((vm:JournalViewModel)DataContext).Text.Replay}"
+                      Command="{Binding $parent[ItemsControl].((vm:JournalViewModel)DataContext).ReplayCommand}"
+                      CommandParameter="{Binding}"
+                      FontSize="10" Padding="7,2" Margin="8,0,0,0" VerticalAlignment="Center" />
+              <StackPanel>
+                <TextBlock Text="{Binding Moment}" FontSize="10" Foreground="#7A7A7A" />
+                <TextBlock Text="{Binding Hand}" FontSize="12" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding Advice}" FontSize="11" Foreground="#F2C94C" TextWrapping="Wrap" />
+              </StackPanel>
+            </DockPanel>
+          </Border>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+  </StackPanel>
+
+</UserControl>

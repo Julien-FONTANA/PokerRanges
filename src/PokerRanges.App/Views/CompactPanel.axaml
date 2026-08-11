@@ -1,0 +1,138 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PokerRanges.App.ViewModels"
+             x:Class="PokerRanges.App.Views.CompactPanel"
+             x:DataType="vm:MainWindowViewModel">
+
+  <UserControl.Styles>
+    <Style Selector="TextBox.entry">
+      <Setter Property="FontSize" Value="17" />
+      <Setter Property="FontFamily" Value="Consolas, monospace" />
+      <Setter Property="Padding" Value="8,5" />
+      <Setter Property="MinHeight" Value="0" />
+    </Style>
+  </UserControl.Styles>
+
+  <DockPanel Margin="12,10">
+
+    <Border DockPanel.Dock="Top" Margin="0,0,0,8">
+      <DockPanel>
+        <Button DockPanel.Dock="Right"
+                Content="{Binding Text.AnalysisMode}"
+                Command="{Binding ToggleCompactCommand}"
+                FontSize="10" Padding="8,3" Margin="4,0,0,0" VerticalAlignment="Top" />
+        <Button DockPanel.Dock="Right"
+                Content="{Binding Text.LanguageToggle}"
+                Command="{Binding ToggleLanguageCommand}"
+                FontSize="10" Padding="8,3" Margin="8,0,0,0" VerticalAlignment="Top" />
+        <StackPanel>
+          <TextBlock Text="{Binding StreetLabel}" FontSize="11" Foreground="#F2C94C" />
+          <TextBlock Text="{Binding HandSummary}" FontSize="11" Foreground="#8A8A8A" TextWrapping="Wrap" />
+        </StackPanel>
+      </DockPanel>
+    </Border>
+
+    <StackPanel DockPanel.Dock="Top" Spacing="5" Margin="0,0,0,8">
+      <Grid ColumnDefinitions="52,*">
+        <TextBlock Grid.Column="0" Text="{Binding Text.HandLabel}" Classes="field" VerticalAlignment="Center" Margin="0" />
+        <TextBox Grid.Column="1" x:Name="HeroEntry" Classes="entry" PlaceholderText="askd"
+                 Text="{Binding Hero.QuickEntry, Mode=TwoWay}" />
+      </Grid>
+      <Grid ColumnDefinitions="52,*">
+        <TextBlock Grid.Column="0" Text="{Binding Text.BoardLabel}" Classes="field" VerticalAlignment="Center" Margin="0" />
+        <TextBox Grid.Column="1" x:Name="BoardEntry" Classes="entry" PlaceholderText="ks8d3c"
+                 Text="{Binding Board.QuickEntry, Mode=TwoWay}" />
+      </Grid>
+      <TextBlock Text="{Binding Hero.EntryError}" IsVisible="{Binding Hero.HasEntryError}"
+                 FontSize="10" Foreground="#E08A5A" TextWrapping="Wrap" />
+      <TextBlock Text="{Binding Board.EntryError}" IsVisible="{Binding Board.HasEntryError}"
+                 FontSize="10" Foreground="#E08A5A" TextWrapping="Wrap" />
+    </StackPanel>
+
+    <StackPanel DockPanel.Dock="Top" Spacing="5" Margin="0,0,0,8">
+      <DockPanel>
+        <TextBlock DockPanel.Dock="Right" Text="{Binding PotLabel}" FontSize="10" Foreground="#8A8A8A"
+                   VerticalAlignment="Center" Margin="8,0,0,0" />
+        <TextBlock Text="{Binding TurnLabel}" FontSize="12" FontWeight="SemiBold" TextWrapping="Wrap" />
+      </DockPanel>
+      <UniformGrid Columns="3">
+        <Button Content="{Binding Text.Fold}" Command="{Binding FoldCommand}" IsEnabled="{Binding CanFold}"
+                FontSize="11" Margin="0,0,4,0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
+        <Button Content="{Binding Text.Check}" Command="{Binding CheckCommand}" IsEnabled="{Binding CanCheck}"
+                FontSize="11" Margin="0,0,4,0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
+        <Button Content="{Binding CallLabel}" Command="{Binding CallCommand}" IsEnabled="{Binding CanCall}"
+                FontSize="11" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" />
+      </UniformGrid>
+      <DockPanel>
+        <Button DockPanel.Dock="Right" Content="{Binding Text.NewHandShort}" Command="{Binding NewHandCommand}"
+                FontSize="11" Margin="4,0,0,0" />
+        <Button DockPanel.Dock="Right" Content="↶" Command="{Binding UndoCommand}"
+                IsEnabled="{Binding CanUndo}" FontSize="11" Margin="4,0,0,0" />
+        <Button DockPanel.Dock="Right" Content="{Binding Text.Bet}" Command="{Binding RaiseCommand}"
+                IsEnabled="{Binding CanRaise}" FontSize="11" Margin="4,0,0,0" />
+        <NumericUpDown Value="{Binding RaiseAmount}" IsEnabled="{Binding CanRaise}"
+                       Minimum="0" Increment="1" FormatString="0.##" FontSize="11" />
+      </DockPanel>
+    </StackPanel>
+
+    <TextBlock DockPanel.Dock="Bottom" Text="{Binding ShortcutsLabel}"
+               FontSize="9" Foreground="#5E5E5E" TextWrapping="Wrap" Margin="0,8,0,0" />
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+      <StackPanel DataContext="{Binding Recommendation}" Spacing="6">
+
+        <Border Background="{Binding HeadlineBrush}" CornerRadius="5" Padding="11,9">
+          <DockPanel>
+            <ProgressBar DockPanel.Dock="Right" IsIndeterminate="True" IsVisible="{Binding IsBusy}"
+                         Width="44" Height="3" VerticalAlignment="Center" Margin="8,0,0,0" />
+            <TextBlock Text="{Binding Headline}" FontSize="16" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" />
+          </DockPanel>
+        </Border>
+
+        <TextBlock Text="{Binding Text.CloseDecision}"
+                   IsVisible="{Binding IsClose}" FontSize="10" Foreground="#F2C94C" TextWrapping="Wrap" />
+
+        <TextBlock Text="{Binding Text.MixedStrategy}"
+                   IsVisible="{Binding IsMixed}" FontSize="10" Foreground="#F2C94C" TextWrapping="Wrap" />
+
+        <ItemsControl ItemsSource="{Binding Options}" IsVisible="{Binding HasOptions}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:StrategyOptionViewModel">
+              <Grid ColumnDefinitions="104,*,44" Margin="0,1">
+                <TextBlock Grid.Column="0" Text="{Binding Label}" FontSize="11" VerticalAlignment="Center" />
+                <Border Grid.Column="1" Background="{Binding Brush}" Width="{Binding BarWidth}" Height="11"
+                        CornerRadius="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="2" Text="{Binding Percent}" FontSize="11"
+                           HorizontalAlignment="Right" VerticalAlignment="Center" />
+              </Grid>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <ItemsControl ItemsSource="{Binding TopEvaluations}" IsVisible="{Binding HasEvaluations}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:ActionEvaluationViewModel">
+              <Grid ColumnDefinitions="*,60" Margin="0,2">
+                <TextBlock Grid.Column="0" Text="{Binding Label}" FontSize="11"
+                           FontWeight="{Binding FontWeight}" TextTrimming="CharacterEllipsis" />
+                <TextBlock Grid.Column="1" Text="{Binding ExpectedValue}" FontSize="11"
+                           HorizontalAlignment="Right" Foreground="#F2C94C" />
+              </Grid>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Border Background="#2A2214" BorderBrush="#5A4A22" BorderThickness="1" CornerRadius="4" Padding="8"
+                IsVisible="{Binding HasProblem}">
+          <TextBlock Text="{Binding Problem}" FontSize="10" Foreground="#EBD9A6" TextWrapping="Wrap" />
+        </Border>
+
+        <TextBlock Text="{Binding Precision}" IsVisible="{Binding HasPrecision}"
+                   FontSize="9" Foreground="#6E6E6E" TextWrapping="Wrap" />
+
+      </StackPanel>
+    </ScrollViewer>
+
+  </DockPanel>
+
+</UserControl>

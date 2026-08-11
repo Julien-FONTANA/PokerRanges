@@ -1,0 +1,68 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="using:PokerRanges.App.Views"
+        xmlns:vm="using:PokerRanges.App.ViewModels"
+        mc:Ignorable="d"
+        d:DesignWidth="1440" d:DesignHeight="960"
+        x:Class="PokerRanges.App.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="{Binding Title}"
+        Width="1440" Height="960"
+        MinWidth="1120" MinHeight="760"
+        Topmost="{Binding IsCompact}"
+        Background="#141414">
+
+  <!-- Les raccourcis sont tous sur Alt ou Ctrl : les lettres nues appartiennent à la saisie des
+       cartes, où « c », « d », « h » et « s » sont des couleurs et non des actions. -->
+  <Window.KeyBindings>
+    <KeyBinding Gesture="Alt+P" Command="{Binding FoldCommand}" />
+    <KeyBinding Gesture="Alt+C" Command="{Binding CheckCommand}" />
+    <KeyBinding Gesture="Alt+S" Command="{Binding CallCommand}" />
+    <KeyBinding Gesture="Alt+R" Command="{Binding RaiseCommand}" />
+    <KeyBinding Gesture="Ctrl+Z" Command="{Binding UndoCommand}" />
+    <KeyBinding Gesture="Ctrl+N" Command="{Binding NewHandCommand}" />
+    <KeyBinding Gesture="F2" Command="{Binding ToggleCompactCommand}" />
+  </Window.KeyBindings>
+
+  <Window.Styles>
+    <Style Selector="TextBlock.field">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="#9A9A9A" />
+      <Setter Property="Margin" Value="0,0,0,3" />
+    </Style>
+    <Style Selector="TextBlock.section">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="#7A7A7A" />
+      <Setter Property="Margin" Value="0,0,0,6" />
+    </Style>
+    <Style Selector="Button.card">
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Margin" Value="1" />
+      <Setter Property="MinWidth" Value="0" />
+      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="Height" Value="28" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Background" Value="#242424" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="BorderBrush" Value="#333333" />
+    </Style>
+    <Style Selector="Button.card.picked">
+      <Setter Property="Background" Value="#3A5A8C" />
+      <Setter Property="BorderBrush" Value="#F2C94C" />
+    </Style>
+    <Style Selector="Border.card">
+      <Setter Property="Background" Value="#1B1B1B" />
+      <Setter Property="CornerRadius" Value="6" />
+      <Setter Property="Padding" Value="14" />
+    </Style>
+  </Window.Styles>
+
+  <Panel>
+    <views:AnalysisPanel IsVisible="{Binding !IsCompact}" />
+    <views:CompactPanel x:Name="Compact" IsVisible="{Binding IsCompact}" />
+  </Panel>
+
+</Window>

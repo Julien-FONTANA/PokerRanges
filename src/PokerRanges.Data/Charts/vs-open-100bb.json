@@ -1,0 +1,73 @@
+{
+  "source": "Ranges de défense face à une ouverture ~100bb — point de départ à affiner, non issues d'un solveur",
+  "charts": [
+    {
+      "context": "VersusOpen",
+      "playersLeftToAct": 0,
+      "relation": "BigBlind",
+      "depthInBigBlinds": 100,
+      "actions": [
+        {
+          "kind": "Raise",
+          "sizeInBigBlinds": 11,
+          "range": "JJ+, AQs+, AKo, A5s-A4s, 76s"
+        },
+        {
+          "kind": "Call",
+          "range": "22-TT, A2s-A3s, A6s-AJs, K5s+, Q8s+, J8s+, T8s+, 97s+, 86s+, 75s, 65s, 54s, A2o-AJo, K9o+, QTo+, JTo"
+        }
+      ]
+    },
+    {
+      "context": "VersusOpen",
+      "playersLeftToAct": 1,
+      "relation": "SmallBlind",
+      "depthInBigBlinds": 100,
+      "actions": [
+        {
+          "kind": "Raise",
+          "sizeInBigBlinds": 12,
+          "range": "TT+, AQs+, AKo, A5s-A3s, KQs"
+        },
+        {
+          "kind": "Call",
+          "range": "22-99, A9s-AJs, KTs-KJs, QTs+, JTs, T9s, 98s, AQo"
+        }
+      ]
+    },
+    {
+      "context": "VersusOpen",
+      "playersLeftToAct": 3,
+      "relation": "InPosition",
+      "depthInBigBlinds": 100,
+      "actions": [
+        {
+          "kind": "Raise",
+          "sizeInBigBlinds": 8,
+          "range": "QQ+, AKs, AKo, A5s-A4s"
+        },
+        {
+          "kind": "Call",
+          "range": "22-JJ, ATs-AQs, KTs+, QTs+, J9s+, T9s, 98s, 87s, 76s, AQo, AJo, KQo"
+        }
+      ]
+    },
+    {
+      "context": "VersusOpen",
+      "playersLeftToAct": 3,
+      "relation": "OutOfPosition",
+      "depthInBigBlinds": 100,
+      "actions": [
+        {
+          "kind": "Raise",
+          "sizeInBigBlinds": 9,
+          "range": "QQ+, AKs, AKo, A5s"
+        },
+        {
+          "kind": "Call",
+          "range": "77-JJ, AJs-AQs, KQs, QJs, JTs, T9s, AQo"
+        }
+      ]
+    }
+  ]
+}

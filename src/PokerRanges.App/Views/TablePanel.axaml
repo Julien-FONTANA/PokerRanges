@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PokerRanges.App.ViewModels"
+             x:Class="PokerRanges.App.Views.TablePanel"
+             x:DataType="vm:TableSettingsViewModel">
+
+  <WrapPanel Orientation="Horizontal" ItemSpacing="18" LineSpacing="8">
+
+    <StackPanel>
+      <TextBlock Text="{Binding Text.Players}" Classes="field" />
+      <ComboBox ItemsSource="{Binding PlayerCounts}" SelectedItem="{Binding PlayerCount}" Width="80" />
+    </StackPanel>
+
+    <StackPanel>
+      <TextBlock Text="{Binding Text.BigBlind}" Classes="field" />
+      <NumericUpDown Value="{Binding BigBlind}" Minimum="0.01" Increment="1" FormatString="0.##" Width="120" />
+    </StackPanel>
+
+    <StackPanel>
+      <TextBlock Text="{Binding Text.StartingStack}" Classes="field" />
+      <NumericUpDown Value="{Binding StartingStack}" Minimum="0" Increment="50" FormatString="0.##" Width="130" />
+    </StackPanel>
+
+    <StackPanel>
+      <TextBlock Text="{Binding Text.Ante}" Classes="field" />
+      <StackPanel Orientation="Horizontal" Spacing="6">
+        <ComboBox ItemsSource="{Binding AnteStyles}" SelectedItem="{Binding AnteStyle}" Width="175">
+          <ComboBox.ItemTemplate>
+            <DataTemplate x:DataType="vm:AnteStyleChoice">
+              <TextBlock Text="{Binding Label}" />
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+        <NumericUpDown Value="{Binding AnteAmount}"
+                       IsEnabled="{Binding IsAnteEnabled}"
+                       Minimum="0" Increment="1" FormatString="0.##" Width="105" />
+      </StackPanel>
+    </StackPanel>
+
+    <StackPanel>
+      <TextBlock Text="{Binding Text.MyPosition}" Classes="field" />
+      <ComboBox ItemsSource="{Binding AvailablePositions}" SelectedItem="{Binding HeroPosition}" Width="100">
+        <ComboBox.ItemTemplate>
+          <DataTemplate x:DataType="vm:PositionChoice">
+            <TextBlock Text="{Binding Label}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+    </StackPanel>
+
+    <StackPanel VerticalAlignment="Bottom">
+      <TextBlock Text="{Binding DepthLabel}" FontSize="13" FontWeight="SemiBold" Foreground="#F2C94C" Margin="0,0,0,6" />
+    </StackPanel>
+
+  </WrapPanel>
+
+</UserControl>

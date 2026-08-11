@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PokerRanges.App.ViewModels"
+             x:Class="PokerRanges.App.Views.ActionPanel"
+             x:DataType="vm:MainWindowViewModel">
+
+  <StackPanel Spacing="8">
+
+    <DockPanel>
+      <Border DockPanel.Dock="Right" Background="#2A2A2A" CornerRadius="3" Padding="7,2">
+        <TextBlock Text="{Binding StreetLabel}" FontSize="11" Foreground="#F2C94C" />
+      </Border>
+      <TextBlock Text="{Binding TurnLabel}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap" />
+    </DockPanel>
+
+    <TextBlock Text="{Binding PotLabel}" FontSize="12" Foreground="#9A9A9A" />
+
+    <UniformGrid Columns="3" Margin="0,4,0,0">
+      <Button Content="{Binding Text.Fold}" Command="{Binding FoldCommand}" IsEnabled="{Binding CanFold}" Margin="0,0,6,0" />
+      <Button Content="{Binding Text.Check}" Command="{Binding CheckCommand}" IsEnabled="{Binding CanCheck}" Margin="0,0,6,0" />
+      <Button Content="{Binding CallLabel}" Command="{Binding CallCommand}" IsEnabled="{Binding CanCall}" />
+    </UniformGrid>
+
+    <DockPanel>
+      <Button DockPanel.Dock="Right"
+              Content="{Binding Text.BetOrRaiseTo}"
+              Command="{Binding RaiseCommand}"
+              IsEnabled="{Binding CanRaise}"
+              Margin="6,0,0,0" />
+      <NumericUpDown Value="{Binding RaiseAmount}"
+                     IsEnabled="{Binding CanRaise}"
+                     Minimum="0" Increment="1" FormatString="0.##" />
+    </DockPanel>
+
+    <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,4,0,0">
+      <Button Content="{Binding Text.UndoLast}" Command="{Binding UndoCommand}" IsEnabled="{Binding CanUndo}" FontSize="11" />
+      <Button Content="{Binding Text.NewHand}" Command="{Binding NewHandCommand}" FontSize="11" />
+    </StackPanel>
+
+    <TextBlock Text="{Binding Text.HandHistory}" FontSize="11" Foreground="#9A9A9A" Margin="0,8,0,0" />
+    <Border Background="#1B1B1B" CornerRadius="4" Padding="8" MinHeight="80">
+      <ItemsControl ItemsSource="{Binding History}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:RecordedActionViewModel">
+            <TextBlock Text="{Binding Label}" FontSize="12" Margin="0,1" Foreground="{Binding Foreground}" />
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </Border>
+
+  </StackPanel>
+
+</UserControl>

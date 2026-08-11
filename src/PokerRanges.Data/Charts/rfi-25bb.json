@@ -1,0 +1,89 @@
+{
+  "source": "Ranges d'ouverture standard tournoi ~25bb — point de départ à affiner, non issues d'un solveur",
+  "charts": [
+    {
+      "context": "RaiseFirstIn",
+      "playersLeftToAct": 7,
+      "depthInBigBlinds": 25,
+      "actions": [
+        {
+          "kind": "Raise",
+          "sizeInBigBlinds": 2.0,
+          "range": "66+, A9s+, KTs+, QTs+, JTs, AJo+, KQo"
+        }
+      ]
+    },
+    {
+      "context": "RaiseFirstIn",
+      "playersLeftToAct": 6,
+      "depthInBigBlinds": 25,
+      "actions": [
+        {
+          "kind": "Raise",
+          "sizeInBigBlinds": 2.0,
+          "range": "55+, A8s+, A5s-A4s, KTs+, QTs+, J9s+, T9s, ATo+, KQo"
+        }
+      ]
+    },
+    {
+      "context": "RaiseFirstIn",
+      "playersLeftToAct": 5,
+      "depthInBigBlinds": 25,
+      "actions": [
+        {
+          "kind": "Raise",
+          "sizeInBigBlinds": 2.0,
+          "range": "44+, A7s+, A5s-A2s, K9s+, Q9s+, J9s+, T9s, 98s, ATo+, KJo+"
+        }
+      ]
+    },
+    {
+      "context": "RaiseFirstIn",
+      "playersLeftToAct": 4,
+      "depthInBigBlinds": 25,
+      "actions": [
+        {
+          "kind": "Raise",
+          "sizeInBigBlinds": 2.0,
+          "range": "33+, A5s+, A4s-A2s, K9s+, Q9s+, J9s+, T8s+, 98s, 87s, A9o+, KTo+, QJo"
+        }
+      ]
+    },
+    {
+      "context": "RaiseFirstIn",
+      "playersLeftToAct": 3,
+      "depthInBigBlinds": 25,
+      "actions": [
+        {
+          "kind": "Raise",
+          "sizeInBigBlinds": 2.0,
+          "range": "22+, A2s+, K7s+, Q8s+, J8s+, T8s+, 97s+, 87s, 76s, 65s, A8o+, KTo+, QTo+, JTo"
+        }
+      ]
+    },
+    {
+      "context": "RaiseFirstIn",
+      "playersLeftToAct": 2,
+      "depthInBigBlinds": 25,
+      "actions": [
+        {
+          "kind": "Raise",
+          "sizeInBigBlinds": 2.0,
+          "range": "22+, A2s+, K3s+, Q6s+, J7s+, T7s+, 96s+, 86s+, 75s+, 65s, 54s, A4o+, K9o+, Q9o+, J9o+, T9o"
+        }
+      ]
+    },
+    {
+      "context": "RaiseFirstIn",
+      "playersLeftToAct": 1,
+      "depthInBigBlinds": 25,
+      "actions": [
+        {
+          "kind": "Raise",
+          "sizeInBigBlinds": 2.5,
+          "range": "22+, A2s+, K2s+, Q6s+, J7s+, T7s+, 97s+, 86s+, 76s, 65s, 54s, A2o+, K9o+, QTo+, JTo"
+        }
+      ]
+    }
+  ]
+}

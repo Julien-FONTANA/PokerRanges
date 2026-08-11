@@ -1,0 +1,34 @@
+# Sorties de compilation
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+publish/
+
+# Fichiers utilisateur (spécifiques à une machine, jamais partagés)
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+# Rider / JetBrains
+.idea/
+*.iml
+
+# Visual Studio
+.vs/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+!packages/build/
+
+# Divers
+*.log
+.DS_Store
+Thumbs.db
+
+# Claude Code — réglages locaux, propres à la machine
+.claude/settings.local.json

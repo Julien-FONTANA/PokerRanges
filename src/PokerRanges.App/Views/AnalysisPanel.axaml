@@ -1,0 +1,95 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="using:PokerRanges.App.Views"
+             xmlns:vm="using:PokerRanges.App.ViewModels"
+             x:Class="PokerRanges.App.Views.AnalysisPanel"
+             x:DataType="vm:MainWindowViewModel">
+
+  <DockPanel>
+
+    <Border DockPanel.Dock="Top" Background="#1B1B1B" Padding="16,12" BorderBrush="#2A2A2A" BorderThickness="0,0,0,1">
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Right" Margin="18,0,0,0" VerticalAlignment="Bottom">
+          <TextBlock Text="{Binding Text.LanguageHeader}" Classes="field" />
+          <Button Content="{Binding Text.LanguageToggle}" Command="{Binding ToggleLanguageCommand}"
+                  FontSize="11" Padding="10,5" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Right" Margin="18,0,0,0" VerticalAlignment="Bottom">
+          <TextBlock Text="{Binding Text.Display}" Classes="field" />
+          <Button Content="{Binding Text.CompactMode}" Command="{Binding ToggleCompactCommand}" FontSize="11" Padding="10,5" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Right" Margin="18,0,0,0">
+          <TextBlock Text="{Binding Text.OpponentProfile}" Classes="field" />
+          <ComboBox ItemsSource="{Binding Profiles}" SelectedItem="{Binding Profile}" Width="130">
+            <ComboBox.ItemTemplate>
+              <DataTemplate x:DataType="vm:OpponentProfileChoice">
+                <TextBlock Text="{Binding Label}" />
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+        <views:TablePanel DataContext="{Binding Table}" />
+      </DockPanel>
+    </Border>
+
+    <Border DockPanel.Dock="Bottom" Background="#161616" Padding="16,6" BorderBrush="#2A2A2A" BorderThickness="0,1,0,0">
+      <TextBlock Text="{Binding ShortcutsLabel}" FontSize="10" Foreground="#6E6E6E" TextWrapping="Wrap" />
+    </Border>
+
+    <Border DockPanel.Dock="Left" Width="360" Padding="14,14,7,14">
+      <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="14">
+          <Border Classes="card">
+            <StackPanel>
+              <TextBlock Text="{Binding Text.MyHand}" Classes="section" />
+              <views:CardPickerPanel DataContext="{Binding Hero}" />
+            </StackPanel>
+          </Border>
+          <Border Classes="card">
+            <StackPanel>
+              <TextBlock Text="{Binding Text.Board}" Classes="section" />
+              <views:CardPickerPanel DataContext="{Binding Board}" />
+            </StackPanel>
+          </Border>
+          <Border Classes="card">
+            <views:ActionPanel />
+          </Border>
+          <Border Classes="card">
+            <StackPanel>
+              <TextBlock Text="{Binding Text.Journal}" Classes="section" />
+              <views:JournalPanel DataContext="{Binding Journal}" />
+            </StackPanel>
+          </Border>
+          <Border Classes="card">
+            <StackPanel Spacing="8" DataContext="{Binding Charts}" x:DataType="vm:ChartsViewModel">
+              <TextBlock Text="{Binding Text.Charts}" Classes="section" />
+              <TextBlock Text="{Binding Status}" FontSize="10" Foreground="#8A8A8A" TextWrapping="Wrap" />
+              <TextBlock Text="{Binding Text.ChartsHint}"
+                         FontSize="10" Foreground="#6E6E6E" TextWrapping="Wrap" />
+              <StackPanel Orientation="Horizontal" Spacing="6">
+                <Button Content="{Binding Text.Reload}" Command="{Binding ReloadCommand}" FontSize="11" />
+                <Button Content="{Binding Text.RestoreDefaults}" Command="{Binding RestoreCommand}" FontSize="11" />
+              </StackPanel>
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </ScrollViewer>
+    </Border>
+
+    <Border DockPanel.Dock="Right" Width="410" Padding="7,14,14,14">
+      <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Border Classes="card">
+          <views:RecommendationPanel DataContext="{Binding Recommendation}" />
+        </Border>
+      </ScrollViewer>
+    </Border>
+
+    <Border Padding="7,14">
+      <Border Classes="card">
+        <views:RangeMatrixView DataContext="{Binding Matrix}" />
+      </Border>
+    </Border>
+
+  </DockPanel>
+
+</UserControl>
