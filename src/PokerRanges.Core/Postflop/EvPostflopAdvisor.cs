@@ -111,7 +111,7 @@ public sealed class EvPostflopAdvisor : IPostflopAdvisor
         TimeSpan duration = Stopwatch.GetElapsedTime(startedAt);
 
         _logger.LogInformation(
-            "Conseil postflop : {Action} (EV {ExpectedValue:0.##}) avec {Hand} sur {Board} — budget {Budget} en {Elapsed:0} ms",
+            "Postflop advice: {Action} (EV {ExpectedValue:0.##}) with {Hand} on {Board} — budget {Budget} in {Elapsed:0} ms",
             best.Label,
             best.ExpectedValue,
             features.Describe(),

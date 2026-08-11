@@ -8,7 +8,7 @@ internal static class TestCards
     {
         if (cards.Length % 2 != 0)
         {
-            throw new ArgumentException($"Attendu un nombre pair de caractères, reçu « {cards} ».", nameof(cards));
+            throw new ArgumentException($"Expected an even number of characters, got \"{cards}\".", nameof(cards));
         }
 
         Card[] parsed = new Card[cards.Length / 2];

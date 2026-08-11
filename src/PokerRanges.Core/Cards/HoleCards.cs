@@ -13,7 +13,7 @@ public readonly record struct HoleCards
     {
         if (first == second)
         {
-            throw new ArgumentException($"Un combo exige deux cartes distinctes, reçu deux fois {first}.", nameof(second));
+            throw new ArgumentException($"A combo requires two distinct cards, got {first} twice.", nameof(second));
         }
 
         bool firstIsHigher = first.Index > second.Index;
@@ -58,7 +58,7 @@ public readonly record struct HoleCards
     {
         if (!TryParse(text, out HoleCards combo))
         {
-            throw new CardFormatException($"Combo invalide : « {text} ». Format attendu : deux cartes distinctes, par exemple « AsKh ».");
+            throw new CardFormatException($"Invalid combo: \"{text}\". Expected format: two distinct cards, for example \"AsKh\".");
         }
 
         return combo;

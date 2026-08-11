@@ -36,7 +36,7 @@ internal static class JsonFileStore
         }
         catch (Exception exception) when (exception is JsonException or IOException or UnauthorizedAccessException)
         {
-            logger.LogWarning(exception, "Impossible de relire {What} depuis {Path}, on repart à neuf.", what, path);
+            logger.LogWarning(exception, "Could not read {What} back from {Path}, starting fresh.", what, path);
             return null;
         }
     }
@@ -57,7 +57,7 @@ internal static class JsonFileStore
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            logger.LogWarning(exception, "Impossible d'enregistrer {What} dans {Path}.", what, path);
+            logger.LogWarning(exception, "Could not save {What} to {Path}.", what, path);
         }
     }
 
@@ -69,7 +69,7 @@ internal static class JsonFileStore
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
         {
-            logger.LogWarning(exception, "Impossible d'effacer {What} dans {Path}.", what, path);
+            logger.LogWarning(exception, "Could not delete {What} at {Path}.", what, path);
         }
     }
 }

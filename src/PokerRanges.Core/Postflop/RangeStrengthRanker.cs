@@ -66,7 +66,7 @@ public sealed class RangeStrengthRanker : IRangeStrengthRanker
         Array.Sort(ranked, static (left, right) => right.Equity.CompareTo(left.Equity));
 
         _logger.LogDebug(
-            "Range de {Count} combos classée sur {Board} : de {Best:P1} à {Worst:P1} d'équité.",
+            "Range of {Count} combos ranked on {Board}: from {Best:P1} to {Worst:P1} equity.",
             ranked.Length,
             string.Join(string.Empty, board),
             ranked[0].Equity,

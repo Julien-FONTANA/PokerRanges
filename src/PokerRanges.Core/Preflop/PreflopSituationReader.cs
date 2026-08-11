@@ -16,7 +16,7 @@ public static class PreflopSituationReader
         if (analysis.Street != Street.Preflop)
         {
             throw new PreflopChartException(
-                $"La lecture de situation préflop a été demandée alors que la main en est au {analysis.Street}.");
+                $"A preflop situation read was requested while the hand is already on the {analysis.Street}.");
         }
 
         Position hero = state.Table.HeroPosition;

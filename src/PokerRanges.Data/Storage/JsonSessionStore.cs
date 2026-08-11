@@ -10,8 +10,8 @@ namespace PokerRanges.Data.Storage;
 /// </summary>
 public sealed class JsonSessionStore : ISessionStore
 {
-    private const string PreferencesLabel = "les réglages";
-    private const string HandLabel = "la main en cours";
+    private const string PreferencesLabel = "the settings";
+    private const string HandLabel = "the hand in progress";
 
     private readonly SessionStoreOptions _options;
     private readonly ILogger<JsonSessionStore> _logger;
@@ -87,7 +87,7 @@ public sealed class JsonSessionStore : ISessionStore
         {
             _logger.LogWarning(
                 exception,
-                "La main enregistrée dans {Path} n'est pas exploitable, elle est ignorée.",
+                "The hand saved in {Path} is unusable and has been ignored.",
                 _options.HandFilePath);
 
             return null;

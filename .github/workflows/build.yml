@@ -1,6 +1,6 @@
-# Construit et teste l'application à chaque poussée sur main et à chaque pull request.
-# Un tag « v… » déclenche en plus la publication de l'exécutable autonome et la création
-# de la release GitHub qui le porte.
+# Builds and tests the application on every push to main and every pull request.
+# A "v…" tag additionally triggers publishing the self-contained executable and creating the
+# GitHub release that carries it.
 
 name: build
 
@@ -35,19 +35,19 @@ jobs:
       - name: Build
         run: dotnet build --no-restore -c Release
 
-      # Cette passe fait foi. Elle tourne sans instrumentation : le mode compact promet une réponse
-      # en moins d'une seconde, et ce budget ne se vérifie que sur du code non instrumenté.
+      # This pass is the one that counts. It runs uninstrumented: compact mode promises an answer
+      # in under a second, and that budget can only be checked on uninstrumented code.
       - name: Test
         run: dotnet test --no-build -c Release --logger "trx;LogFileName=results.trx" --results-directory TestResults
 
-      # Seconde passe, qui ne sert qu'à mesurer. Le test de budget temps en est exclu : sous
-      # instrumentation il chronomètre le compteur de couverture, pas l'application, et échoue par
-      # intermittence selon la charge de la machine.
+      # Second pass, for measurement only. The timing-budget test is excluded from it: under
+      # instrumentation it times the coverage counter rather than the application, and fails
+      # intermittently depending on how loaded the machine is.
       - name: Collect coverage
         run: dotnet test --no-build -c Release --collect:"XPlat Code Coverage" --filter "FullyQualifiedName!~AnswersInUnderASecond" --results-directory TestResults
 
-      # Les trois projets de test produisent chacun leur rapport ; il faut les fusionner pour
-      # obtenir la couverture réelle, sans quoi on lit trois chiffres partiels dont aucun n'est vrai.
+      # The three test projects each produce their own report; they must be merged to get the real
+      # coverage, otherwise one reads three partial figures, none of which is true.
       - name: Coverage report
         if: always()
         run: |
@@ -83,8 +83,8 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
-      # Le profil win-x64 produit un exécutable unique et autonome : aucun .NET à installer sur la
-      # machine cible. Il écrit dans publish/win-x64/ (chemin défini par le profil lui-même).
+      # The win-x64 profile produces a single self-contained executable: no .NET to install on the
+      # target machine. It writes to publish/win-x64/ (a path set by the profile itself).
       - name: Publish
         run: dotnet publish src/PokerRanges.App/PokerRanges.App.csproj -p:PublishProfile=win-x64 --nologo
 

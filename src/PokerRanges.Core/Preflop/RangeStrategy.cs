@@ -28,7 +28,7 @@ public sealed class RangeStrategy
             if (action.Kind == ChartActionKind.Fold)
             {
                 throw new PreflopChartException(
-                    $"Le chart « {chart.Describe()} » déclare une action Fold : le fold est déduit de ce qui reste, il ne s'écrit pas.");
+                    $"Chart \"{chart.Describe()}\" declares a Fold action: folding is derived from what remains, it is never written.");
             }
 
             try
@@ -41,7 +41,7 @@ public sealed class RangeStrategy
             catch (RangeNotationException exception)
             {
                 throw new PreflopChartException(
-                    $"Le chart « {chart.Describe()} » contient une range illisible pour l'action {action.Kind}.",
+                    $"Chart \"{chart.Describe()}\" contains an unreadable range for action {action.Kind}.",
                     exception);
             }
         }

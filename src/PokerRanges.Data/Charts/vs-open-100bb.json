@@ -1,5 +1,5 @@
 {
-  "source": "Ranges de défense face à une ouverture ~100bb — point de départ à affiner, non issues d'un solveur",
+  "source": "Defence ranges facing an open at ~100bb — a starting point to refine, not solver output",
   "charts": [
     {
       "context": "VersusOpen",

@@ -17,7 +17,7 @@ public sealed class RankCountHandEvaluator : IHandEvaluator
     {
         if (cards.Length is < 5 or > 7)
         {
-            throw new ArgumentException($"L'évaluation attend 5 à 7 cartes, reçu {cards.Length}.", nameof(cards));
+            throw new ArgumentException($"Evaluation expects 5 to 7 cards, got {cards.Length}.", nameof(cards));
         }
 
         Span<int> rankCounts = stackalloc int[RankSlots];

@@ -9,6 +9,6 @@ public sealed record ChartKey(
     public string Describe()
     {
         string relation = Relation is null ? string.Empty : $" {PreflopContextLabels.Describe(Relation.Value)},";
-        return $"{PreflopContextLabels.Describe(Context)},{relation} {PlayersLeftToAct} joueur(s) derrière, {DepthInBigBlinds:0.#}bb";
+        return $"{PreflopContextLabels.Describe(Context)},{relation} {PlayersLeftToAct} player(s) behind, {DepthInBigBlinds:0.#}bb";
     }
 }

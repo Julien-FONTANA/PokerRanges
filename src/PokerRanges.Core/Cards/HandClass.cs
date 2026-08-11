@@ -18,12 +18,12 @@ public readonly record struct HandClass
         {
             if (high != low)
             {
-                throw new ArgumentException($"Une paire exige deux rangs identiques, reçu {high} et {low}.", nameof(shape));
+                throw new ArgumentException($"A pair requires two identical ranks, got {high} and {low}.", nameof(shape));
             }
         }
         else if (high == low)
         {
-            throw new ArgumentException($"Deux rangs identiques ne peuvent pas former une main {shape}.", nameof(shape));
+            throw new ArgumentException($"Two identical ranks cannot form a {shape} hand.", nameof(shape));
         }
 
         High = high > low ? high : low;
@@ -87,7 +87,7 @@ public readonly record struct HandClass
     {
         if (!TryParse(text, out HandClass handClass))
         {
-            throw new CardFormatException($"Main invalide : « {text} ». Format attendu : deux rangs, suivis de « s » ou « o » hors paire, par exemple « AKs », « T9o » ou « QQ ».");
+            throw new CardFormatException($"Invalid hand: \"{text}\". Expected format: two ranks, followed by \"s\" or \"o\" unless a pair, for example \"AKs\", \"T9o\" or \"QQ\".");
         }
 
         return handClass;

@@ -20,7 +20,7 @@ public sealed class MadeHandClassifier : IMadeHandClassifier
     {
         if (board.Length is < 3 or > 5)
         {
-            throw new ArgumentException($"La classification attend un board de 3 à 5 cartes, reçu {board.Length}.", nameof(board));
+            throw new ArgumentException($"Classification expects a board of 3 to 5 cards, got {board.Length}.", nameof(board));
         }
 
         Span<Card> current = stackalloc Card[board.Length + 2];

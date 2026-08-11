@@ -154,7 +154,7 @@ public sealed class EquityCalculatorTests
             Board = TestCards.Parse("AsAhAd7c"),
         }));
 
-        exception.Message.ShouldContain("joueur 1");
+        exception.Message.ShouldContain("Player 1");
     }
 
     [Theory]

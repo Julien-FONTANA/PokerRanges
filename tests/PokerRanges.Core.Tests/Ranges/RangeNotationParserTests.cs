@@ -74,7 +74,7 @@ public sealed class RangeNotationParserTests
 
         foreach (string hand in new[] { "98s", "87s", "76s", "65s" })
         {
-            range.FrequencyOf(HandClass.Parse(hand)).ShouldBe(1, $"{hand} devrait être inclus");
+            range.FrequencyOf(HandClass.Parse(hand)).ShouldBe(1, $"{hand} should be included");
         }
 
         range.FrequencyOf(HandClass.Parse("T9s")).ShouldBe(0);

@@ -112,7 +112,7 @@ public sealed partial class MainWindowViewModel : ObservableObject
         Board.PropertyChanged += OnBoardChanged;
 
         ScheduleRefresh();
-        _logger.LogInformation("Fenêtre principale prête");
+        _logger.LogInformation("Main window ready");
     }
 
     public UiText Text => UiText.Current;
@@ -363,7 +363,7 @@ public sealed partial class MainWindowViewModel : ObservableObject
         }
         catch (PokerRangesException exception)
         {
-            _logger.LogWarning(exception, "Main invalide : {Message}", exception.Message);
+            _logger.LogWarning(exception, "Invalid hand: {Message}", exception.Message);
             _stateProblem = exception.Message;
             DisableActions();
         }
@@ -499,7 +499,7 @@ public sealed partial class MainWindowViewModel : ObservableObject
             if (_sessionStore.LoadHand() is HandState hand)
             {
                 Load(hand);
-                _logger.LogInformation("Main en cours reprise : {Count} action(s).", hand.Actions.Count);
+                _logger.LogInformation("Hand in progress resumed: {Count} action(s).", hand.Actions.Count);
             }
 
             // Labels computed at construction were computed before the saved language was known:

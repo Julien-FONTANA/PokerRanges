@@ -63,13 +63,13 @@ public static class RangeNotationParser
                 || weight < 0
                 || weight > 1)
             {
-                throw new RangeNotationException(token, "le poids doit être un nombre entre 0 et 1, par exemple « AKo:0.5 ».");
+                throw new RangeNotationException(token, "the weight must be a number between 0 and 1, for example \"AKo:0.5\".");
             }
         }
 
         if (body.Length == 0)
         {
-            throw new RangeNotationException(token, "élément vide.");
+            throw new RangeNotationException(token, "empty element.");
         }
 
         if (HoleCards.TryParse(body, out HoleCards combo))
@@ -139,7 +139,7 @@ public static class RangeNotationParser
 
         if (leftShape != rightShape)
         {
-            throw new RangeNotationException(token, "les deux bornes doivent être du même type (paire, assorti ou dépareillé).");
+            throw new RangeNotationException(token, "both bounds must be of the same type (pair, suited or offsuit).");
         }
 
         if (leftShape == HandShape.Pair)
@@ -172,7 +172,7 @@ public static class RangeNotationParser
         int gap = (int)leftHigh - (int)leftLow;
         if (gap != (int)rightHigh - (int)rightLow)
         {
-            throw new RangeNotationException(token, "les deux bornes doivent partager la même carte haute (« A5s-A2s ») ou le même écart (« 98s-65s »).");
+            throw new RangeNotationException(token, "both bounds must share the same high card (\"A5s-A2s\") or the same gap (\"98s-65s\").");
         }
 
         int fromHigh = Math.Min((int)leftHigh, (int)rightHigh);
@@ -192,7 +192,7 @@ public static class RangeNotationParser
             || !CardSymbols.TryParseRank(body[0], out Rank first)
             || !CardSymbols.TryParseRank(body[1], out Rank second))
         {
-            throw new RangeNotationException(token, "attendu deux rangs, éventuellement suivis de « s » ou « o », par exemple « AKs », « T9o » ou « QQ ».");
+            throw new RangeNotationException(token, "expected two ranks, optionally followed by \"s\" or \"o\", for example \"AKs\", \"T9o\" or \"QQ\".");
         }
 
         high = first > second ? first : second;
@@ -206,14 +206,14 @@ public static class RangeNotationParser
 
         if (first == second)
         {
-            throw new RangeNotationException(token, "une paire ne peut pas être suffixée par « s » ou « o ».");
+            throw new RangeNotationException(token, "a pair cannot be suffixed with \"s\" or \"o\".");
         }
 
         shape = char.ToLowerInvariant(body[2]) switch
         {
             's' => HandShape.Suited,
             'o' => HandShape.Offsuit,
-            _ => throw new RangeNotationException(token, "le suffixe doit être « s » (assorti) ou « o » (dépareillé)."),
+            _ => throw new RangeNotationException(token, "the suffix must be \"s\" (suited) or \"o\" (offsuit)."),
         };
     }
 

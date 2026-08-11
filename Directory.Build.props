@@ -6,17 +6,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 
-    <!-- Les symboles vivent dans l'assembly plutôt que dans un .pdb à côté : une pile d'appel
-         garde ses numéros de ligne, et la publication n'a rien à traîner. Le réglage était porté
-         par le seul profil de publication, donc par la seule application ; Core et Data
-         déposaient encore leurs .pdb dans le dossier publié. -->
+    <!-- Symbols live inside the assembly rather than in a .pdb alongside it: a stack trace keeps
+         its line numbers, and publishing has nothing to drag along. The setting used to be carried
+         by the publish profile alone, and therefore by the application alone; Core and Data were
+         still dropping their .pdb files into the published folder. -->
     <DebugType>embedded</DebugType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <Company>Personnel</Company>
     <Product>PokerRanges</Product>
-    <Description>Assistant de décision Texas Hold'em No Limit en tournoi.</Description>
+    <Description>Texas Hold'em No Limit tournament decision assistant.</Description>
     <Version>1.0.0</Version>
   </PropertyGroup>
 

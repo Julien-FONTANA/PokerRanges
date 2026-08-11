@@ -73,10 +73,10 @@ public sealed class JsonPreflopChartRepository : IPreflopChartRepository
         _charts = [.. byKey.Values];
 
         _logger.LogInformation(
-            "{Total} charts préflop chargés, dont {UserCount} venant de {Directory}.",
+            "{Total} preflop charts loaded, {UserCount} of them from {Directory}.",
             _charts.Count,
             userChartCount,
-            _options.UserChartsDirectory ?? "(aucun dossier utilisateur)");
+            _options.UserChartsDirectory ?? "(no user directory)");
     }
 
     /// <summary>
@@ -124,7 +124,7 @@ public sealed class JsonPreflopChartRepository : IPreflopChartRepository
         {
             _logger.LogWarning(
                 exception,
-                "Impossible d'écrire les charts livrés dans {Directory} : l'application se rabat sur ceux qu'elle embarque.",
+                "Could not write the shipped charts to {Directory}: falling back on the embedded ones.",
                 directory);
 
             return written;
@@ -132,7 +132,7 @@ public sealed class JsonPreflopChartRepository : IPreflopChartRepository
 
         if (written > 0)
         {
-            _logger.LogInformation("{Count} charts livrés écrits dans {Directory}.", written, directory);
+            _logger.LogInformation("{Count} shipped charts written to {Directory}.", written, directory);
         }
 
         return written;
@@ -216,12 +216,12 @@ public sealed class JsonPreflopChartRepository : IPreflopChartRepository
         }
         catch (JsonException exception)
         {
-            throw new PreflopChartException($"Le fichier de charts « {origin} » n'est pas un JSON valide.", exception);
+            throw new PreflopChartException($"Chart file \"{origin}\" is not valid JSON.", exception);
         }
 
         if (document is null)
         {
-            throw new PreflopChartException($"Le fichier de charts « {origin} » est vide.");
+            throw new PreflopChartException($"Chart file \"{origin}\" is empty.");
         }
 
         return

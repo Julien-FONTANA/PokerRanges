@@ -1,4 +1,4 @@
-﻿using PokerRanges.Core.Cards;
+using PokerRanges.Core.Cards;
 
 namespace PokerRanges.Data.Tests;
 
@@ -8,7 +8,7 @@ internal static class TestCards
     {
         if (cards.Length % 2 != 0)
         {
-            throw new ArgumentException($"Attendu un nombre pair de caractÃ¨res, reÃ§u Â« {cards} Â».", nameof(cards));
+            throw new ArgumentException($"Expected an even number of characters, got \"{cards}\".", nameof(cards));
         }
 
         Card[] parsed = new Card[cards.Length / 2];

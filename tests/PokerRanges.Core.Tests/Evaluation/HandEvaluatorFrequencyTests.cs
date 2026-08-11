@@ -80,7 +80,7 @@ public sealed class HandEvaluatorFrequencyTests
             HandValue direct = _evaluator.Evaluate(hand);
             HandValue reference = BestOfFiveCardSubsets(hand);
 
-            direct.ShouldBe(reference, $"main {string.Join(string.Empty, hand.Select(card => card.ToString()))}");
+            direct.ShouldBe(reference, $"hand {string.Join(string.Empty, hand.Select(card => card.ToString()))}");
         }
     }
 

@@ -52,7 +52,7 @@ public sealed class PreflopAdvisor : IPreflopAdvisor
         StrategyOption recommendation = resolution.Strategy.MostFrequentFor(heroCards);
 
         _logger.LogInformation(
-            "Conseil préflop pour {Hand} en {Position} : {Action} ({Frequency:P0}) — {Chart}",
+            "Preflop advice for {Hand} in {Position}: {Action} ({Frequency:P0}) — {Chart}",
             heroCards.ToHandClass(),
             PositionLayout.Describe(state.Table.HeroPosition),
             recommendation.Kind,

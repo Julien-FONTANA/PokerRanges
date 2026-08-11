@@ -88,7 +88,7 @@ public sealed record TableConfiguration
         if (!PositionLayout.IsSeated(PlayerCount, HeroPosition))
         {
             throw new TableException(
-                $"Le héros est placé en {PositionLayout.Describe(HeroPosition)}, qui n'existe pas à une table de {PlayerCount} joueurs.");
+                $"The hero is seated at {PositionLayout.Describe(HeroPosition)}, which does not exist at a {PlayerCount}-player table.");
         }
     }
 }

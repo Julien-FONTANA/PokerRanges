@@ -67,7 +67,7 @@ public sealed class RangeAssigner : IRangeAssigner
             assigned.Add(new OpponentRange(opponent, range, story));
         }
 
-        _logger.LogDebug("Ranges assignées à {Count} adversaire(s).", assigned.Count);
+        _logger.LogDebug("Ranges assigned to {Count} opponent(s).", assigned.Count);
 
         return assigned;
     }

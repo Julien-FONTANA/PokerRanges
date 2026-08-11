@@ -26,10 +26,10 @@
   </ItemGroup>
 
   <!--
-    La publication promet un fichier unique à recopier. Les paquets natifs déposent pourtant leurs
-    symboles à côté : libSkiaSharp.pdb et libHarfBuzzSharp.pdb pèsent à eux deux plus du double de
-    l'exécutable. Ces symboles-là sont natifs, donc impossibles à embarquer dans l'assembly, et
-    n'ont aucune utilité pour déboguer ce qu'on écrit ici. On les retire une fois publié.
+    Publishing promises a single file to copy. Native packages nonetheless drop their symbols
+    alongside it: libSkiaSharp.pdb and libHarfBuzzSharp.pdb together weigh more than twice the
+    executable. Those symbols are native, so impossible to embed in the assembly, and of no use
+    for debugging what we write here. They are removed once publishing is done.
   -->
   <Target Name="RemoveSymbolsFromPublishOutput" AfterTargets="Publish">
     <ItemGroup>

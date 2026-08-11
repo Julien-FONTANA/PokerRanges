@@ -102,7 +102,7 @@ public sealed class SessionStorageTests : IDisposable
     public void ATruncatedFileIsTreatedAsNothingSavedInsteadOfThrowing()
     {
         File.WriteAllText(_options.HandFilePath, "{\"playerCount\": 6, \"board\": \"Ks8d");
-        File.WriteAllText(_options.PreferencesFilePath, "ceci n'est pas du JSON");
+        File.WriteAllText(_options.PreferencesFilePath, "this is not JSON");
 
         JsonSessionStore store = NewStore();
 
@@ -137,13 +137,13 @@ public sealed class SessionStorageTests : IDisposable
     {
         JsonHandJournal journal = NewJournal();
 
-        journal.Append(Entry("Ah2h", "première"));
-        journal.Append(Entry("Kh9d", "deuxième"));
-        journal.Append(Entry("QsJs", "troisième"));
-        journal.Append(Entry("7c7d", "quatrième"));
+        journal.Append(Entry("Ah2h", "first"));
+        journal.Append(Entry("Kh9d", "second"));
+        journal.Append(Entry("QsJs", "third"));
+        journal.Append(Entry("7c7d", "fourth"));
 
         journal.Entries.Count.ShouldBe(3);
-        journal.Entries.ShouldNotContain(entry => entry.Advice == "première");
+        journal.Entries.ShouldNotContain(entry => entry.Advice == "first");
     }
 
     [Fact]
@@ -187,7 +187,7 @@ public sealed class SessionStorageTests : IDisposable
             PlayedAt = new DateTimeOffset(2026, 7, 31, 14, 22, 0, TimeSpan.Zero),
             Hand = SampleHand() with { HeroCards = HoleCards.Parse(heroCards) },
             Advice = advice,
-            Rationale = ["Ta main : top paire.", "Board hauteur K."],
+            Rationale = ["Your hand: top pair.", "K-high board."],
         };
     }
 

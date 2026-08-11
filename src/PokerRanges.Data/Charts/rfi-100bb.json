@@ -1,5 +1,5 @@
 {
-  "source": "Ranges d'ouverture standard tournoi ~100bb — point de départ à affiner, non issues d'un solveur",
+  "source": "Standard tournament opening ranges at ~100bb — a starting point to refine, not solver output",
   "charts": [
     {
       "context": "RaiseFirstIn",

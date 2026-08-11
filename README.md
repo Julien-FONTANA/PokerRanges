@@ -6,65 +6,64 @@
 ![platform](https://img.shields.io/badge/platform-Windows%20x64-0078D4)
 [![license](https://img.shields.io/github/license/Julien-FONTANA/PokerRanges?color=97CA00)](LICENSE)
 
-Assistant de décision Texas Hold'em No Limit en tournoi. Une application de bureau qui suit la main
-au rythme où elle se joue et répond à une seule question : **qu'est-ce que je fais, et pourquoi ?**
+A decision assistant for No Limit Texas Hold'em tournaments. A desktop application that follows the
+hand at the pace it is played and answers a single question: **what do I do, and why?**
 
-Préflop, la réponse vient d'un chart, et l'application dit lequel et ce qu'elle a dû arrondir pour
-l'atteindre. Postflop, elle reconstruit la range de chaque adversaire à partir de ce qu'il a
-réellement fait, puis compare l'espérance de chaque action sous un modèle de réponse adverse
-explicite. Le raisonnement est affiché en entier : aucun conseil n'arrive sans sa justification.
+Preflop, the answer comes from a chart, and the application says which one and what it had to round
+off to get there. Postflop, it rebuilds each opponent's range from what they actually did, then
+compares the expectation of every action under an explicit opponent response model. The reasoning is
+shown in full: no advice arrives without its justification.
 
-Interface française et anglaise, changeable à chaud.
-
----
-
-## Ce qu'elle fait
-
-- **Conseil préflop par chart** — contexte reconnu automatiquement (ouverture, face à une ouverture,
-  squeeze, face à un 3-bet, tapis court…), position, profondeur et nombre de joueurs derrière.
-  Fréquences mixtes affichées quand plusieurs actions sont jouables.
-- **Conseil postflop par espérance** — chaque taille de mise est évaluée contre la sous-range qui
-  *paie*, pas contre la range de départ. C'est là que les outils naïfs se trompent.
-- **Grille 13×13** — la stratégie du chart préflop, ou la range assignée à l'adversaire postflop,
-  avec les combos que le board et vos cartes lui interdisent.
-- **Quatre profils adverses** — équilibré, serré, suiveur, agressif. Change le profil, le conseil
-  change avec lui.
-- **Table de 2 à 8 joueurs**, tapis inégaux, antes classiques ou payées par la grosse blinde.
-- **Mode compact** — fenêtre réduite, toujours au premier plan, saisie des cartes au clavier
-  (`askd`, `ks8d3c`), pensée pour répondre en moins d'une seconde pendant qu'on joue.
-- **Journal des mains** — une entrée conserve la main entière, pas un résumé : on la recharge et on
-  rejoue la décision avec un autre profil ou une autre taille.
-- **Reprise automatique** — la main en cours et les réglages survivent à la fermeture.
+French and English interface, switchable on the fly.
 
 ---
 
-## Comment elle raisonne
+## What it does
 
-La partie intéressante est le postflop. Pour chaque adversaire encore en jeu :
-
-1. **Range de départ** — on lit le chart qui correspond à la situation dans laquelle il a agi, et on
-   retient la branche qui correspond à son action réelle (il a relancé → sa range de relance).
-2. **Retrait des combos impossibles** — le board et vos deux cartes bloquent des combinaisons ; elles
-   sortent de la range avant tout calcul.
-3. **Resserrement rue par rue** — chaque action postflop réduit la range. Une mise la polarise
-   (meilleures mains pour la valeur, queue de mains faibles pour les bluffs) ; un suivi ne garde que
-   la part que la fréquence de défense minimale justifie, décalée selon le profil.
-4. **Classement par force** — chaque combo est classé par son équité contre la range elle-même sur ce
-   board. Un classement mesuré, pas une table de bonus écrite à la main : c'est ce qui valorise
-   correctement un tirage couleur face à une petite paire.
-5. **Espérance de chaque action** — pour chaque taille envisagée, on calcule la probabilité que
-   l'adversaire se couche, et l'équité **contre ce qui continue**. Les cotes implicites d'un tirage,
-   la réalisation d'équité en position ou hors de position, et la re-relance adverse en tête-à-tête
-   sont modélisées.
-
-Le calcul est déterministe : à situation identique, conseil identique. Les tirages Monte-Carlo
-partent d'une graine fixe et l'avis affiche l'erreur-type qu'il a atteinte.
+- **Chart-based preflop advice** — the context is recognised automatically (open, facing an open,
+  squeeze, facing a 3-bet, short stack…), along with position, depth and the number of players
+  behind. Mixed frequencies are shown when several actions are playable.
+- **Expectation-based postflop advice** — each bet size is evaluated against the sub-range that
+  *calls*, not against the starting range. That is where naive tools go wrong.
+- **13×13 grid** — the preflop chart's strategy, or the range assigned to the opponent postflop,
+  including the combos the board and your own cards deny them.
+- **Four opponent profiles** — balanced, tight, calling station, aggressive. Change the profile and
+  the advice changes with it.
+- **Tables from 2 to 8 players**, uneven stacks, regular antes or big blind antes.
+- **Compact mode** — a reduced, always-on-top window with cards typed from the keyboard
+  (`askd`, `ks8d3c`), designed to answer in under a second while you are playing.
+- **Hand journal** — an entry keeps the whole hand, not a summary: reload it and replay the decision
+  with a different profile or a different size.
+- **Automatic resume** — the hand in progress and the settings survive shutdown.
 
 ---
 
-## Prise en main
+## How it reasons
 
-Il faut le **SDK .NET 10**.
+The interesting part is postflop. For each opponent still in the hand:
+
+1. **Starting range** — read the chart matching the situation they acted in, and keep the branch
+   matching their actual action (they raised → their raising range).
+2. **Removing impossible combos** — the board and your two cards block combinations; those leave the
+   range before any calculation.
+3. **Narrowing street by street** — each postflop action shrinks the range. A bet polarises it (best
+   hands for value, a tail of weak ones for bluffs); a call keeps only the share the minimum defence
+   frequency justifies, shifted by the profile.
+4. **Ranking by strength** — each combo is ranked by its equity against the range itself on this
+   board. A measured ranking, not a hand-written bonus table: that is what correctly values a flush
+   draw against a small pair.
+5. **Expectation of each action** — for every size considered, compute the probability the opponent
+   folds, and the equity **against what continues**. A draw's implied odds, equity realisation in
+   and out of position, and the opponent's re-raise heads-up are all modelled.
+
+The calculation is deterministic: the same situation gives the same advice. Monte-Carlo sampling
+starts from a fixed seed, and the advice states the standard error it reached.
+
+---
+
+## Getting started
+
+You need the **.NET 10 SDK**.
 
 ```bash
 git clone https://github.com/Julien-FONTANA/PokerRanges.git
@@ -72,69 +71,68 @@ cd PokerRanges
 dotnet run --project src/PokerRanges.App
 ```
 
-Les tests :
+The tests:
 
 ```bash
 dotnet test
 ```
 
-317 tests : 224 pour le domaine, 55 pour les données, 38 qui pilotent la fenêtre principale de bout
-en bout. Pour mesurer la couverture, comme le fait l'intégration continue :
+317 tests: 224 for the domain, 55 for the data, 38 driving the main window end to end. To measure
+coverage, as continuous integration does:
 
 ```bash
 dotnet test --collect:"XPlat Code Coverage"
 ```
 
-Les trois projets de test produisent chacun leur rapport ; il faut les fusionner pour lire la
-couverture réelle. Le workflow le fait et affiche le résultat dans le résumé de l'exécution.
+The three test projects each produce their own report; they have to be merged to read the real
+coverage. The workflow does that and shows the result in the run summary.
 
-Produire l'exécutable autonome (Windows, aucun .NET requis sur la machine cible) :
+To produce the self-contained executable (Windows, no .NET required on the target machine):
 
 ```powershell
 .\publish.ps1
 ```
 
-Le script lance les tests d'abord — publier un binaire qu'on n'a pas vérifié, c'est se préparer à le
-rappeler. `-SkipTests` pour un aller-retour rapide, `-ReadyToRun` pour un démarrage plus vif contre
-un fichier plus gros. Le résultat est un `PokerRanges.exe` unique dans `publish/win-x64/`.
+The script runs the tests first — publishing a binary nobody has checked is asking to have to recall
+it. `-SkipTests` for a quick round trip, `-ReadyToRun` for snappier startup at the cost of a bigger
+file. The result is a single `PokerRanges.exe` in `publish/win-x64/`.
 
 ---
 
-## Raccourcis
+## Shortcuts
 
-| Touche | Action |
+| Key | Action |
 |---|---|
-| `Alt+P` | Passer |
-| `Alt+C` | Checker |
-| `Alt+S` | Suivre |
-| `Alt+R` | Miser / relancer |
-| `Ctrl+Z` | Annuler la dernière action |
-| `Ctrl+N` | Nouvelle main |
-| `F2` | Basculer mode compact / analyse |
+| `Alt+P` | Fold |
+| `Alt+C` | Check |
+| `Alt+S` | Call |
+| `Alt+R` | Bet / raise |
+| `Ctrl+Z` | Undo the last action |
+| `Ctrl+N` | New hand |
+| `F2` | Toggle compact / analysis mode |
 
-Les lettres nues sont réservées à la saisie des cartes, où `c`, `d`, `h` et `s` sont des couleurs et
-non des actions.
+Bare letters are reserved for card entry, where `c`, `d`, `h` and `s` are suits and not actions.
 
 ---
 
-## Les charts préflop
+## The preflop charts
 
-Les charts livrés sont embarqués dans l'application, puis recopiés au premier lancement dans un
-dossier éditable :
+The shipped charts are embedded in the application, then copied on first launch into an editable
+directory:
 
 ```
 %APPDATA%\PokerRanges\charts\
 ```
 
-Un fichier de ce dossier remplace le chart livré de même clé. Modifiez une range, cliquez
-**Recharger** dans l'application, le conseil change sans redémarrer. **Restaurer l'origine** réécrit
-les fichiers livrés par-dessus — on peut casser une range sans crainte.
+A file in that directory replaces the shipped chart with the same key. Edit a range, click
+**Reload** in the application, and the advice changes without a restart. **Restore originals**
+rewrites the shipped files over the top — so a range can be broken without fear.
 
-Le format est du JSON, les ranges en notation habituelle :
+The format is JSON, with ranges in the usual notation:
 
 ```json
 {
-  "source": "Ranges d'ouverture standard tournoi ~100bb",
+  "source": "Standard tournament opening ranges at ~100bb",
   "charts": [
     {
       "context": "RaiseFirstIn",
@@ -152,21 +150,21 @@ Le format est du JSON, les ranges en notation habituelle :
 }
 ```
 
-Le fold ne s'écrit jamais : c'est ce qui reste une fois les autres actions retirées, donc aucune main
-ne peut être oubliée. Quand aucun chart ne correspond exactement, l'application en désigne un seul —
-elle ne mélange jamais deux charts — et affiche chaque écart qu'elle a consenti.
+Folding is never written: it is whatever remains once the other actions are subtracted, so no hand
+can be forgotten. When no chart matches exactly, the application names a single one — it never
+blends two charts — and shows every compromise it made.
 
 ---
 
-## Où sont rangés les fichiers
+## Where the files live
 
-| Chemin | Contenu |
+| Path | Contents |
 |---|---|
-| `%APPDATA%\PokerRanges\charts\` | Les charts préflop, éditables |
-| `%APPDATA%\PokerRanges\settings.json` | Réglages de table, profil, langue |
-| `%APPDATA%\PokerRanges\journal.json` | Le journal des mains |
-| `%LOCALAPPDATA%\PokerRanges\hand-in-progress.json` | La main interrompue, à reprendre |
-| `%LOCALAPPDATA%\PokerRanges\logs\` | Les traces d'exécution |
+| `%APPDATA%\PokerRanges\charts\` | The preflop charts, editable |
+| `%APPDATA%\PokerRanges\settings.json` | Table settings, profile, language |
+| `%APPDATA%\PokerRanges\journal.json` | The hand journal |
+| `%LOCALAPPDATA%\PokerRanges\hand-in-progress.json` | The interrupted hand, to resume |
+| `%LOCALAPPDATA%\PokerRanges\logs\` | Execution logs |
 
 ---
 
@@ -174,69 +172,72 @@ elle ne mélange jamais deux charts — et affiche chaque écart qu'elle a conse
 
 ```
 src/
-  PokerRanges.Core    Le domaine. Cartes, ranges, évaluateur, équité, moteur de pot,
-                      conseil préflop et postflop. Ne dépend que des abstractions de log.
-  PokerRanges.Data    Les charts JSON et la persistance. Ne connaît pas l'interface.
-  PokerRanges.App     Avalonia + MVVM. Ne contient aucune règle de poker.
+  PokerRanges.Core    The domain. Cards, ranges, evaluator, equity, pot engine,
+                      preflop and postflop advice. Depends only on logging abstractions.
+  PokerRanges.Data    The JSON charts and persistence. Knows nothing about the interface.
+  PokerRanges.App     Avalonia + MVVM. Contains no poker rules.
 tests/
-  …Core.Tests         Le domaine, cas par cas.
-  …Data.Tests         Charts, résolution, persistance.
-  …App.Tests          La fenêtre principale, pilotée comme un utilisateur la piloterait.
+  …Core.Tests         The domain, case by case.
+  …Data.Tests         Charts, resolution, persistence.
+  …App.Tests          The main window, driven as a user would drive it.
 ```
 
-Quelques pièces qui valent le détour :
+A few pieces worth the detour:
 
-- **`RankCountHandEvaluator`** — évaluation de 5 à 7 cartes par comptage de rangs, sans allocation,
-  sans table précalculée.
-- **`HandReplay`** — rejoue la main action par action : antes, blindes, engagements par rue,
-  tapis, joueurs couchés, et qui doit parler. C'est le board qui fait autorité sur la rue.
-- **`EquityCalculator`** — bascule seul entre énumération exhaustive et Monte-Carlo selon le coût,
-  échantillonne par rejet pour respecter la loi jointe de ranges qui se recouvrent, et s'arrête sur
-  l'erreur-type visée.
-- **`ChartResolver`** — choisit le chart le plus proche et retient chaque compromis, pour qu'un
-  conseil reste toujours remontable jusqu'à la donnée qui l'a produit.
-- **`Language`** — la langue courante *est* `CurrentUICulture`. Les nombres suivent donc sans qu'on y
-  pense, et la culture traverse les `await` et le pool de threads.
+- **`RankCountHandEvaluator`** — evaluates 5 to 7 cards by counting ranks, with no allocation and no
+  precomputed table.
+- **`HandReplay`** — replays the hand action by action: antes, blinds, per-street commitments,
+  stacks, folded players, and who has to act. The board is what settles the street.
+- **`EquityCalculator`** — switches on its own between exhaustive enumeration and Monte-Carlo
+  depending on cost, samples by rejection to respect the joint distribution of overlapping ranges,
+  and stops on the target standard error.
+- **`ChartResolver`** — picks the closest chart and records every compromise, so a piece of advice
+  can always be traced back to the data that produced it.
+- **`Language`** — the current language *is* `CurrentUICulture`. Numbers therefore follow without
+  anyone thinking about it, and the culture crosses `await` and the thread pool.
 
-Les hypothèses du modèle (`PostflopOptions`) sont séparées du coût de calcul (`PostflopBudget`) :
-les premières décrivent ce qu'on suppose du jeu, le second ce qu'on accepte de dépenser pour le
-mesurer.
-
----
-
-## Limites connues
-
-Elles sont assumées, pas cachées — l'application en signale plusieurs à l'écran.
-
-- **Les charts sont un point de départ, pas une sortie de solveur.** Plusieurs contextes n'ont
-  aucune donnée propre (face à un 3-bet, face à un 4-bet, squeeze, face à des limps) et se rabattent
-  sur un contexte voisin. Les profondeurs couvertes sont 10, 25 et 100bb ; entre les deux,
-  l'application prend le chart le plus proche et le dit.
-- **Pas d'ICM.** Toutes les espérances sont en jetons. Près d'une bulle ou d'une table finale, ce
-  n'est pas la bonne monnaie.
-- **Décision à un coup.** L'espérance est calculée comme si le coup s'arrêtait là : pas de plan de
-  relance sur les rues suivantes.
-- **Multi-joueurs approché.** Au-delà du tête-à-tête, la re-relance adverse n'est pas modélisée et
-  les adversaires sont traités comme indépendants. L'avis le signale.
-- **Pas de pots annexes.** Les tapis inégaux sont modélisés, mais un abattage multi-joueurs à tapis
-  ne répartit pas encore le pot en plusieurs parts.
-- **Publication Windows x64 uniquement**, bien qu'Avalonia soit multiplateforme.
+The model's assumptions (`PostflopOptions`) are kept separate from the cost of computing
+(`PostflopBudget`): the first describes what is assumed about the game, the second what we accept
+to spend measuring it.
 
 ---
 
-## Contribuer
+## Known limitations
 
-Les contributions sont bienvenues, et la limite la plus utile à repousser n'est pas du code : ce
-sont les charts. Plusieurs situations n'ont aucune donnée propre et se rabattent sur une voisine,
-et ajouter un chart ne demande que du JSON.
+They are assumed, not hidden — the application flags several of them on screen.
 
-Le [guide de contribution](CONTRIBUTING.md) décrit l'organisation du code, les conventions, et le
-format des charts. Il est rédigé en anglais — comme le [code de conduite](CODE_OF_CONDUCT.md) et la
-[politique de sécurité](SECURITY.md) — pour que la langue ne soit pas un obstacle à participer,
-alors que le code et ses commentaires restent en français.
+- **The charts are a starting point, not solver output.** Several contexts have no data of their own
+  (facing a 3-bet, facing a 4-bet, squeeze, facing limps) and fall back on a neighbouring context.
+  The depths covered are 10, 25 and 100bb; in between, the application takes the closest chart and
+  says so.
+- **No ICM.** Every expectation is in chips. Near a bubble or a final table, that is the wrong
+  currency.
+- **One-shot decisions.** Expectation is computed as though the hand ended on this street: there is
+  no plan for betting the following ones.
+- **Multiway is approximated.** Beyond heads-up, the opponent's re-raise is not modelled and
+  opponents are treated as independent. The advice says so.
+- **No side pots.** Uneven stacks are modelled, but a multiway all-in showdown does not yet split
+  the pot into several parts.
+- **Windows x64 publishing only**, even though Avalonia is cross-platform.
 
-Une faille de sécurité ne se signale pas dans un ticket public : voir [SECURITY.md](SECURITY.md).
+---
 
-## Licence
+## Contributing
+
+Contributions are welcome, and the most useful limitation to push back is not code: it is the
+charts. Several situations have no data of their own and fall back on a neighbour, and adding a
+chart takes nothing but JSON.
+
+The [contributing guide](CONTRIBUTING.md) covers how the code is laid out, the conventions, and the
+chart format. See also the [code of conduct](CODE_OF_CONDUCT.md) and the
+[security policy](SECURITY.md).
+
+The repository is written in English — code, comments and documentation alike. The **user
+interface** is a different matter: it ships in both French and English, and everything under
+`Localization/` must keep both.
+
+A security issue is not reported in a public ticket: see [SECURITY.md](SECURITY.md).
+
+## License
 
 [MIT](LICENSE) — © 2026 Julien Fontana.

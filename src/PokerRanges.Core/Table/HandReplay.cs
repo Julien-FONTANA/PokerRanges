@@ -59,7 +59,7 @@ internal sealed class HandReplay
             if (action.Street > boardStreet)
             {
                 throw new TableException(
-                    $"Une action est datée du {action.Street} alors que le board n'en compte que {state.Board.Count} cartes.");
+                    $"An action is dated to the {action.Street} while the board only holds {state.Board.Count} cards.");
             }
 
             replay.Apply(action);
@@ -151,13 +151,13 @@ internal sealed class HandReplay
         if (!PositionLayout.IsSeated(Table.PlayerCount, action.Position))
         {
             throw new TableException(
-                $"{PositionLayout.Describe(action.Position)} n'est pas assis à une table de {Table.PlayerCount} joueurs.");
+                $"{PositionLayout.Describe(action.Position)} is not seated at a {Table.PlayerCount}-player table.");
         }
 
         if (action.Street < Street)
         {
             throw new TableException(
-                $"L'action de {PositionLayout.Describe(action.Position)} est datée du {action.Street} alors que la main en est déjà au {Street}.");
+                $"{PositionLayout.Describe(action.Position)}'s action is dated to the {action.Street} while the hand is already on the {Street}.");
         }
 
         if (action.Street != Street)
@@ -180,7 +180,7 @@ internal sealed class HandReplay
                 if (AmountToCallFor(action.Position) > Tolerance)
                 {
                     throw new TableException(
-                        $"{PositionLayout.Describe(action.Position)} ne peut pas checker : il doit encore {AmountToCallFor(action.Position)}.");
+                        $"{PositionLayout.Describe(action.Position)} cannot check: {AmountToCallFor(action.Position)} is still owed.");
                 }
 
                 break;
@@ -209,13 +209,13 @@ internal sealed class HandReplay
         if (increment <= Tolerance)
         {
             throw new TableException(
-                $"{PositionLayout.Describe(action.Position)} relance à {action.AmountTo} alors qu'il a déjà engagé {_streetCommitted[action.Position]} sur cette street.");
+                $"{PositionLayout.Describe(action.Position)} raises to {action.AmountTo} having already committed {_streetCommitted[action.Position]} on this street.");
         }
 
         if (action.AmountTo < CurrentBet - Tolerance && increment < _remaining[action.Position] - Tolerance)
         {
             throw new TableException(
-                $"{PositionLayout.Describe(action.Position)} relance à {action.AmountTo}, en dessous de la mise courante de {CurrentBet}, sans être à tapis.");
+                $"{PositionLayout.Describe(action.Position)} raises to {action.AmountTo}, below the current bet of {CurrentBet}, without being all-in.");
         }
 
         Commit(action.Position, increment, countsTowardCurrentBet: true);

@@ -70,7 +70,7 @@ public sealed partial class JournalViewModel : ObservableObject
             return;
         }
 
-        _logger.LogInformation("Rechargement de la main du {Moment}.", entry.Moment);
+        _logger.LogInformation("Reloading the hand from {Moment}.", entry.Moment);
         ReplayRequested?.Invoke(this, entry.Entry);
     }
 

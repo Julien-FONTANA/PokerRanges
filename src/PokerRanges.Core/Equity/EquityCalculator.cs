@@ -48,15 +48,15 @@ public sealed class EquityCalculator : IEquityCalculator
         if (accumulator.SampleCount == 0)
         {
             throw new EquityException(
-                "Aucune distribution possible : les ranges, le board et les cartes mortes sont incompatibles entre eux.");
+                "No deal is possible: the ranges, the board and the dead cards are incompatible with each other.");
         }
 
         double standardError = useExhaustive ? 0 : accumulator.StandardErrorOf(0);
         stopwatch.Stop();
 
         _logger.LogDebug(
-            "Équité calculée par {Method} : {Samples} abattages, équité héros {HeroEquity:P2} ± {Margin:P2}, en {ElapsedMilliseconds} ms",
-            useExhaustive ? "énumération exhaustive" : "Monte-Carlo",
+            "Equity computed by {Method}: {Samples} showdowns, hero equity {HeroEquity:P2} ± {Margin:P2}, in {ElapsedMilliseconds} ms",
+            useExhaustive ? "exhaustive enumeration" : "Monte-Carlo",
             accumulator.SampleCount,
             accumulator.EquityOf(0),
             1.96 * standardError,
@@ -121,7 +121,7 @@ public sealed class EquityCalculator : IEquityCalculator
             if (players[index].Length == 0)
             {
                 throw new EquityException(
-                    $"La range du joueur {index + 1} ne contient plus aucun combo une fois le board et les cartes mortes retirés.");
+                    $"Player {index + 1}'s range holds no combo at all once the board and dead cards are removed.");
             }
         }
 
@@ -149,7 +149,7 @@ public sealed class EquityCalculator : IEquityCalculator
             if (showdowns > ExhaustiveShowdownBudget)
             {
                 _logger.LogWarning(
-                    "Énumération exhaustive demandée explicitement sur environ {Showdowns:N0} abattages : le calcul sera long.",
+                    "Exhaustive enumeration explicitly requested over roughly {Showdowns:N0} showdowns: this will be slow.",
                     showdowns);
             }
 

@@ -86,7 +86,7 @@ public sealed class PreflopChartDataTests
 
             later.ShouldBeGreaterThan(
                 earlier,
-                $"{charts[index].Describe()} devrait être plus large que {charts[index - 1].Describe()}");
+                $"{charts[index].Describe()} should be wider than {charts[index - 1].Describe()}");
         }
     }
 

@@ -1,17 +1,17 @@
-﻿<#
+<#
 .SYNOPSIS
-    Produit PokerRanges.exe en version autonome.
+    Produces PokerRanges.exe as a self-contained build.
 
 .DESCRIPTION
-    Un exécutable unique, sans .NET à installer sur la machine cible. Les tests passent d'abord :
-    publier un binaire qu'on n'a pas vérifié, c'est se préparer à le rappeler.
+    A single executable, with no .NET to install on the target machine. The tests run first:
+    publishing a binary nobody has checked is asking to have to recall it.
 
 .PARAMETER SkipTests
-    Publie sans lancer les tests. Pour un aller-retour rapide, pas pour une version qu'on garde.
+    Publishes without running the tests. For a quick round trip, not for a build you keep.
 
 .PARAMETER ReadyToRun
-    Précompile en code natif : démarrage nettement plus vif, fichier plus gros. Le binaire devient
-    spécifique à win-x64, ce qu'il est déjà de toute façon.
+    Precompiles to native code: noticeably snappier startup, bigger file. The binary becomes
+    specific to win-x64, which it already is anyway.
 #>
 [CmdletBinding()]
 param(
@@ -29,29 +29,29 @@ $output = Join-Path $root 'publish\win-x64'
 if (-not $SkipTests) {
     Write-Host 'Tests...' -ForegroundColor Cyan
     dotnet test $solution --nologo -v q
-    if ($LASTEXITCODE -ne 0) { throw 'Tests en échec : rien n''est publié.' }
+    if ($LASTEXITCODE -ne 0) { throw 'Tests failed: nothing has been published.' }
 }
 
 if (Test-Path $output) {
     Remove-Item $output -Recurse -Force
 }
 
-Write-Host 'Publication...' -ForegroundColor Cyan
+Write-Host 'Publishing...' -ForegroundColor Cyan
 
 $arguments = @($project, '-p:PublishProfile=win-x64', '--nologo')
 if ($ReadyToRun) { $arguments += '-p:PublishReadyToRun=true' }
 
 dotnet publish @arguments
-if ($LASTEXITCODE -ne 0) { throw 'La publication a échoué.' }
+if ($LASTEXITCODE -ne 0) { throw 'Publishing failed.' }
 
 $exe = Join-Path $output 'PokerRanges.exe'
-if (-not (Test-Path $exe)) { throw "Publication terminée mais $exe est introuvable." }
+if (-not (Test-Path $exe)) { throw "Publishing finished but $exe cannot be found." }
 
 $size = [math]::Round((Get-Item $exe).Length / 1MB, 1)
 
 Write-Host ''
-Write-Host "PokerRanges.exe — $size Mo" -ForegroundColor Green
+Write-Host "PokerRanges.exe — $size MB" -ForegroundColor Green
 Write-Host $exe
 Write-Host ''
-Write-Host 'Copiable tel quel : aucune installation de .NET requise sur la machine cible.'
-Write-Host 'Réglages et charts se créent au premier lancement dans %APPDATA%\PokerRanges.'
+Write-Host 'Copy it as is: no .NET installation required on the target machine.'
+Write-Host 'Settings and charts are created on first launch under %APPDATA%\PokerRanges.'

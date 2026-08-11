@@ -4,8 +4,9 @@ Thanks for taking an interest. This is a small, opinionated project, so this
 document tries to be specific rather than generic: what to work on, how the code
 is organised, and the conventions that are easy to miss.
 
-The README is in French, as are all code comments. **These contributor docs are
-in English** so that language is not a barrier to participating.
+**The repository is written in English** — code, comments and documentation
+alike. The **user interface** is a separate matter: it ships in both French and
+English, and that is a product feature, not a leftover.
 
 ## Getting set up
 
@@ -101,9 +102,9 @@ The layering is strict and worth preserving:
 
 ## Conventions
 
-- **Code comments are in French**, and they explain *why*, not *what*. A comment
-  restating the code will be asked to go; a comment explaining a decision that
-  would otherwise look arbitrary is welcome.
+- **Comments explain *why*, not *what*.** A comment restating the code will be
+  asked to go; a comment explaining a decision that would otherwise look
+  arbitrary is welcome. English, like the rest of the repository.
 - **Warnings are errors** (`TreatWarningsAsErrors`), and code style is enforced
   at build time. Nullable reference types are on.
 - **Test names are sentences describing behaviour**, not method names:
@@ -140,10 +141,9 @@ application. If you touch the advice pipeline, watch that one.
   Windows, so a local failure is a CI failure.
 - Explain *why* in the description. The what is visible in the diff.
 
-Commit messages in this repository are written in French, in the imperative, and
-explain the reasoning behind the change. Match the surrounding style if you can;
-if you would rather write in English, that is fine too — the change matters more
-than the language it is described in.
+Commit messages are written in the imperative and explain the reasoning behind
+the change, not just its shape. Commits before August 2026 are in French, from
+when the whole project was; new ones are in English like everything else.
 
 ## Reporting things
 

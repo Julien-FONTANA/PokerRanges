@@ -26,7 +26,7 @@ public sealed class PotEngine : IPotEngine
         }
 
         _logger.LogDebug(
-            "Main analysée au {Street} : pot {Pot}, mise courante {CurrentBet}, {LiveCount} joueurs encore en jeu, à {NextToAct} de parler.",
+            "Hand analysed on the {Street}: pot {Pot}, current bet {CurrentBet}, {LiveCount} players still in, {NextToAct} to act.",
             replay.Street,
             replay.Pot,
             replay.CurrentBet,

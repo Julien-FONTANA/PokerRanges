@@ -46,7 +46,7 @@ public sealed partial class ChartsViewModel : ObservableObject
         _charts.Reload();
         Describe();
 
-        _logger.LogInformation("Charts rechargés à la demande.");
+        _logger.LogInformation("Charts reloaded on request.");
         Changed?.Invoke(this, EventArgs.Empty);
     }
 
@@ -58,7 +58,7 @@ public sealed partial class ChartsViewModel : ObservableObject
 
         Status = UiMatrixText.ChartsRestored(written, _charts.Charts.Count);
 
-        _logger.LogInformation("{Count} charts restaurés dans leur version livrée.", written);
+        _logger.LogInformation("{Count} charts restored to their shipped version.", written);
         Changed?.Invoke(this, EventArgs.Empty);
     }
 

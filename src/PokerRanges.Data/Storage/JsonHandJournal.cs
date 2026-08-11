@@ -11,7 +11,7 @@ namespace PokerRanges.Data.Storage;
 /// </summary>
 public sealed class JsonHandJournal : IHandJournal
 {
-    private const string Label = "le journal des mains";
+    private const string Label = "the hand journal";
 
     private readonly SessionStoreOptions _options;
     private readonly ILogger<JsonHandJournal> _logger;
@@ -41,7 +41,7 @@ public sealed class JsonHandJournal : IHandJournal
         Save();
 
         _logger.LogInformation(
-            "Main journalisée : {Hand} — {Advice}",
+            "Hand journalled: {Hand} — {Advice}",
             entry.DescribeHand(),
             entry.Advice);
     }
@@ -51,7 +51,7 @@ public sealed class JsonHandJournal : IHandJournal
         _entries.Clear();
         JsonFileStore.Delete(_options.JournalFilePath, Label, _logger);
 
-        _logger.LogInformation("Journal des mains vidé.");
+        _logger.LogInformation("Hand journal cleared.");
     }
 
     private void Load()
@@ -81,11 +81,11 @@ public sealed class JsonHandJournal : IHandJournal
             catch (PokerRangesException exception)
             {
                 // One unreadable hand must not take the whole journal down with it.
-                _logger.LogWarning(exception, "Une entrée du journal a été écartée : {Message}", exception.Message);
+                _logger.LogWarning(exception, "A journal entry was discarded: {Message}", exception.Message);
             }
         }
 
-        _logger.LogInformation("{Count} mains relues depuis le journal.", _entries.Count);
+        _logger.LogInformation("{Count} hands read back from the journal.", _entries.Count);
     }
 
     private void Save()
