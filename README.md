@@ -1,5 +1,10 @@
 # PokerRanges
 
+[![build](https://github.com/Julien-FONTANA/PokerRanges/actions/workflows/build.yml/badge.svg)](https://github.com/Julien-FONTANA/PokerRanges/actions/workflows/build.yml)
+[![release](https://img.shields.io/github/v/release/Julien-FONTANA/PokerRanges?sort=semver&color=0078D4)](https://github.com/Julien-FONTANA/PokerRanges/releases)
+![.NET](https://img.shields.io/badge/.NET-10.0-512BD4)
+![platform](https://img.shields.io/badge/platform-Windows%20x64-0078D4)
+
 Assistant de décision Texas Hold'em No Limit en tournoi. Une application de bureau qui suit la main
 au rythme où elle se joue et répond à une seule question : **qu'est-ce que je fais, et pourquoi ?**
 
@@ -73,7 +78,14 @@ dotnet test
 ```
 
 317 tests : 224 pour le domaine, 55 pour les données, 38 qui pilotent la fenêtre principale de bout
-en bout.
+en bout. Pour mesurer la couverture, comme le fait l'intégration continue :
+
+```bash
+dotnet test --collect:"XPlat Code Coverage"
+```
+
+Les trois projets de test produisent chacun leur rapport ; il faut les fusionner pour lire la
+couverture réelle. Le workflow le fait et affiche le résultat dans le résumé de l'exécution.
 
 Produire l'exécutable autonome (Windows, aucun .NET requis sur la machine cible) :
 

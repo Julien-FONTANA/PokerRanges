@@ -25,6 +25,11 @@ publish/
 packages/
 !packages/build/
 
+# Tests et couverture
+TestResults/
+coverage/
+rgtool/
+
 # Divers
 *.log
 .DS_Store

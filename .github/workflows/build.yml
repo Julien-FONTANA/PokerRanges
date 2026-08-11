@@ -36,14 +36,25 @@ jobs:
         run: dotnet build --no-restore -c Release
 
       - name: Test
-        run: dotnet test --no-build -c Release --logger "trx;LogFileName=results.trx" --results-directory TestResults
+        run: dotnet test --no-build -c Release --collect:"XPlat Code Coverage" --logger "trx;LogFileName=results.trx" --results-directory TestResults
 
-      - name: Upload test results
+      # Les trois projets de test produisent chacun leur rapport ; il faut les fusionner pour
+      # obtenir la couverture réelle, sans quoi on lit trois chiffres partiels dont aucun n'est vrai.
+      - name: Coverage report
+        if: always()
+        run: |
+          dotnet tool install dotnet-reportgenerator-globaltool --tool-path ./rgtool
+          ./rgtool/reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:coverage -reporttypes:"MarkdownSummaryGithub;Html"
+          Get-Content coverage/SummaryGithub.md >> $env:GITHUB_STEP_SUMMARY
+
+      - name: Upload test results and coverage
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: test-results
-          path: TestResults
+          path: |
+            TestResults
+            coverage
           if-no-files-found: ignore
 
   release:
