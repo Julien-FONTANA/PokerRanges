@@ -5,6 +5,12 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Les symboles vivent dans l'assembly plutôt que dans un .pdb à côté : une pile d'appel
+         garde ses numéros de ligne, et la publication n'a rien à traîner. Le réglage était porté
+         par le seul profil de publication, donc par la seule application ; Core et Data
+         déposaient encore leurs .pdb dans le dossier publié. -->
+    <DebugType>embedded</DebugType>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>

@@ -25,4 +25,17 @@
     <ProjectReference Include="..\PokerRanges.Data\PokerRanges.Data.csproj" />
   </ItemGroup>
 
+  <!--
+    La publication promet un fichier unique à recopier. Les paquets natifs déposent pourtant leurs
+    symboles à côté : libSkiaSharp.pdb et libHarfBuzzSharp.pdb pèsent à eux deux plus du double de
+    l'exécutable. Ces symboles-là sont natifs, donc impossibles à embarquer dans l'assembly, et
+    n'ont aucune utilité pour déboguer ce qu'on écrit ici. On les retire une fois publié.
+  -->
+  <Target Name="RemoveSymbolsFromPublishOutput" AfterTargets="Publish">
+    <ItemGroup>
+      <SymbolsToRemove Include="$(PublishDir)**\*.pdb" />
+    </ItemGroup>
+    <Delete Files="@(SymbolsToRemove)" />
+  </Target>
+
 </Project>
