@@ -3,10 +3,10 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Postflop;
 
 /// <summary>
-/// Le budget de calcul alloué à un conseil. Il est distinct de <see cref="PostflopOptions"/> :
-/// celui-ci décrit ce qu'on suppose du jeu, celui-là ce qu'on est prêt à dépenser pour le mesurer.
-/// Le mode compact vise une réponse en moins d'une seconde et paie cette vitesse en précision —
-/// d'où l'obligation faite à l'avis de dire quelle précision il a réellement atteinte.
+/// The computing budget allowed for one piece of advice. It is deliberately distinct from
+/// <see cref="PostflopOptions"/>: that one describes what is assumed about the game, this one what
+/// we are willing to spend measuring it. Compact mode aims to answer in under a second and pays for
+/// that speed in precision — hence the requirement that the advice state the precision it reached.
 /// </summary>
 public sealed record PostflopBudget
 {
@@ -21,19 +21,19 @@ public sealed record PostflopBudget
 
     public string Name => _name();
 
-    /// <summary>Tirages par combo pour classer une range par force sur le board.</summary>
+    /// <summary>Samples per combo when ranking a range by strength on the board.</summary>
     public int RankingSamplesPerCombo { get; init; }
 
-    /// <summary>Tirages Monte-Carlo par calcul d'équité.</summary>
+    /// <summary>Monte-Carlo samples per equity calculation.</summary>
     public int EquitySamples { get; init; }
 
-    /// <summary>Budget d'analyse : on prend le temps de la précision.</summary>
+    /// <summary>Analysis budget: take the time precision needs.</summary>
     public static PostflopBudget Full { get; } = new(() => PostflopText.BudgetFull, 250, 30_000);
 
     /// <summary>
-    /// Budget du mode compact. Diviser les tirages par quatre multiplie l'erreur-type par deux
-    /// seulement — la racine carrée joue en notre faveur — ce qui rend l'échange rentable quand on
-    /// est à la table et qu'on attend la réponse.
+    /// Compact mode budget. Dividing the sample count by four only doubles the standard error —
+    /// the square root works in our favour — which makes the trade worth it when you are at the
+    /// table waiting for the answer.
     /// </summary>
     public static PostflopBudget Fast { get; } = new(() => PostflopText.BudgetFast, 60, 5_000);
 

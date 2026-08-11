@@ -3,8 +3,8 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Cards;
 
 /// <summary>
-/// Une carte du paquet. <see cref="Index"/> (0 à 51) est la clé utilisée par tous les
-/// tableaux de travail du moteur : deux de trèfle = 0, as de pique = 51.
+/// A card from the deck. <see cref="Index"/> (0 to 51) is the key used by every working array in
+/// the engine: two of clubs = 0, ace of spades = 51.
 /// </summary>
 public readonly record struct Card
 {
@@ -66,9 +66,9 @@ public readonly record struct Card
     }
 
     /// <summary>
-    /// La carte avec le symbole de sa couleur — « K♥ ». Distinct de <see cref="ToString"/>, qui
-    /// produit la forme relisible par <see cref="Parse"/> : ce qu'on lit et ce qu'on saisit ne sont
-    /// pas la même chose, et confondre les deux ferait échouer la relecture d'une main enregistrée.
+    /// The card with its suit glyph — "K♥". Distinct from <see cref="ToString"/>, which produces
+    /// the form <see cref="Parse"/> can read back: what you read and what you type are not the same
+    /// thing, and conflating them would break reloading a saved hand.
     /// </summary>
     public string Describe()
     {

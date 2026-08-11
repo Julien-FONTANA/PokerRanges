@@ -4,11 +4,11 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Cards;
 
 /// <summary>
-/// Lit une suite de cartes tapée d'un trait — « askd » donne A♠ K♦ — pour saisir une main sans
-/// quitter le clavier. Contrairement à <see cref="Card.Parse"/>, la lecture est tolérante : elle
-/// est faite pour être rappelée à chaque frappe, donc un rang encore orphelin en fin de texte est
-/// une saisie en cours et non une erreur. Les séparateurs sont ignorés, ce qui laisse écrire
-/// « as kd » ou « As,Kd » indifféremment.
+/// Reads a run of cards typed in one go — "askd" gives A♠ K♦ — so a hand can be entered without
+/// leaving the keyboard. Unlike <see cref="Card.Parse"/>, reading is forgiving: it is meant to be
+/// called again on every keystroke, so a rank still missing its suit at the end of the text is a
+/// half-finished entry, not an error. Separators are ignored, which allows "as kd" or "As,Kd"
+/// interchangeably.
 /// </summary>
 public sealed record CardSequence
 {
@@ -16,10 +16,10 @@ public sealed record CardSequence
 
     public required IReadOnlyList<Card> Cards { get; init; }
 
-    /// <summary>Le rang tapé dont la couleur manque encore. Vide quand la saisie est complète.</summary>
+    /// <summary>The typed rank whose suit is still missing. Empty when the entry is complete.</summary>
     public required string Pending { get; init; }
 
-    /// <summary>Renseigné quand le texte contient autre chose qu'une saisie en cours valide.</summary>
+    /// <summary>Set when the text holds something other than a valid entry in progress.</summary>
     public string? Error { get; init; }
 
     public bool HasError => Error is not null;
@@ -79,7 +79,7 @@ public sealed record CardSequence
         };
     }
 
-    /// <summary>Réécrit une sélection dans la forme compacte que la lecture accepte.</summary>
+    /// <summary>Writes a selection back in the compact form that reading accepts.</summary>
     public static string Write(IReadOnlyCollection<Card> cards)
     {
         ArgumentNullException.ThrowIfNull(cards);

@@ -1,9 +1,9 @@
 namespace PokerRanges.Core.Cards;
 
 /// <summary>
-/// Les deux cartes privatives d'un joueur, soit un des 1326 combos. L'ordre est normalisé
-/// (<see cref="First"/> a toujours l'index le plus haut) pour que deux instances décrivant la
-/// même main soient égales quelle que soit la façon dont elles ont été construites.
+/// A player's two hole cards, one of the 1326 combos. The order is normalised
+/// (<see cref="First"/> always holds the higher index) so that two instances describing the same
+/// hand compare equal however they were built.
 /// </summary>
 public readonly record struct HoleCards
 {

@@ -4,9 +4,9 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Table;
 
 /// <summary>
-/// Qui est assis où, et dans quel ordre on parle, pour 2 à 8 joueurs. Les tables sont écrites en
-/// dur plutôt que dérivées d'une règle : la nomenclature réelle n'est pas régulière (un 6-max
-/// commence à UTG, un 5 joueurs à HJ) et une donnée explicite se relit et se teste mieux.
+/// Who sits where, and in what order they act, for 2 to 8 players. The tables are written out
+/// rather than derived from a rule: real seat naming is not regular (six-handed starts at UTG,
+/// five-handed at HJ), and explicit data reads and tests better.
 /// </summary>
 public static class PositionLayout
 {
@@ -26,7 +26,7 @@ public static class PositionLayout
         [Position.SmallBlind, Position.BigBlind, Position.UnderTheGun, Position.UnderTheGunPlusOne, Position.LoJack, Position.HiJack, Position.CutOff, Position.Button],
     ];
 
-    /// <summary>Les sièges dans le sens de la donne, en partant de la petite blinde.</summary>
+    /// <summary>The seats in dealing order, starting from the small blind.</summary>
     public static ImmutableArray<Position> Seats(int playerCount)
     {
         EnsureSupported(playerCount);
@@ -34,8 +34,8 @@ public static class PositionLayout
     }
 
     /// <summary>
-    /// L'ordre de parole préflop : on commence à gauche de la grosse blinde, qui parle en dernier.
-    /// En tête-à-tête la petite blinde est aussi le bouton et ouvre les hostilités.
+    /// Preflop action order: it starts to the left of the big blind, who acts last. Heads-up, the
+    /// small blind is also the button and opens the action.
     /// </summary>
     public static ImmutableArray<Position> PreflopOrder(int playerCount)
     {
@@ -44,8 +44,8 @@ public static class PositionLayout
     }
 
     /// <summary>
-    /// L'ordre de parole postflop : la petite blinde ouvre. En tête-à-tête elle est le bouton,
-    /// donc c'est la grosse blinde qui parle la première.
+    /// Postflop action order: the small blind opens. Heads-up it is also the button, so the big
+    /// blind acts first.
     /// </summary>
     public static ImmutableArray<Position> PostflopOrder(int playerCount)
     {
@@ -65,9 +65,9 @@ public static class PositionLayout
     }
 
     /// <summary>
-    /// Le nombre de joueurs qui parlent après celui-ci au premier tour d'enchères. C'est la
-    /// dimension qui indexe réellement les charts d'ouverture : ouvrir avec trois joueurs derrière
-    /// pose le même problème à une table de cinq et à une table de huit.
+    /// How many players act after this one on the first betting round. This is the dimension that
+    /// really indexes opening charts: opening with three players behind poses the same problem at
+    /// a five-handed table and at an eight-handed one.
     /// </summary>
     public static int PlayersLeftToActPreflop(int playerCount, Position position)
     {
@@ -82,7 +82,7 @@ public static class PositionLayout
         return order.Length - index - 1;
     }
 
-    /// <summary>Vrai si <paramref name="position"/> parle après <paramref name="other"/> une fois le flop étalé.</summary>
+    /// <summary>True if <paramref name="position"/> acts after <paramref name="other"/> once the flop is out.</summary>
     public static bool ActsAfterPostflop(int playerCount, Position position, Position other)
     {
         ImmutableArray<Position> order = PostflopOrder(playerCount);

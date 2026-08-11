@@ -3,9 +3,9 @@ using System.Collections.Immutable;
 namespace PokerRanges.Core.Cards;
 
 /// <summary>
-/// Une des 169 cases de la grille : une paire, deux rangs assortis, ou deux rangs dépareillés.
-/// C'est l'unité d'affichage et d'écriture des charts ; les calculs, eux, travaillent en
-/// <see cref="HoleCards"/> car seul le combo précis permet de gérer les cartes bloquées par le board.
+/// One of the 169 cells of the grid: a pair, two suited ranks, or two offsuit ranks. This is the
+/// unit charts are displayed and written in; the calculations themselves work in
+/// <see cref="HoleCards"/>, because only the exact combo can account for cards the board blocks.
 /// </summary>
 public readonly record struct HandClass
 {

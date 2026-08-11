@@ -3,9 +3,8 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Table;
 
 /// <summary>
-/// La configuration de la table : structure de blindes, antes, et tapis de départ siège par siège.
-/// Les tapis inégaux sont la norme en tournoi, donc ils sont modélisés dès l'origine.
-/// Tous les montants sont en jetons.
+/// The table setup: blind structure, antes, and starting stack seat by seat. Uneven stacks are the
+/// norm in tournaments, so they are modelled from the outset. All amounts are in chips.
 /// </summary>
 public sealed record TableConfiguration
 {

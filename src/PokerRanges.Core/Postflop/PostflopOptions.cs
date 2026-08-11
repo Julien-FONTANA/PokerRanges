@@ -1,39 +1,39 @@
 namespace PokerRanges.Core.Postflop;
 
 /// <summary>
-/// Les paramètres du modèle postflop. Ce ne sont pas des constantes physiques : ce sont des
-/// hypothèses, réunies ici pour qu'on puisse les lire, les discuter et les régler, plutôt que
-/// dispersées en nombres magiques dans le calcul. Le coût du calcul, lui, n'est pas une hypothèse
-/// sur le jeu : il vit dans <see cref="PostflopBudget"/> et se choisit à chaque appel.
+/// The parameters of the postflop model. These are not physical constants: they are assumptions,
+/// gathered here so they can be read, argued with and tuned, rather than scattered as magic numbers
+/// through the calculation. The cost of the calculation is not an assumption about the game: it
+/// lives in <see cref="PostflopBudget"/> and is chosen per call.
 /// </summary>
 public sealed record PostflopOptions
 {
     /// <summary>
-    /// Part de son équité qu'un joueur encaisse réellement en checkant. En position on réalise
-    /// pratiquement toute son équité ; hors de position on se fait souvent déloger.
+    /// The share of its equity a hand actually collects by checking. In position you realise
+    /// nearly all of it; out of position you are often bet off the hand.
     /// </summary>
     public double RealisationInPosition { get; init; } = 1.0;
 
     public double RealisationOutOfPosition { get; init; } = 0.85;
 
     /// <summary>
-    /// Part du tapis restant qu'un adversaire paie en moyenne quand le tirage rentre. Sert à
-    /// valoriser les cotes implicites d'un tirage sans les surestimer.
+    /// The share of the remaining stack an opponent pays off on average when the draw comes in.
+    /// Used to value a draw's implied odds without overstating them.
     /// </summary>
     public double ImpliedOddsFactor { get; init; } = 0.25;
 
     public IReadOnlyList<double> BetSizesAsPotFraction { get; init; } = [0.33, 0.5, 0.75, 1.0, 1.5];
 
-    /// <summary>Multiple du pot pour la relance envisagée face à une mise.</summary>
+    /// <summary>Pot multiple for the raise considered when facing a bet.</summary>
     public double RaiseSizeAsPotFraction { get; init; } = 1.0;
 
     /// <summary>
-    /// Écart d'EV en dessous duquel deux actions sont déclarées équivalentes, exprimé en part du
-    /// pot. Mieux vaut dire « c'est serré » que trancher sur du bruit de modèle.
+    /// The EV gap below which two actions are declared equivalent, as a fraction of the pot.
+    /// Better to say "it is close" than to decide on model noise.
     /// </summary>
     public double CloseCallThresholdAsPotFraction { get; init; } = 0.02;
 
-    /// <summary>Graine fixe : à situation identique, le conseil doit être identique.</summary>
+    /// <summary>Fixed seed: the same situation must always produce the same advice.</summary>
     public int RandomSeed { get; init; } = 20260731;
 
     public static PostflopOptions Default { get; } = new();

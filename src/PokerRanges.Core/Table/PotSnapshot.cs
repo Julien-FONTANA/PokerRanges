@@ -1,8 +1,8 @@
 namespace PokerRanges.Core.Table;
 
 /// <summary>
-/// Ce qu'un joueur donné a sous les yeux à cet instant de la main : ce qu'il y a dans le pot, ce
-/// qu'il doit payer, ce qu'il lui reste, et les ratios qui en découlent.
+/// What a given player is looking at at this point in the hand: what is in the pot, what they owe,
+/// what they have left, and the ratios that follow from it.
 /// </summary>
 public sealed record PotSnapshot
 {
@@ -12,20 +12,20 @@ public sealed record PotSnapshot
 
     public required double AmountToCall { get; init; }
 
-    /// <summary>Tout ce que ce joueur a engagé depuis le début de la main, antes comprises.</summary>
+    /// <summary>Everything this player has committed since the start of the hand, antes included.</summary>
     public required double Committed { get; init; }
 
-    /// <summary>Ce qu'il a engagé sur la street en cours ; les antes n'en font pas partie.</summary>
+    /// <summary>What they have committed on the current street; antes are not part of it.</summary>
     public required double StreetCommitted { get; init; }
 
     public required double RemainingStack { get; init; }
 
-    /// <summary>Le maximum que ce joueur peut encore engager face à au moins un adversaire.</summary>
+    /// <summary>The most this player can still commit against at least one opponent.</summary>
     public required double EffectiveStack { get; init; }
 
     /// <summary>
-    /// La profondeur du coup : le tapis effectif blindes et antes comprises, avant que la main ne
-    /// commence. C'est cette valeur, et non le tapis restant, qui indexe les charts.
+    /// The depth of the hand: the effective stack including blinds and antes, before the hand
+    /// starts. It is this value, not the remaining stack, that indexes the charts.
     /// </summary>
     public required double EffectiveStartingStack { get; init; }
 
@@ -33,12 +33,12 @@ public sealed record PotSnapshot
 
     public bool IsFacingABet => AmountToCall > 0;
 
-    /// <summary>Équité minimale nécessaire pour que payer soit rentable.</summary>
+    /// <summary>Minimum equity needed for calling to be profitable.</summary>
     public double RequiredEquityToCall => AmountToCall <= 0 ? 0 : AmountToCall / (Pot + AmountToCall);
 
     /// <summary>
-    /// Part de sa range qu'un joueur doit défendre pour qu'un bluff adverse ne soit pas
-    /// automatiquement rentable. Vaut 1 quand il n'y a rien à payer.
+    /// The share of their range a player must defend so that an opponent's bluff is not
+    /// automatically profitable. Equals 1 when there is nothing to call.
     /// </summary>
     public double MinimumDefenceFrequency => AmountToCall <= 0 || Pot <= 0
         ? 1
@@ -52,7 +52,7 @@ public sealed record PotSnapshot
 
     public double EffectiveStackInBigBlinds => EffectiveStack / BigBlind;
 
-    /// <summary>Le total maximum auquel ce joueur peut relancer sur cette street, tapis compris.</summary>
+    /// <summary>The maximum total this player can raise to on this street, all-in included.</summary>
     public double MaximumRaiseTo => StreetCommitted + RemainingStack;
 
     public double DepthInBigBlinds => EffectiveStartingStack / BigBlind;

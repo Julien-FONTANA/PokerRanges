@@ -4,8 +4,8 @@ using PokerRanges.Core.Localization;
 namespace PokerRanges.Core.Table;
 
 /// <summary>
-/// Rejoue une main action par action pour reconstituer l'état des enchères : mises engagées,
-/// tapis restants, joueurs couchés ou à tapis, et qui doit encore parler.
+/// Replays a hand action by action to rebuild the betting state: amounts committed, remaining
+/// stacks, players folded or all-in, and who still has to act.
 /// </summary>
 internal sealed class HandReplay
 {
@@ -40,10 +40,9 @@ internal sealed class HandReplay
     public double Pot => _committed.Values.Sum();
 
     /// <summary>
-    /// Rejoue la main. C'est le board qui fait autorité sur la street : trois cartes étalées
-    /// signifient que le tour d'enchères préflop est clos, même si aucune action du flop n'a encore
-    /// été saisie. Une action datée d'une street que le board n'a pas atteinte est donc une
-    /// incohérence de saisie, et elle est refusée.
+    /// Replays the hand. The board is what settles the street: three cards dealt mean the preflop
+    /// betting round is closed, even if no flop action has been entered yet. An action dated to a
+    /// street the board has not reached is therefore an inconsistent entry, and is rejected.
     /// </summary>
     public static HandReplay Run(HandState state)
     {
