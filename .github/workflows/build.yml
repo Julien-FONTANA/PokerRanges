@@ -1,0 +1,75 @@
+# Construit et teste l'application à chaque poussée sur main et à chaque pull request.
+# Un tag « v… » déclenche en plus la publication de l'exécutable autonome et la création
+# de la release GitHub qui le porte.
+
+name: build
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+
+  test:
+    name: Tests
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore -c Release
+
+      - name: Test
+        run: dotnet test --no-build -c Release --logger "trx;LogFileName=results.trx" --results-directory TestResults
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: TestResults
+          if-no-files-found: ignore
+
+  release:
+    name: Release
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: windows-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # Le profil win-x64 produit un exécutable unique et autonome : aucun .NET à installer sur la
+      # machine cible. Il écrit dans publish/win-x64/ (chemin défini par le profil lui-même).
+      - name: Publish
+        run: dotnet publish src/PokerRanges.App/PokerRanges.App.csproj -p:PublishProfile=win-x64 --nologo
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$env:GITHUB_REF_NAME" "publish/win-x64/PokerRanges.exe" --title "PokerRanges $env:GITHUB_REF_NAME" --generate-notes
