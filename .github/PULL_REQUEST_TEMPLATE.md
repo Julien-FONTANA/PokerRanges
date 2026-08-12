@@ -9,7 +9,7 @@ Closes #
 - [ ] `dotnet test` is green locally (CI runs the same suite on Windows)
 - [ ] Behaviour changes come with a test, named as a sentence describing the behaviour
 - [ ] The layering holds: no poker rules in `App`, no UI knowledge in `Core` or `Data`
-- [ ] New comments are in French and explain *why*, not *what*
+- [ ] New comments are in English and explain *why*, not *what*
 - [ ] New user-facing strings go through `Language.Pick(english, french)`
 
 ## If it touches the advice engine
