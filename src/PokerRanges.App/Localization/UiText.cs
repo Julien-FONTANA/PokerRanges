@@ -126,8 +126,8 @@ public sealed partial class UiText : ObservableObject
         "Aucune main enregistrée. Une main part au journal quand tu en commences une nouvelle.");
 
     public string Shortcuts => Language.Pick(
-        "Alt+P fold · Alt+C check · Alt+S call · Alt+R bet · Ctrl+Z undo · Ctrl+N new hand · F2 compact mode",
-        "Alt+P passer · Alt+C checker · Alt+S suivre · Alt+R miser · Ctrl+Z annuler · Ctrl+N nouvelle main · F2 mode compact");
+        "Alt+P fold · Alt+C check · Alt+S call · Alt+R bet · Ctrl+Z undo · Ctrl+N new hand · F2 compact mode · F3 head-to-head",
+        "Alt+P passer · Alt+C checker · Alt+S suivre · Alt+R miser · Ctrl+Z annuler · Ctrl+N nouvelle main · F2 mode compact · F3 tête-à-tête");
 
     public string LegendJam => Language.Pick("All-in", "Tapis");
 

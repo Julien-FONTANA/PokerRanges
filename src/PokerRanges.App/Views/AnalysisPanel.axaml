@@ -14,9 +14,16 @@
           <Button Content="{Binding Text.LanguageToggle}" Command="{Binding ToggleLanguageCommand}"
                   FontSize="11" Padding="10,5" />
         </StackPanel>
+        <!-- The head-to-head calculator sits beside compact mode rather than behind F3 alone: a
+             mode reachable only by a key nobody was told about is a mode nobody opens. -->
         <StackPanel DockPanel.Dock="Right" Margin="18,0,0,0" VerticalAlignment="Bottom">
           <TextBlock Text="{Binding Text.Display}" Classes="field" />
-          <Button Content="{Binding Text.CompactMode}" Command="{Binding ToggleCompactCommand}" FontSize="11" Padding="10,5" />
+          <StackPanel Orientation="Horizontal" Spacing="6">
+            <Button Content="{Binding Text.HeadToHeadMode}" Command="{Binding ToggleHeadToHeadCommand}"
+                    FontSize="11" Padding="10,5" />
+            <Button Content="{Binding Text.CompactMode}" Command="{Binding ToggleCompactCommand}"
+                    FontSize="11" Padding="10,5" />
+          </StackPanel>
         </StackPanel>
         <StackPanel DockPanel.Dock="Right" Margin="18,0,0,0">
           <TextBlock Text="{Binding Text.OpponentProfile}" Classes="field" />
