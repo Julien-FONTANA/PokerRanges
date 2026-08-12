@@ -16,6 +16,11 @@ shown in full: no advice arrives without its justification.
 
 French and English interface, switchable on the fly.
 
+![Analysis mode: the hand on the left, the opponent's range in the middle, the advice on the right](docs/screenshots/analysis.png)
+
+*Analysis mode. Facing a flop bet with middle pair and a flush draw: the range the opponent is
+credited with, the expectation of every action, and the reasoning that got there.*
+
 ---
 
 ## What it does
@@ -35,6 +40,11 @@ French and English interface, switchable on the fly.
 - **Hand journal** — an entry keeps the whole hand, not a summary: reload it and replay the decision
   with a different profile or a different size.
 - **Automatic resume** — the hand in progress and the settings survive shutdown.
+
+![Compact mode: a small always-on-top window, two card fields, and the expectation of each action](docs/screenshots/compact.png)
+
+*Compact mode, the same hand: cards typed instead of clicked, always on top, and a reduced
+calculation budget so the answer arrives while it is still your turn.*
 
 ---
 
@@ -153,6 +163,11 @@ The format is JSON, with ranges in the usual notation:
 Folding is never written: it is whatever remains once the other actions are subtracted, so no hand
 can be forgotten. When no chart matches exactly, the application names a single one — it never
 blends two charts — and shows every compromise it made.
+
+![Preflop advice: the 13×13 grid showing the opening range, and the chart it was read from](docs/screenshots/preflop.png)
+
+*Preflop, opening from the cutoff. The grid is the chart's strategy, and the advice names the chart
+it was read from along with what it had to round off: 75bb asked for, 100bb answered.*
 
 ---
 
