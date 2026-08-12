@@ -143,6 +143,62 @@ public sealed partial class UiText : ObservableObject
 
     public string LegendNoCombos => Language.Pick("He cannot have it", "Il ne peut pas l'avoir");
 
+    public string HeadToHeadMode => Language.Pick("Head-to-head  (F3)", "Tête-à-tête  (F3)");
+
+    public string HeadToHeadTitle => Language.Pick("Head-to-head", "Tête-à-tête");
+
+    public string HeadToHeadSubtitle => Language.Pick(
+        "One opponent, one all-in: the equity and what each option is worth in chips.",
+        "Un adversaire, un tapis : l'équité et ce que vaut chaque option en jetons.");
+
+    public string HeroSide => Language.Pick("You", "Vous");
+
+    public string VillainSide => Language.Pick("Opponent", "Adversaire");
+
+    public string ExactHand => Language.Pick("Hand", "Main");
+
+    public string ARange => Language.Pick("Range", "Range");
+
+    public string TopPercentLabel => Language.Pick("Strongest %", "% les plus fortes");
+
+    public string Situation => Language.Pick("Situation", "Situation");
+
+    public string RoleJamming => Language.Pick("I jam", "Je fais tapis");
+
+    public string RoleCallingAJam => Language.Pick("I face a jam", "Je fais face à un tapis");
+
+    public string MyStack => Language.Pick("My stack", "Mon tapis");
+
+    public string HisStack => Language.Pick("His stack", "Son tapis");
+
+    public string HisPosition => Language.Pick("His position", "Sa position");
+
+    public string SwapSides => Language.Pick("Swap sides", "Échanger les camps");
+
+    public string EffectiveStackLabel => Language.Pick("Effective stack", "Tapis effectif");
+
+    public string HisCallingRange => Language.Pick("HIS CALLING RANGE", "SA RANGE DE CALL");
+
+    public string HisJammingRange => Language.Pick("HIS JAMMING RANGE", "SA RANGE DE TAPIS");
+
+    public string MyRange => Language.Pick("MY RANGE", "MA RANGE");
+
+    public string EquityHeader => Language.Pick("Equity", "Équité");
+
+    public string ContestedPotLabel => Language.Pick("Contested pot", "Pot en jeu");
+
+    public string EquityNeeded => Language.Pick("Equity needed once called", "Équité nécessaire si suivi");
+
+    public string BreakEvenFoldLabel => Language.Pick("Break-even fold frequency", "Fréquence de fold d'équilibre");
+
+    public string PickBothRanges => Language.Pick(
+        "Give both sides a hand or a range to compare them.",
+        "Donne une main ou une range à chaque camp pour les comparer.");
+
+    public string HeadToHeadShortcuts => Language.Pick(
+        "F3 back to analysis · F2 compact mode · type cards: askd",
+        "F3 retour à l'analyse · F2 mode compact · cartes au clavier : askd");
+
     public string AnteNone => Language.Pick("No ante", "Aucune ante");
 
     public string AnteBigBlind => Language.Pick("Big blind ante", "Ante payée par la BB");

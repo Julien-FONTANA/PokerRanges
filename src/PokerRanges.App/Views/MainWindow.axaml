@@ -24,6 +24,7 @@
     <KeyBinding Gesture="Ctrl+Z" Command="{Binding UndoCommand}" />
     <KeyBinding Gesture="Ctrl+N" Command="{Binding NewHandCommand}" />
     <KeyBinding Gesture="F2" Command="{Binding ToggleCompactCommand}" />
+    <KeyBinding Gesture="F3" Command="{Binding ToggleHeadToHeadCommand}" />
   </Window.KeyBindings>
 
   <Window.Styles>
@@ -60,8 +61,14 @@
     </Style>
   </Window.Styles>
 
+  <!-- The head-to-head panel is wrapped rather than carrying both bindings itself: a DataContext
+       set on an element also applies to that element's own bindings, so IsVisible would look for
+       ShowHeadToHead on the wrong view model and quietly default to true. -->
   <Panel>
-    <views:AnalysisPanel IsVisible="{Binding !IsCompact}" />
+    <views:AnalysisPanel IsVisible="{Binding ShowAnalysis}" />
+    <Panel IsVisible="{Binding ShowHeadToHead}">
+      <views:HeadToHeadPanel DataContext="{Binding HeadToHead}" />
+    </Panel>
     <views:CompactPanel x:Name="Compact" IsVisible="{Binding IsCompact}" />
   </Panel>
 
