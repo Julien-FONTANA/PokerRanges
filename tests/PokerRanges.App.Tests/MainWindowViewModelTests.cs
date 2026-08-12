@@ -338,6 +338,26 @@ public sealed class MainWindowViewModelTests : IDisposable
         viewModel.Hero.Selection.Count.ShouldBe(2);
     }
 
+    /// <summary>
+    /// The calculator shipped bound to F3 and named nowhere on screen, which is the same as not
+    /// shipping it. The shortcut line is where a keyboard-only mode gets found, so it has to name
+    /// every mode the window can switch to — in both languages.
+    /// </summary>
+    [Fact]
+    public async Task TheShortcutLineNamesEveryModeTheWindowSwitchesTo()
+    {
+        MainWindowViewModel viewModel = await BuildAsync();
+
+        viewModel.ShortcutsLabel.ShouldContain("F2 compact mode");
+        viewModel.ShortcutsLabel.ShouldContain("F3 head-to-head");
+
+        viewModel.ToggleLanguage();
+        await viewModel.RefreshNowAsync();
+
+        viewModel.ShortcutsLabel.ShouldContain("F2 mode compact");
+        viewModel.ShortcutsLabel.ShouldContain("F3 tête-à-tête");
+    }
+
     [Fact]
     public async Task TheCompactModeKeepsTheTableInSight()
     {

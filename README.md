@@ -34,10 +34,11 @@ credited with, the expectation of every action, and the reasoning that got there
   including the combos the board and your own cards deny them.
 - **Four opponent profiles** — balanced, tight, calling station, aggressive. Change the profile and
   the advice changes with it.
-- **Head-to-head calculator** — a third mode (`F3`) for the spot a final table comes down to: your
-  range against one opponent's, at an explicit effective stack, with the expectation of jamming,
-  calling and folding. Each side is entered by clicking the grid, typing the range, or dragging a
-  strongest-X% slider; opening it copies the hand in progress across.
+- **Head-to-head calculator** — a third mode, one button away at the top right (or `F3`), for the
+  spot a final table comes down to: your range against one opponent's, at an explicit effective
+  stack, with the expectation of jamming, calling and folding. Each side is entered by clicking the
+  grid, typing the range, or dragging a strongest-X% slider; opening it copies the hand in progress
+  across. [More below](#the-head-to-head-calculator).
 - **Tables from 2 to 8 players**, uneven stacks, regular antes or big blind antes.
 - **Compact mode** — a reduced, always-on-top window where the cards are clicked on a single
   52-card grid that follows the hand: it fills your two cards, then hands itself over to the board.
@@ -76,6 +77,32 @@ starts from a fixed seed, and the advice states the standard error it reached.
 
 ---
 
+## The head-to-head calculator
+
+A third mode for the spot a final table comes down to: two players, one all-in decision, and ranges
+you want to name yourself rather than read off a chart. Open it with the **Head-to-head (F3)**
+button at the top right of the main screen, next to the compact-mode button; the **Analysis**
+button in the same place brings you back, and `F3` toggles either way.
+
+Opening it copies the hand in progress across — your cards, the board, the blinds, the antes, the
+effective stack. The hypothetical therefore starts from the hand you are actually in, and editing
+it disturbs nothing at the table: the copy is one-way.
+
+Each side is entered whichever way is quickest — clicking the 13×13 grid, typing the range in the
+usual notation (`55+, A3s+, KTo+`), or dragging the **Strongest %** slider. Your own side can be an
+exact hand rather than a range. What comes back is the expectation of jamming against the
+expectation of folding, with the two numbers a jam really turns on: the equity you need once he
+calls, and how often he has to fold for the jam to break even.
+
+![Head-to-head: A♠5♠ on the button against the small blind's calling range at 12bb](docs/screenshots/head-to-head.png)
+
+*A 12bb button jam, three-handed with a big blind ante. He folds 81% of the time; when he calls we
+hold 43.3%, so jamming is worth +1.9bb where folding is worth nothing. Every figure is in chips —
+near a pay jump survival is worth more than the chips say, and the panel says so rather than
+letting the number pass for the whole answer.*
+
+---
+
 ## Getting started
 
 You need the **.NET 10 SDK**.
@@ -92,7 +119,7 @@ The tests:
 dotnet test
 ```
 
-372 tests: 264 for the domain, 55 for the data, 53 driving the main window end to end. To measure
+377 tests: 264 for the domain, 55 for the data, 58 driving the main window end to end. To measure
 coverage, as continuous integration does:
 
 ```bash
