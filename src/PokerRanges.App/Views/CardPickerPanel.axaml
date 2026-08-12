@@ -1,5 +1,6 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="using:PokerRanges.App.Views"
              xmlns:vm="using:PokerRanges.App.ViewModels"
              x:Class="PokerRanges.App.Views.CardPickerPanel"
              x:DataType="vm:CardPickerViewModel">
@@ -18,24 +19,7 @@
     <TextBlock Text="{Binding EntryError}" IsVisible="{Binding HasEntryError}"
                FontSize="10" Foreground="#E08A5A" TextWrapping="Wrap" />
 
-    <ItemsControl ItemsSource="{Binding Cards}">
-      <ItemsControl.ItemsPanel>
-        <ItemsPanelTemplate>
-          <UniformGrid Rows="4" Columns="13" />
-        </ItemsPanelTemplate>
-      </ItemsControl.ItemsPanel>
-      <ItemsControl.ItemTemplate>
-        <DataTemplate x:DataType="vm:CardOptionViewModel">
-          <Button Classes="card"
-                  Classes.picked="{Binding IsSelected}"
-                  IsEnabled="{Binding IsAvailable}"
-                  Command="{Binding $parent[ItemsControl].((vm:CardPickerViewModel)DataContext).ToggleCommand}"
-                  CommandParameter="{Binding}">
-            <TextBlock Text="{Binding Label}" Foreground="{Binding Foreground}" FontSize="12" />
-          </Button>
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <views:CardGridView />
 
   </StackPanel>
 

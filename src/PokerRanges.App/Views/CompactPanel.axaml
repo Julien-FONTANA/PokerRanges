@@ -1,15 +1,24 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="using:PokerRanges.App.Views"
              xmlns:vm="using:PokerRanges.App.ViewModels"
              x:Class="PokerRanges.App.Views.CompactPanel"
              x:DataType="vm:MainWindowViewModel">
 
   <UserControl.Styles>
-    <Style Selector="TextBox.entry">
-      <Setter Property="FontSize" Value="17" />
-      <Setter Property="FontFamily" Value="Consolas, monospace" />
-      <Setter Property="Padding" Value="8,5" />
+    <Style Selector="Button.target">
+      <Setter Property="Background" Value="#1B1B1B" />
+      <Setter Property="BorderBrush" Value="#2E2E2E" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="4" />
+      <Setter Property="Padding" Value="9,3" />
       <Setter Property="MinHeight" Value="0" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+    <Style Selector="Button.target.active">
+      <Setter Property="Background" Value="#22314A" />
+      <Setter Property="BorderBrush" Value="#F2C94C" />
     </Style>
   </UserControl.Styles>
 
@@ -32,21 +41,30 @@
       </DockPanel>
     </Border>
 
+    <!-- One grid for two pickers: the pair of buttons says which one the cards land in, and shows
+         what it already holds. Clicking the second hole card hands the grid over to the board. -->
     <StackPanel DockPanel.Dock="Top" Spacing="5" Margin="0,0,0,8">
-      <Grid ColumnDefinitions="52,*">
-        <TextBlock Grid.Column="0" Text="{Binding Text.HandLabel}" Classes="field" VerticalAlignment="Center" Margin="0" />
-        <TextBox Grid.Column="1" x:Name="HeroEntry" Classes="entry" PlaceholderText="askd"
-                 Text="{Binding Hero.QuickEntry, Mode=TwoWay}" />
+      <Grid ColumnDefinitions="*,*,Auto" ColumnSpacing="4">
+        <Button Grid.Column="0" Classes="target" Classes.active="{Binding !IsBoardTarget}"
+                Command="{Binding TargetHandCommand}">
+          <StackPanel>
+            <TextBlock Text="{Binding Text.HandLabel}" FontSize="9" Foreground="#8A8A8A" />
+            <TextBlock Text="{Binding Hero.Label}" FontSize="14" FontWeight="SemiBold"
+                       TextTrimming="CharacterEllipsis" />
+          </StackPanel>
+        </Button>
+        <Button Grid.Column="1" Classes="target" Classes.active="{Binding IsBoardTarget}"
+                Command="{Binding TargetBoardCommand}">
+          <StackPanel>
+            <TextBlock Text="{Binding Text.BoardLabel}" FontSize="9" Foreground="#8A8A8A" />
+            <TextBlock Text="{Binding Board.Label}" FontSize="14" FontWeight="SemiBold"
+                       TextTrimming="CharacterEllipsis" />
+          </StackPanel>
+        </Button>
+        <Button Grid.Column="2" Content="{Binding Text.Clear}" Command="{Binding ClearActivePickerCommand}"
+                FontSize="10" Padding="8,3" VerticalAlignment="Stretch" />
       </Grid>
-      <Grid ColumnDefinitions="52,*">
-        <TextBlock Grid.Column="0" Text="{Binding Text.BoardLabel}" Classes="field" VerticalAlignment="Center" Margin="0" />
-        <TextBox Grid.Column="1" x:Name="BoardEntry" Classes="entry" PlaceholderText="ks8d3c"
-                 Text="{Binding Board.QuickEntry, Mode=TwoWay}" />
-      </Grid>
-      <TextBlock Text="{Binding Hero.EntryError}" IsVisible="{Binding Hero.HasEntryError}"
-                 FontSize="10" Foreground="#E08A5A" TextWrapping="Wrap" />
-      <TextBlock Text="{Binding Board.EntryError}" IsVisible="{Binding Board.HasEntryError}"
-                 FontSize="10" Foreground="#E08A5A" TextWrapping="Wrap" />
+      <views:CardGridView DataContext="{Binding ActivePicker}" />
     </StackPanel>
 
     <StackPanel DockPanel.Dock="Top" Spacing="5" Margin="0,0,0,8">

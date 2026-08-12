@@ -69,7 +69,7 @@
     <Panel IsVisible="{Binding ShowHeadToHead}">
       <views:HeadToHeadPanel DataContext="{Binding HeadToHead}" />
     </Panel>
-    <views:CompactPanel x:Name="Compact" IsVisible="{Binding IsCompact}" />
+    <views:CompactPanel IsVisible="{Binding IsCompact}" />
   </Panel>
 
 </Window>
