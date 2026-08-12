@@ -4,8 +4,10 @@ using PokerRanges.App.ViewModels;
 using PokerRanges.Core.Cards;
 using PokerRanges.Core.Equity;
 using PokerRanges.Core.Evaluation;
+using PokerRanges.Core.HeadToHead;
 using PokerRanges.Core.Postflop;
 using PokerRanges.Core.Preflop;
+using PokerRanges.Core.Ranges;
 using PokerRanges.Core.Session;
 using PokerRanges.Core.Table;
 using PokerRanges.Data;
@@ -18,6 +20,12 @@ namespace PokerRanges.App.Tests;
 /// Checks the interface is wired end to end: entering a table, a hand, a board and some actions
 /// really does produce a recommendation from the engine, without any graphical rendering.
 /// </summary>
+/// <remarks>
+/// Shares a collection with the head-to-head tests so the two never run at the same time:
+/// <see cref="TheCompactModeAnswersInUnderASecond"/> is a wall-clock assertion, and a Monte-Carlo
+/// run on another core is enough to make it flake.
+/// </remarks>
+[Collection("view models")]
 public sealed class MainWindowViewModelTests : IDisposable
 {
     private readonly List<string> _directories = [];
@@ -257,6 +265,77 @@ public sealed class MainWindowViewModelTests : IDisposable
         viewModel.Budget.ShouldBe(PostflopBudget.Fast);
         viewModel.Recommendation.HasPrecision.ShouldBeTrue();
         viewModel.Recommendation.Precision!.ShouldContain("Fast");
+    }
+
+    [Fact]
+    public async Task TheHeadToHeadPanelReplacesTheAnalysisPanelAndLeavesCompactAlone()
+    {
+        MainWindowViewModel viewModel = await BuildAsync();
+
+        viewModel.ShowAnalysis.ShouldBeTrue();
+
+        viewModel.ToggleHeadToHead();
+
+        viewModel.ShowHeadToHead.ShouldBeTrue();
+        viewModel.ShowAnalysis.ShouldBeFalse();
+        viewModel.IsCompact.ShouldBeFalse();
+
+        // The compact budget is read off IsCompact alone and must not have moved.
+        viewModel.Budget.ShouldBe(PostflopBudget.Full);
+
+        viewModel.ToggleHeadToHead();
+
+        viewModel.ShowAnalysis.ShouldBeTrue();
+        viewModel.ShowHeadToHead.ShouldBeFalse();
+    }
+
+    /// <summary>
+    /// The head-to-head shortcut fires in compact mode too, so entering the calculator has to leave
+    /// compact behind rather than raise both flags at once. Leaving compact then returns to whichever
+    /// full-size mode was in use, and only the head-to-head shortcut goes back to the analysis panel.
+    /// </summary>
+    [Fact]
+    public async Task TheThreeModesStayConsistentWhicheverShortcutIsPressed()
+    {
+        MainWindowViewModel viewModel = await BuildAsync();
+
+        viewModel.ToggleCompact();
+        viewModel.IsCompact.ShouldBeTrue();
+
+        viewModel.ToggleHeadToHead();
+
+        viewModel.IsCompact.ShouldBeFalse();
+        viewModel.ShowHeadToHead.ShouldBeTrue();
+
+        // Compact hides the calculator without forgetting it.
+        viewModel.ToggleCompact();
+        viewModel.IsCompact.ShouldBeTrue();
+        viewModel.ShowHeadToHead.ShouldBeFalse();
+        viewModel.ShowAnalysis.ShouldBeFalse();
+
+        viewModel.ToggleCompact();
+        viewModel.ShowHeadToHead.ShouldBeTrue();
+
+        viewModel.ToggleHeadToHead();
+        viewModel.ShowAnalysis.ShouldBeTrue();
+    }
+
+    [Fact]
+    public async Task TheHeadToHeadPanelOpensSeededFromTheHandInProgress()
+    {
+        MainWindowViewModel viewModel = await BuildAsync();
+        await ReachTheFlopAsync(viewModel, "Kh9d", "Ks8d3c");
+
+        viewModel.ToggleHeadToHead();
+
+        viewModel.HeadToHead.HeroCards.Selection.Count.ShouldBe(2);
+        viewModel.HeadToHead.Board.Selection.Count.ShouldBe(3);
+        viewModel.HeadToHead.HeroIsExactHand.ShouldBeTrue();
+        viewModel.HeadToHead.BigBlind.ShouldBe(viewModel.Table.BigBlind);
+
+        // Seeding is one-way: the hand being played is not to be disturbed by a hypothetical.
+        viewModel.HeadToHead.HeroCards.Clear();
+        viewModel.Hero.Selection.Count.ShouldBe(2);
     }
 
     [Fact]
@@ -741,6 +820,15 @@ public sealed class MainWindowViewModelTests : IDisposable
             new JournalViewModel(
                 new JsonHandJournal(session, NullLogger<JsonHandJournal>.Instance),
                 NullLogger<JournalViewModel>.Instance),
+            new HeadToHeadViewModel(
+                potEngine,
+                new HeadToHeadCoordinator(
+                    new HeadToHeadCalculator(
+                        new EquityCalculator(evaluator, NullLogger<EquityCalculator>.Instance),
+                        NullLogger<HeadToHeadCalculator>.Instance),
+                    NullLogger<HeadToHeadCoordinator>.Instance),
+                new PreflopHandStrength(),
+                NullLogger<HeadToHeadViewModel>.Instance),
             NullLogger<MainWindowViewModel>.Instance);
 
         await viewModel.RefreshNowAsync();

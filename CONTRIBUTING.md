@@ -16,7 +16,7 @@ API keys.
 ```bash
 git clone https://github.com/Julien-FONTANA/PokerRanges.git
 cd PokerRanges
-dotnet test          # 317 tests, all should pass
+dotnet test          # 372 tests, all should pass
 dotnet run --project src/PokerRanges.App
 ```
 

@@ -32,8 +32,10 @@ public static class AppServiceCollectionExtensions
         });
 
         services.AddSingleton<AdviceCoordinator>();
+        services.AddSingleton<HeadToHeadCoordinator>();
         services.AddSingleton<ChartsViewModel>();
         services.AddSingleton<JournalViewModel>();
+        services.AddSingleton<HeadToHeadViewModel>();
         services.AddSingleton<MainWindowViewModel>();
 
         return services;

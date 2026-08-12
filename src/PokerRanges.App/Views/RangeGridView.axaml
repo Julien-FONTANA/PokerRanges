@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:PokerRanges.App.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="676" d:DesignHeight="676"
+             x:Class="PokerRanges.App.Views.RangeGridView"
+             x:DataType="vm:RangeGridViewModel">
+
+  <!-- Not Button.card: that one fixes a height of 28, which fights the grid's own cell sizing. -->
+  <UserControl.Styles>
+    <Style Selector="Button.cell">
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Margin" Value="1" />
+      <Setter Property="MinWidth" Value="0" />
+      <Setter Property="MinHeight" Value="0" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="VerticalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="2" />
+    </Style>
+  </UserControl.Styles>
+
+  <!-- The label is set at 22 inside a 52px cell: rendered text is always FontSize/52 of the
+       rendered cell, so 22 keeps it readable when the window is at its narrowest. -->
+  <Viewbox Stretch="Uniform" StretchDirection="Both">
+    <ItemsControl ItemsSource="{Binding Cells}" Width="676" Height="676">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <UniformGrid Rows="13" Columns="13" />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate x:DataType="vm:RangeGridCellViewModel">
+          <Button Classes="cell"
+                  Background="{Binding Background}"
+                  BorderBrush="{Binding BorderBrush}"
+                  ToolTip.Tip="{Binding Tooltip}"
+                  Command="{Binding $parent[ItemsControl].((vm:RangeGridViewModel)DataContext).ToggleCommand}"
+                  CommandParameter="{Binding}">
+            <TextBlock Text="{Binding Label}" FontSize="22" FontWeight="SemiBold" Foreground="#F2F2F2" />
+          </Button>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </Viewbox>
+
+</UserControl>

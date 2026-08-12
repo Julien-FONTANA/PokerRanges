@@ -1,0 +1,286 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sys="using:System"
+             xmlns:views="using:PokerRanges.App.Views"
+             xmlns:vm="using:PokerRanges.App.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="1440" d:DesignHeight="960"
+             x:Class="PokerRanges.App.Views.HeadToHeadPanel"
+             x:DataType="vm:HeadToHeadViewModel">
+
+  <UserControl.Styles>
+    <Style Selector="Button.side">
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="Padding" Value="14,6" />
+      <Setter Property="Background" Value="#242424" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="BorderBrush" Value="#333333" />
+    </Style>
+    <Style Selector="Button.side.active">
+      <Setter Property="Background" Value="#3A5A8C" />
+      <Setter Property="BorderBrush" Value="#F2C94C" />
+    </Style>
+  </UserControl.Styles>
+
+  <DockPanel>
+
+    <!-- The spot. Blinds and antes matter here as much as the stacks: they are the dead money a
+         jam is trying to win. -->
+    <Border DockPanel.Dock="Top" Background="#1B1B1B" Padding="16,12"
+            BorderBrush="#2A2A2A" BorderThickness="0,0,0,1">
+      <DockPanel>
+        <StackPanel DockPanel.Dock="Right" Margin="18,0,0,0" VerticalAlignment="Bottom">
+          <TextBlock Text="{Binding Text.LanguageHeader}" Classes="field" />
+          <Button Content="{Binding Text.LanguageToggle}" Command="{Binding ToggleLanguageCommand}"
+                  FontSize="11" Padding="10,5" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Right" Margin="18,0,0,0" VerticalAlignment="Bottom">
+          <TextBlock Text="{Binding Text.Display}" Classes="field" />
+          <Button Content="{Binding Text.AnalysisMode}" Command="{Binding CloseCommand}"
+                  FontSize="11" Padding="10,5" />
+        </StackPanel>
+
+        <WrapPanel Orientation="Horizontal" ItemSpacing="16" LineSpacing="8">
+          <StackPanel>
+            <TextBlock Text="{Binding Text.Players}" Classes="field" />
+            <ComboBox ItemsSource="{Binding PlayerCounts}" SelectedItem="{Binding PlayerCount}" Width="72" />
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="{Binding Text.BigBlind}" Classes="field" />
+            <NumericUpDown Value="{Binding BigBlind}" Minimum="0" Increment="1"
+                           FormatString="0.##" Width="126" />
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="{Binding Text.Ante}" Classes="field" />
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <ComboBox ItemsSource="{Binding AnteStyles}" SelectedItem="{Binding AnteStyle}" Width="160">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="vm:AnteStyleChoice">
+                    <TextBlock Text="{Binding Label}" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+              <NumericUpDown Value="{Binding AnteAmount}" IsEnabled="{Binding IsAnteEnabled}"
+                             Minimum="0" Increment="1" FormatString="0.##" Width="95" />
+            </StackPanel>
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="{Binding Text.MyPosition}" Classes="field" />
+            <ComboBox ItemsSource="{Binding AvailablePositions}" SelectedItem="{Binding HeroSeat}" Width="88">
+              <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="vm:PositionChoice">
+                  <TextBlock Text="{Binding Label}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="{Binding Text.HisPosition}" Classes="field" />
+            <ComboBox ItemsSource="{Binding AvailablePositions}" SelectedItem="{Binding VillainSeat}" Width="88">
+              <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="vm:PositionChoice">
+                  <TextBlock Text="{Binding Label}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="{Binding Text.MyStack}" Classes="field" />
+            <NumericUpDown Value="{Binding HeroStack}" Minimum="0" Increment="100"
+                           FormatString="0.##" Width="140" />
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="{Binding Text.HisStack}" Classes="field" />
+            <NumericUpDown Value="{Binding VillainStack}" Minimum="0" Increment="100"
+                           FormatString="0.##" Width="140" />
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="{Binding Text.Situation}" Classes="field" />
+            <ComboBox ItemsSource="{Binding Roles}" SelectedItem="{Binding Role}" Width="165">
+              <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="vm:HeadToHeadRoleChoice">
+                  <TextBlock Text="{Binding Label}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+          </StackPanel>
+          <StackPanel VerticalAlignment="Bottom">
+            <TextBlock Text="{Binding Text.EffectiveStackLabel}" Classes="field" />
+            <TextBlock Text="{Binding DepthLabel}" FontSize="13" FontWeight="SemiBold" Foreground="#F2C94C" />
+          </StackPanel>
+          <StackPanel VerticalAlignment="Bottom">
+            <Button Content="{Binding Text.SwapSides}" Command="{Binding SwapSidesCommand}"
+                    FontSize="11" Padding="10,5" />
+          </StackPanel>
+        </WrapPanel>
+      </DockPanel>
+    </Border>
+
+    <Border DockPanel.Dock="Bottom" Background="#161616" Padding="16,6">
+      <TextBlock Text="{Binding Text.HeadToHeadShortcuts}" FontSize="10" Foreground="#5E5E5E" />
+    </Border>
+
+    <!-- The result runs the full width rather than sitting in a column: at the window's narrowest
+         a third column would halve the grid, and the expectations read better in a wide row. -->
+    <Border DockPanel.Dock="Bottom" Background="#1B1B1B" Padding="14"
+            BorderBrush="#2A2A2A" BorderThickness="0,1,0,0" Height="236">
+      <Grid ColumnDefinitions="300,*,330" DataContext="{Binding Result}" x:DataType="vm:HeadToHeadResultViewModel">
+
+        <StackPanel Grid.Column="0" Spacing="8" Margin="0,0,14,0">
+          <Border Background="{Binding HeadlineBrush}" CornerRadius="6" Padding="14,10">
+            <DockPanel>
+              <ProgressBar DockPanel.Dock="Right" IsIndeterminate="True" IsVisible="{Binding IsBusy}"
+                           Width="52" Height="4" VerticalAlignment="Center" />
+              <TextBlock Text="{Binding Headline}" FontSize="19" FontWeight="Bold" Foreground="#FFFFFF"
+                         TextWrapping="Wrap" />
+            </DockPanel>
+          </Border>
+          <TextBlock Text="{Binding Equity}" FontSize="22" FontWeight="SemiBold" Foreground="#F2F2F2" />
+          <TextBlock Text="{Binding WinTieLose}" FontSize="11" Foreground="#9A9A9A" TextWrapping="Wrap" />
+          <Border Background="#2A2214" BorderBrush="#5A4A22" BorderThickness="1" CornerRadius="4"
+                  Padding="8,6" IsVisible="{Binding HasProblem}">
+            <TextBlock Text="{Binding Problem}" FontSize="11" Foreground="#EBD9A6" TextWrapping="Wrap" />
+          </Border>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Spacing="8" Margin="0,0,14,0">
+          <TextBlock Text="{Binding Text.ExpectedValueByAction}" Classes="section" />
+          <ItemsControl ItemsSource="{Binding Actions}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:HeadToHeadActionViewModel">
+                <Border Background="#1F1F1F" CornerRadius="4" Padding="10,7" Margin="0,0,0,5"
+                        BorderBrush="{Binding Accent}" BorderThickness="0,0,0,2">
+                  <Grid ColumnDefinitions="*,72">
+                    <StackPanel Grid.Column="0">
+                      <TextBlock Text="{Binding Label}" FontSize="13" FontWeight="SemiBold" Foreground="#F2F2F2" />
+                      <TextBlock Text="{Binding Detail}" FontSize="10" Foreground="#8A8A8A" TextWrapping="Wrap" />
+                    </StackPanel>
+                    <TextBlock Grid.Column="1" Text="{Binding Value}" FontSize="14" FontWeight="SemiBold"
+                               Foreground="#F2C94C" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+          <Grid ColumnDefinitions="*,*,*" IsVisible="{Binding HasActions}">
+            <StackPanel Grid.Column="0">
+              <TextBlock Text="{Binding Text.ContestedPotLabel}" Classes="field" />
+              <TextBlock Text="{Binding ContestedPot}" FontSize="12" Foreground="#C8C8C8" />
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+              <TextBlock Text="{Binding Text.EquityNeeded}" Classes="field" />
+              <TextBlock Text="{Binding EquityNeeded}" FontSize="12" Foreground="#C8C8C8" />
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+              <TextBlock Text="{Binding Text.BreakEvenFoldLabel}" Classes="field" />
+              <TextBlock Text="{Binding BreakEvenFold}" FontSize="12" Foreground="#C8C8C8" />
+            </StackPanel>
+          </Grid>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Spacing="4">
+          <TextBlock Text="{Binding Text.Why}" Classes="section" />
+          <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding Rationale}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="sys:String">
+                  <TextBlock Text="{Binding}" FontSize="11" Foreground="#C8C8C8"
+                             TextWrapping="Wrap" Margin="0,0,0,4" />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </ScrollViewer>
+          <TextBlock Text="{Binding Precision}" FontSize="10" Foreground="#6E6E6E"
+                     TextWrapping="Wrap" IsVisible="{Binding HasPrecision}" />
+        </StackPanel>
+
+      </Grid>
+    </Border>
+
+    <!-- Board and the exact hands, plus a standing summary of both sides so neither is ever
+         out of sight while the other is being edited. -->
+    <Border DockPanel.Dock="Left" Width="360" Padding="14,14,7,14">
+      <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="14">
+          <Border Classes="card">
+            <views:CardPickerPanel DataContext="{Binding Board}" />
+          </Border>
+
+          <Border Classes="card">
+            <StackPanel Spacing="8">
+              <TextBlock Text="{Binding Text.HeroSide}" Classes="section" />
+              <CheckBox IsChecked="{Binding HeroIsExactHand}" Content="{Binding Text.ExactHand}" FontSize="11" />
+              <StackPanel IsVisible="{Binding HeroIsExactHand}">
+                <views:CardPickerPanel DataContext="{Binding HeroCards}" />
+              </StackPanel>
+              <TextBlock Text="{Binding HeroRange.Summary}" FontSize="11" Foreground="#9A9A9A"
+                         TextWrapping="Wrap" IsVisible="{Binding !HeroIsExactHand}" />
+            </StackPanel>
+          </Border>
+
+          <Border Classes="card">
+            <StackPanel Spacing="8">
+              <TextBlock Text="{Binding Text.VillainSide}" Classes="section" />
+              <CheckBox IsChecked="{Binding VillainIsExactHand}" Content="{Binding Text.ExactHand}" FontSize="11" />
+              <StackPanel IsVisible="{Binding VillainIsExactHand}">
+                <views:CardPickerPanel DataContext="{Binding VillainCards}" />
+              </StackPanel>
+              <TextBlock Text="{Binding VillainRange.Summary}" FontSize="11" Foreground="#9A9A9A"
+                         TextWrapping="Wrap" IsVisible="{Binding !VillainIsExactHand}" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </ScrollViewer>
+    </Border>
+
+    <!-- One grid at a time: two side by side would be unreadable at the minimum window width. -->
+    <Border Padding="7,14,14,14">
+      <Border Classes="card">
+        <DockPanel>
+          <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,10">
+            <DockPanel>
+              <TextBlock DockPanel.Dock="Right" Text="{Binding ActiveRange.Summary}" FontSize="11"
+                         Foreground="#9A9A9A" VerticalAlignment="Center" />
+              <StackPanel Orientation="Horizontal" Spacing="6">
+                <Button Classes="side" Classes.active="{Binding IsEditingHero}"
+                        Content="{Binding Text.HeroSide}" Command="{Binding EditHeroCommand}" />
+                <Button Classes="side" Classes.active="{Binding IsEditingVillain}"
+                        Content="{Binding Text.VillainSide}" Command="{Binding EditVillainCommand}" />
+              </StackPanel>
+            </DockPanel>
+
+            <TextBlock Text="{Binding ActiveRangeTitle}" Classes="section" Margin="0" />
+
+            <StackPanel IsVisible="{Binding !ActiveSideIsExactHand}" Spacing="6">
+              <StackPanel DataContext="{Binding ActiveRange}" x:DataType="vm:RangeGridViewModel" Spacing="6">
+                <TextBox Text="{Binding Notation}" FontFamily="Consolas" FontSize="13" Padding="8,5"
+                         PlaceholderText="22+, A2s+, KTo+" />
+                <TextBlock Text="{Binding NotationError}" FontSize="10" Foreground="#E08A5A"
+                           TextWrapping="Wrap" IsVisible="{Binding HasNotationError}" />
+                <DockPanel>
+                  <TextBlock DockPanel.Dock="Left" Text="{Binding Text.TopPercentLabel}" Classes="field"
+                             VerticalAlignment="Center" Margin="0,0,10,0" />
+                  <Button DockPanel.Dock="Right" Content="{Binding Text.Clear}" Command="{Binding ClearCommand}"
+                          FontSize="11" Padding="10,4" Margin="10,0,0,0" />
+                  <Slider Value="{Binding TopPercent}" Minimum="0" Maximum="100"
+                          TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" />
+                </DockPanel>
+              </StackPanel>
+            </StackPanel>
+
+            <TextBlock Text="{Binding Text.PickBothRanges}" FontSize="11" Foreground="#7A7A7A"
+                       TextWrapping="Wrap" IsVisible="{Binding ActiveSideIsExactHand}" />
+          </StackPanel>
+
+          <Panel IsVisible="{Binding !ActiveSideIsExactHand}">
+            <views:RangeGridView DataContext="{Binding ActiveRange}" />
+          </Panel>
+        </DockPanel>
+      </Border>
+    </Border>
+
+  </DockPanel>
+
+</UserControl>

@@ -53,6 +53,13 @@ public sealed partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private bool _isCompact;
 
+    /// <summary>
+    /// Orthogonal to <see cref="IsCompact"/> rather than folded into a single mode, so compact mode
+    /// keeps exactly the semantics it had.
+    /// </summary>
+    [ObservableProperty]
+    private bool _isHeadToHead;
+
     [ObservableProperty]
     private string _turnLabel = string.Empty;
 
@@ -92,6 +99,7 @@ public sealed partial class MainWindowViewModel : ObservableObject
         ISessionStore sessionStore,
         ChartsViewModel charts,
         JournalViewModel journal,
+        HeadToHeadViewModel headToHead,
         ILogger<MainWindowViewModel> logger)
     {
         _potEngine = potEngine;
@@ -104,6 +112,12 @@ public sealed partial class MainWindowViewModel : ObservableObject
 
         Journal = journal;
         Journal.ReplayRequested += OnReplayRequested;
+
+        // Assigned before the session is restored: restoring rebuilds the labels, which walks the
+        // child view models.
+        HeadToHead = headToHead;
+        HeadToHead.CloseRequested += OnHeadToHeadClosed;
+        HeadToHead.LanguageToggleRequested += OnHeadToHeadLanguageToggled;
 
         RestoreSession();
 
@@ -135,6 +149,16 @@ public sealed partial class MainWindowViewModel : ObservableObject
 
     public JournalViewModel Journal { get; }
 
+    public HeadToHeadViewModel HeadToHead { get; }
+
+    /// <summary>
+    /// The three modes are two flags rather than an enum so that compact mode's own binding is left
+    /// untouched. There is no boolean "and" in the binding grammar, hence a property per panel.
+    /// </summary>
+    public bool ShowAnalysis => !IsCompact && !IsHeadToHead;
+
+    public bool ShowHeadToHead => !IsCompact && IsHeadToHead;
+
     public IReadOnlyList<OpponentProfileChoice> Profiles => OpponentProfileChoice.All;
 
     /// <summary>
@@ -164,6 +188,35 @@ public sealed partial class MainWindowViewModel : ObservableObject
     public void ToggleCompact()
     {
         IsCompact = !IsCompact;
+    }
+
+    /// <summary>
+    /// Opens the head-to-head calculator, seeded from the hand in progress. Compact mode is left
+    /// behind on the way in: the shortcut fires there too, and leaving both flags raised would send
+    /// the next F2 somewhere the user did not ask for.
+    /// </summary>
+    [RelayCommand]
+    public void ToggleHeadToHead()
+    {
+        IsHeadToHead = !IsHeadToHead;
+
+        if (!IsHeadToHead)
+        {
+            return;
+        }
+
+        IsCompact = false;
+
+        if (_stateProblem is not null)
+        {
+            // The hand on screen does not add up, so there is nothing worth copying across. The
+            // panel keeps its own settings and is usable on its own.
+            _ = HeadToHead.ComputeNowAsync();
+            return;
+        }
+
+        HandState state = BuildState();
+        HeadToHead.SeedFrom(state, _potEngine.Analyse(state));
     }
 
     [RelayCommand]
@@ -248,9 +301,18 @@ public sealed partial class MainWindowViewModel : ObservableObject
         ScheduleRefresh();
     }
 
+    partial void OnIsHeadToHeadChanged(bool value)
+    {
+        OnPropertyChanged(nameof(ShowAnalysis));
+        OnPropertyChanged(nameof(ShowHeadToHead));
+        HeadToHead.IsActive = value;
+    }
+
     partial void OnIsCompactChanged(bool value)
     {
         OnPropertyChanged(nameof(Budget));
+        OnPropertyChanged(nameof(ShowAnalysis));
+        OnPropertyChanged(nameof(ShowHeadToHead));
         _logger.LogInformation("Bascule en mode {Mode}", value ? "compact" : "analyse");
         ScheduleRefresh();
     }
@@ -387,7 +449,18 @@ public sealed partial class MainWindowViewModel : ObservableObject
         Journal.Refresh();
         Hero.RefreshLabel();
         Board.RefreshLabel();
+        HeadToHead.Refresh();
         RebuildHistory();
+    }
+
+    private void OnHeadToHeadClosed(object? sender, EventArgs args)
+    {
+        IsHeadToHead = false;
+    }
+
+    private void OnHeadToHeadLanguageToggled(object? sender, EventArgs args)
+    {
+        ToggleLanguage();
     }
 
     /// <summary>

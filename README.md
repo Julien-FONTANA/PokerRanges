@@ -34,6 +34,10 @@ credited with, the expectation of every action, and the reasoning that got there
   including the combos the board and your own cards deny them.
 - **Four opponent profiles** — balanced, tight, calling station, aggressive. Change the profile and
   the advice changes with it.
+- **Head-to-head calculator** — a third mode (`F3`) for the spot a final table comes down to: your
+  range against one opponent's, at an explicit effective stack, with the expectation of jamming,
+  calling and folding. Each side is entered by clicking the grid, typing the range, or dragging a
+  strongest-X% slider; opening it copies the hand in progress across.
 - **Tables from 2 to 8 players**, uneven stacks, regular antes or big blind antes.
 - **Compact mode** — a reduced, always-on-top window with cards typed from the keyboard
   (`askd`, `ks8d3c`), designed to answer in under a second while you are playing.
@@ -87,7 +91,7 @@ The tests:
 dotnet test
 ```
 
-317 tests: 224 for the domain, 55 for the data, 38 driving the main window end to end. To measure
+372 tests: 264 for the domain, 55 for the data, 53 driving the main window end to end. To measure
 coverage, as continuous integration does:
 
 ```bash
@@ -120,6 +124,7 @@ file. The result is a single `PokerRanges.exe` in `publish/win-x64/`.
 | `Ctrl+Z` | Undo the last action |
 | `Ctrl+N` | New hand |
 | `F2` | Toggle compact / analysis mode |
+| `F3` | Toggle the head-to-head calculator |
 
 Bare letters are reserved for card entry, where `c`, `d`, `h` and `s` are suits and not actions.
 
@@ -208,6 +213,11 @@ A few pieces worth the detour:
   and stops on the target standard error.
 - **`ChartResolver`** — picks the closest chart and records every compromise, so a piece of advice
   can always be traced back to the data that produced it.
+- **`PreflopHandStrength`** — the 169 starting hands ordered by their equity against a random hand,
+  which is what "the strongest 20%" means. Shipped as a measured table rather than recomputed at
+  startup: neighbouring hands are about three tenths of a point apart, so telling them apart takes
+  a million samples each, and it is a constant of the game rather than of the session. The test
+  project holds the generator that rewrites it.
 - **`Language`** — the current language *is* `CurrentUICulture`. Numbers therefore follow without
   anyone thinking about it, and the culture crosses `await` and the thread pool.
 
@@ -225,8 +235,9 @@ They are assumed, not hidden — the application flags several of them on screen
   (facing a 3-bet, facing a 4-bet, squeeze, facing limps) and fall back on a neighbouring context.
   The depths covered are 10, 25 and 100bb; in between, the application takes the closest chart and
   says so.
-- **No ICM.** Every expectation is in chips. Near a bubble or a final table, that is the wrong
-  currency.
+- **No ICM.** Every expectation is in chips — the head-to-head calculator included, which is
+  awkward given it exists for final tables. It says so on screen. Near a bubble or a final table,
+  chips are the wrong currency.
 - **One-shot decisions.** Expectation is computed as though the hand ended on this street: there is
   no plan for betting the following ones.
 - **Multiway is approximated.** Beyond heads-up, the opponent's re-raise is not modelled and
