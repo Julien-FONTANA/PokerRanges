@@ -60,6 +60,14 @@ public sealed partial class MainWindowViewModel : ObservableObject
     [ObservableProperty]
     private bool _isHeadToHead;
 
+    /// <summary>
+    /// Which of the two pickers the compact grid is filling. Compact mode shows one grid and not
+    /// two — a second one would push the advice out of a window meant to sit beside the table — so
+    /// the grid has to be told what it is filling.
+    /// </summary>
+    [ObservableProperty]
+    private bool _isBoardTarget;
+
     [ObservableProperty]
     private string _turnLabel = string.Empty;
 
@@ -139,6 +147,9 @@ public sealed partial class MainWindowViewModel : ObservableObject
 
     public CardPickerViewModel Board { get; } = new(5, () => UiText.Current.EmptyBoard);
 
+    /// <summary>The picker the single compact grid is pointed at.</summary>
+    public CardPickerViewModel ActivePicker => IsBoardTarget ? Board : Hero;
+
     public RangeMatrixViewModel Matrix => _advice.Matrix;
 
     public RecommendationViewModel Recommendation => _advice.Recommendation;
@@ -178,7 +189,7 @@ public sealed partial class MainWindowViewModel : ObservableObject
     {
         Language.Use(Language.IsFrench ? AppLanguage.English : AppLanguage.French);
 
-        _logger.LogInformation("Langue de l'interface : {Language}", Language.Current);
+        _logger.LogInformation("Interface language: {Language}", Language.Current);
 
         RefreshLabels();
         ScheduleRefresh();
@@ -217,6 +228,25 @@ public sealed partial class MainWindowViewModel : ObservableObject
 
         HandState state = BuildState();
         HeadToHead.SeedFrom(state, _potEngine.Analyse(state));
+    }
+
+    [RelayCommand]
+    public void TargetHand()
+    {
+        IsBoardTarget = false;
+    }
+
+    [RelayCommand]
+    public void TargetBoard()
+    {
+        IsBoardTarget = true;
+    }
+
+    /// <summary>Empties the picker the compact grid is filling, and only that one.</summary>
+    [RelayCommand]
+    public void ClearActivePicker()
+    {
+        ActivePicker.Clear();
     }
 
     [RelayCommand]
@@ -276,6 +306,7 @@ public sealed partial class MainWindowViewModel : ObservableObject
         History.Clear();
         Hero.Clear();
         Board.Clear();
+        IsBoardTarget = false;
         ScheduleRefresh();
     }
 
@@ -313,8 +344,13 @@ public sealed partial class MainWindowViewModel : ObservableObject
         OnPropertyChanged(nameof(Budget));
         OnPropertyChanged(nameof(ShowAnalysis));
         OnPropertyChanged(nameof(ShowHeadToHead));
-        _logger.LogInformation("Bascule en mode {Mode}", value ? "compact" : "analyse");
+        _logger.LogInformation("Switched to {Mode} mode", value ? "compact" : "analysis");
         ScheduleRefresh();
+    }
+
+    partial void OnIsBoardTargetChanged(bool value)
+    {
+        OnPropertyChanged(nameof(ActivePicker));
     }
 
     private void OnChartsChanged(object? sender, EventArgs args)
@@ -340,6 +376,13 @@ public sealed partial class MainWindowViewModel : ObservableObject
         if (args.PropertyName != nameof(CardPickerViewModel.Selection))
         {
             return;
+        }
+
+        // Once the hand is complete the hero picker has nothing left to take, so the compact grid
+        // moves itself on to the board: entering a hand is then one uninterrupted run of clicks.
+        if (Hero.Selection.Count == Hero.Capacity)
+        {
+            IsBoardTarget = true;
         }
 
         Board.SetUnavailable([.. Hero.Selection]);
@@ -615,6 +658,14 @@ public sealed partial class MainWindowViewModel : ObservableObject
         Board.Restore([]);
         Hero.Restore(hand.HeroCards is HoleCards cards ? [cards.First, cards.Second] : []);
         Board.Restore(hand.Board);
+
+        // What each picker forbids the other is normally recomputed by their notifications, which
+        // are not yet subscribed while the session is being restored: a hand resumed at startup
+        // would otherwise offer its own board cards as hole cards. The compact grid, pointed at
+        // the picker still to be filled, follows the same reasoning.
+        Board.SetUnavailable([.. Hero.Selection]);
+        Hero.SetUnavailable([.. Board.Selection]);
+        IsBoardTarget = Hero.Selection.Count == Hero.Capacity;
 
         _actions.Clear();
         History.Clear();

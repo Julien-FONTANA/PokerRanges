@@ -351,6 +351,63 @@ public sealed class MainWindowViewModelTests : IDisposable
     }
 
     /// <summary>
+    /// Compact mode has room for one grid, not two. What makes a single grid workable is that it
+    /// follows the hand being entered instead of waiting to be pointed somewhere: the second hole
+    /// card hands it over to the board.
+    /// </summary>
+    [Fact]
+    public async Task TheCompactGridStartsOnTheHandAndMovesToTheBoardOnItsOwn()
+    {
+        MainWindowViewModel viewModel = await BuildAsync();
+
+        viewModel.IsBoardTarget.ShouldBeFalse();
+        viewModel.ActivePicker.ShouldBeSameAs(viewModel.Hero);
+
+        await SelectAsync(viewModel, viewModel.Hero, "Ah", "Qd");
+
+        viewModel.IsBoardTarget.ShouldBeTrue();
+        viewModel.ActivePicker.ShouldBeSameAs(viewModel.Board);
+    }
+
+    [Fact]
+    public async Task TheCompactGridGoesBackToTheHandForANewHand()
+    {
+        MainWindowViewModel viewModel = await BuildAsync();
+        await ReachTheFlopAsync(viewModel, "Kh9d", "Ks8d3c");
+
+        viewModel.IsBoardTarget.ShouldBeTrue();
+
+        viewModel.NewHand();
+        await viewModel.RefreshNowAsync();
+
+        viewModel.IsBoardTarget.ShouldBeFalse();
+        viewModel.ActivePicker.ShouldBeSameAs(viewModel.Hero);
+    }
+
+    /// <summary>
+    /// The single Clear button of compact mode empties what the grid is filling, and nothing else:
+    /// fixing a misread board must not cost the hole cards, which were right.
+    /// </summary>
+    [Fact]
+    public async Task ClearingInCompactModeEmptiesOnlyTheTargetedPicker()
+    {
+        MainWindowViewModel viewModel = await BuildAsync();
+        await ReachTheFlopAsync(viewModel, "Kh9d", "Ks8d3c");
+
+        viewModel.ClearActivePicker();
+        await viewModel.RefreshNowAsync();
+
+        viewModel.Board.Selection.ShouldBeEmpty();
+        viewModel.Hero.AsHoleCards.ShouldBe(HoleCards.Parse("Kh9d"));
+
+        viewModel.TargetHand();
+        viewModel.ClearActivePicker();
+        await viewModel.RefreshNowAsync();
+
+        viewModel.Hero.Selection.ShouldBeEmpty();
+    }
+
+    /// <summary>
     /// The acceptance criterion: a whole hand can be entered from the keyboard — cards as text,
     /// actions as shortcuts — without ever aiming at a cell of the 52-card grid.
     /// </summary>
@@ -419,6 +476,30 @@ public sealed class MainWindowViewModelTests : IDisposable
         after.History.Count.ShouldBe(before.History.Count);
         after.StreetLabel.ShouldBe("Flop");
         after.Table.PlayerCount.ShouldBe(6);
+    }
+
+    /// <summary>
+    /// Resuming happens before the two pickers start listening to each other, so what each one
+    /// denies the other has to be put back by hand: otherwise the resumed hand offers its own
+    /// board cards as hole cards, and the compact grid opens on a hand that is already complete.
+    /// </summary>
+    [Fact]
+    public async Task AResumedHandComesBackWithItsCardsTakenAndTheGridOnTheBoard()
+    {
+        SessionStoreOptions session = NewSessionOptions();
+
+        MainWindowViewModel before = await BuildAsync(session);
+        await ReachTheFlopAsync(before, "Kh9d", "Ks8d3c");
+        before.PersistNow();
+
+        MainWindowViewModel after = await BuildAsync(session);
+
+        Option(after.Hero, "Ks").IsAvailable.ShouldBeFalse();
+        Option(after.Board, "Kh").IsAvailable.ShouldBeFalse();
+        Option(after.Hero, "Qc").IsAvailable.ShouldBeTrue();
+
+        after.IsBoardTarget.ShouldBeTrue();
+        after.ActivePicker.ShouldBeSameAs(after.Board);
     }
 
     /// <summary>

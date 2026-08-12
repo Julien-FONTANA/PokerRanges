@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using Avalonia.Controls;
-using Avalonia.Threading;
 using PokerRanges.App.ViewModels;
 
 namespace PokerRanges.App.Views;
@@ -11,10 +10,12 @@ namespace PokerRanges.App.Views;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
+    // The card grid sets the floor: thirteen columns need their width, four rows their height, and
+    // below that the advice is what gets squeezed out.
     private const double CompactWidth = 470;
-    private const double CompactHeight = 560;
-    private const double CompactMinWidth = 380;
-    private const double CompactMinHeight = 460;
+    private const double CompactHeight = 580;
+    private const double CompactMinWidth = 420;
+    private const double CompactMinHeight = 500;
     private const double AnalysisMinWidth = 1120;
     private const double AnalysisMinHeight = 760;
 
@@ -65,8 +66,6 @@ public sealed partial class MainWindow : Window
             MinHeight = CompactMinHeight;
             Width = CompactWidth;
             Height = CompactHeight;
-
-            Dispatcher.UIThread.Post(Compact.FocusEntry, DispatcherPriority.Input);
             return;
         }
 

@@ -39,15 +39,16 @@ credited with, the expectation of every action, and the reasoning that got there
   calling and folding. Each side is entered by clicking the grid, typing the range, or dragging a
   strongest-X% slider; opening it copies the hand in progress across.
 - **Tables from 2 to 8 players**, uneven stacks, regular antes or big blind antes.
-- **Compact mode** — a reduced, always-on-top window with cards typed from the keyboard
-  (`askd`, `ks8d3c`), designed to answer in under a second while you are playing.
+- **Compact mode** — a reduced, always-on-top window where the cards are clicked on a single
+  52-card grid that follows the hand: it fills your two cards, then hands itself over to the board.
+  Designed to answer in under a second while you are playing.
 - **Hand journal** — an entry keeps the whole hand, not a summary: reload it and replay the decision
   with a different profile or a different size.
 - **Automatic resume** — the hand in progress and the settings survive shutdown.
 
-![Compact mode: a small always-on-top window, two card fields, and the expectation of each action](docs/screenshots/compact.png)
+![Compact mode: a small always-on-top window, one card grid, and the expectation of each action](docs/screenshots/compact.png)
 
-*Compact mode, the same hand: cards typed instead of clicked, always on top, and a reduced
+*Compact mode, the same hand: one grid for the hand then the board, always on top, and a reduced
 calculation budget so the answer arrives while it is still your turn.*
 
 ---
